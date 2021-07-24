@@ -1,7 +1,7 @@
 {
   "name": "natelev",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -32,8 +32,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "build": "rm -rf build && react-scripts build && cp package.json build/package.json",
+    "test": "rm -rf coverage && react-scripts test --coverage",
     "eject": "react-scripts eject",
     "lint": "yarn lint-full",
     "lint-full": "eslint . --max-warnings=0 && prettier --check ./**/*.{json,gql,yml,yaml,html,md,css}",
