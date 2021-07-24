@@ -1,23 +1,29 @@
 import React from "react";
 
 import "./App.css";
-import logo from "./logo.svg";
+import background from "./images/backgrounds/Home.jpg";
+import logo from "./images/logos/Nathan.jpg";
+
+const sectionStyle = {
+  backgroundImage: `url(${background})`,
+  backgroundPosition: "center",
+  backgroundSize: "cover",
+  backgroundRepeat: "no-repeat",
+};
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" style={sectionStyle}>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
+        <h1> Nathan Levy </h1>
         <a
           className="App-link"
-          href="https://reactjs.org"
+          href="https://github.com/NatelevAU/natelev"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Source Code
         </a>
       </header>
     </div>
