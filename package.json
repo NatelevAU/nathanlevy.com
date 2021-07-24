@@ -32,7 +32,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "rm -rf build && react-scripts build && cp package.json build/package.json",
+    "build": "rm -rf build && react-scripts build",
     "test": "rm -rf coverage && react-scripts test --coverage",
     "eject": "react-scripts eject",
     "lint": "yarn lint-full",
