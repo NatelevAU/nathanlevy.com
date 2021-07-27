@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react';
 
-import "./App.css";
-import background from "./images/backgrounds/Home.jpg";
-import logo from "./images/logos/Nathan.jpg";
+import './App.css';
+import background from './images/backgrounds/Home.jpg';
+import logo from './images/logos/Nathan.jpg';
 
 const sectionStyle = {
   backgroundImage: `url(${background})`,
-  backgroundPosition: "center",
-  backgroundSize: "cover",
-  backgroundRepeat: "no-repeat",
+  backgroundPosition: 'center',
+  backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat',
 };
 
 function App() {

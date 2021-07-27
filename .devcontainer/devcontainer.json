@@ -8,10 +8,7 @@
     }
   },
   // Add the IDs of extensions you want installed when the container is created.
-  "extensions": [
-    "dbaeumer.vscode-eslint",
-    "ms-vscode.vscode-typescript-tslint-plugin"
-  ]
+  "extensions": ["dbaeumer.vscode-eslint", "ms-vscode.vscode-typescript-tslint-plugin"]
   // Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
   // "remoteUser": "node"
 }
