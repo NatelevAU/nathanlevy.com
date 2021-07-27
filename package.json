@@ -2,7 +2,7 @@
   "private": true,
   "main": "src/App.tsx",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "serve -s build",
     "build": "rm -rf build && react-scripts build",
     "test": "echo no tests implemented",
     "eject": "react-scripts eject",
