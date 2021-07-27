@@ -2165,6 +2165,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-sound@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@types/react-sound/-/react-sound-1.2.3.tgz#9ce13ed6b553e0027d5657d8f1816f98e0e30ef5"
+  integrity sha512-PfeO57BIvocJe5Gwj/EicTu1XTYuliXBNzz8Uj9qm3LglnqP+X0zb2FUKZUIVISZ8L/e8PrCjciAix2ZsdKhzw==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-transition-group@^4.2.0":
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/@types/react-transition-group/-/react-transition-group-4.4.2.tgz#38890fd9db68bf1f2252b99a942998dc7877c5b3"
