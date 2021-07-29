@@ -1,13 +1,18 @@
 {
   "private": true,
   "main": "src/App.tsx",
+  "homepage": "https://www.nathanlevy.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NatelevAU/natelev.git"
+  },
   "scripts": {
     "start": "serve -s build",
     "build": "rm -rf build && react-scripts build",
     "test": "echo no tests implemented",
     "dev": "react-scripts start",
     "eject": "react-scripts eject",
-    "clean": "rm -rf build && yarn lint-fix",
+    "clean": "rm -rf build *.log && yarn lint-fix",
     "lint": "yarn lint-full",
     "lint-full": "eslint . --max-warnings=0 && prettier --check ./**/*.{json,gql,yml,yaml,html,md,css}",
     "lint-fix": "eslint --fix . --max-warnings=0 && prettier --write ./**/*.{json,gql,yml,yaml,html,md,css}",
@@ -72,12 +77,7 @@
   "author": {
     "name": "Nathan Levy",
     "email": "nathan.levy.au@gmail.com",
-    "url": "https://nathanlevy.com)"
+    "url": "https://www.nathanlevy.com)"
   },
-  "license": "MIT",
-  "homepage": "https://www.nathanlevy.com",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/NatelevAU/natelev.git"
-  }
+  "license": "ISC"
 }
