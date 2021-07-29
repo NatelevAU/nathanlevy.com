@@ -1,9 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import App from './App';
+import Home from './pages/home/Home';
+import PageNotFound from './pages/PageNotFound/PageNotFound';
 
 import './index.css';
+
+function App({}) {
+  return (
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route component={PageNotFound} />
+      </Switch>
+    </Router>
+  );
+}
 
 ReactDOM.render(
   <React.StrictMode>
