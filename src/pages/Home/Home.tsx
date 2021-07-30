@@ -12,7 +12,7 @@ const sectionStyle = {
   backgroundRepeat: 'no-repeat',
 };
 
-const Home = () => {
+const Home: React.FC<{}> = () => {
   const GithubLink: React.FC<{}> = props => (
     <Link to={{ pathname: 'https://github.com/NatelevAU/natelev' }} target="_blank" {...props} />
   );

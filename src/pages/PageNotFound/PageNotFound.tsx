@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import './PageNotFound.css';
 import logo from '../../images/backgrounds/PageNotFound.png';
 
-const PageNotFound: React.FC<{}> = props => {
+const PageNotFound: React.FC<{}> = () => {
   const HomeLink: React.FC<{}> = props => <Link to="/" {...props} />;
   return (
     <div className="PageNotFound">
