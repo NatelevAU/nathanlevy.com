@@ -1,4 +1,6 @@
+import { Button } from '@material-ui/core';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './Home.css';
 import background from '../../images/backgrounds/Home.jpg';
@@ -11,18 +13,16 @@ const sectionStyle = {
 };
 
 const Home = () => {
+  const GithubLink: React.FC<{}> = props => (
+    <Link to={{ pathname: 'https://github.com/NatelevAU/natelev' }} target="_blank" {...props} />
+  );
   return (
     <div className="Home" style={sectionStyle}>
       <header className="Home-header">
         <h1> Coming soon... </h1>
-        <a
-          className="Home-link"
-          href="https://github.com/NatelevAU/natelev"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <Button size="large" variant="contained" color="primary" component={GithubLink}>
           Source Code
-        </a>
+        </Button>
       </header>
     </div>
   );
