@@ -14,7 +14,12 @@ const sectionStyle = {
 
 const Home: React.FC<{}> = () => {
   const GithubLink: React.FC<{}> = props => (
-    <Link to={{ pathname: 'https://github.com/NatelevAU/natelev' }} target="_blank" {...props} />
+    <Link
+      to={{ pathname: 'https://github.com/NatelevAU/natelev' }}
+      target="_blank"
+      rel="noopener noreferrer"
+      {...props}
+    />
   );
   return (
     <div className="Home" style={sectionStyle}>
