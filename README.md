@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD033 MD041 -->
 
-<img src="public/logo192.png" height="192px" align="right" alt="Nathan Levy Logo"/>
+[<img src="public/logo512.png" height="192px" align="right" alt="Nathan Levy Logo"/>](https://nathanlevy.com)
 
 # Nathan Levy
 
