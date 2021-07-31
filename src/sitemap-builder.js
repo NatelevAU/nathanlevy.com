@@ -6,7 +6,7 @@ const router = require('./routes.tsx').default;
 const Sitemap = require('react-router-sitemap').default;
 
 function generateSitemap() {
-  return new Sitemap(router).build('https://www.nathanlevy.com').save('./public/sitemap.xml');
+  return new Sitemap(router).build('https://nathanlevy.com').save('./public/sitemap.xml');
 }
 
 generateSitemap();

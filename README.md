@@ -4,7 +4,7 @@
 
 # Nathan Levy
 
-[![Website](https://img.shields.io/website?url=https://www.nathanlevy.com)](https://www.nathanlevy.com)
+[![Website](https://img.shields.io/website?url=https://nathanlevy.com)](https://nathanlevy.com)
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/NatelevAU/natelev/Build)](https://github.com/NatelevAU/natelev/actions)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?label=style)](https://github.com/prettier/prettier)
 [![GitHub](https://img.shields.io/github/license/NatelevAU/natelev)](https://choosealicense.com/licenses/isc/)
