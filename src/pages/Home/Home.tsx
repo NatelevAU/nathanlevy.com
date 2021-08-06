@@ -1,5 +1,6 @@
 import { Button } from '@material-ui/core';
 import React from 'react';
+import ReactGA from 'react-ga';
 import { Link } from 'react-router-dom';
 
 import './Home.css';
@@ -21,6 +22,9 @@ const Home: React.FC<{}> = () => {
       {...props}
     />
   );
+
+  ReactGA.pageview(window.location.pathname);
+
   return (
     <div className="Home" style={sectionStyle}>
       <header className="Home-header">

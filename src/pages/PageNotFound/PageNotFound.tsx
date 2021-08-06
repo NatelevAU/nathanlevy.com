@@ -1,5 +1,6 @@
 import { Button } from '@material-ui/core';
 import React from 'react';
+import ReactGA from 'react-ga';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
 
@@ -8,6 +9,9 @@ import logo from '../../images/backgrounds/PageNotFound.png';
 
 const PageNotFound: React.FC<{}> = () => {
   const HomeLink: React.FC<{}> = props => <Link to="/" {...props} />;
+
+  ReactGA.pageview(window.location.pathname);
+
   return (
     <div className="PageNotFound">
       <Helmet>
