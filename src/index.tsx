@@ -13,6 +13,7 @@ const App = ({}) => {
   const TRACKING_ID = 'UA-204322935-1';
 
   const HomeRedirect: React.FC<{}> = props => <Redirect to="/" {...props} />;
+  const AboutRedirect: React.FC<{}> = props => <Redirect to="/about" {...props} />;
 
   ReactGA.initialize(TRACKING_ID);
   ReactGA.pageview(window.location.pathname);
@@ -20,9 +21,10 @@ const App = ({}) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/home" component={HomeRedirect} />
-        <Route exact path="/spin" component={Spin} />
+        <Route path="/" component={Home} />
+        <Route path="/home" component={HomeRedirect} />
+        <Route path="/humans.txt" component={AboutRedirect} />
+        <Route path="/spin" component={Spin} />
         <Route component={PageNotFound} />
       </Switch>
     </BrowserRouter>
