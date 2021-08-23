@@ -2,12 +2,14 @@ import { Box, Button, SvgIcon } from '@material-ui/core';
 import { useState } from 'react';
 import Sound from 'react-sound';
 
+import upgradedMusic from './sound/music/devilinanewdress.mp3';
 import music from './sound/music/RightRound.mp3';
 
 import { ReactComponent as Pause } from './images/icons/Pause.svg';
 import { ReactComponent as Play } from './images/icons/Play.svg';
 
-const PlaySoundButton = () => {
+const PlaySoundButton: React.FC<{ isUpgraded: boolean }> = props => {
+  const { isUpgraded } = props;
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (
@@ -20,7 +22,11 @@ const PlaySoundButton = () => {
       >
         {!isPlaying ? 'Play' : 'Pause'}
       </Button>
-      <Sound url={music} playStatus={isPlaying ? 'PLAYING' : 'STOPPED'} playFromPosition={8400} />
+      <Sound
+        url={isUpgraded ? upgradedMusic : music}
+        playStatus={isPlaying ? 'PLAYING' : 'STOPPED'}
+        playFromPosition={8400}
+      />
     </Box>
   );
 };
