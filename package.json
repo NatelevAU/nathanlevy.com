@@ -12,11 +12,12 @@
     "test": "echo no tests implemented",
     "dev": "react-scripts start",
     "eject": "react-scripts eject",
-    "clean": "rm -rf build hint-report *.log && yarn lint-fix",
+    "clean": "rm -rf build hint-report *.log *.zip && yarn lint-fix",
     "lint": "yarn lint-full",
     "lint-full": "eslint . --max-warnings=0 && prettier --check ./**/*.{json,gql,yml,yaml,html,md,css}",
     "lint-fix": "eslint --fix . --max-warnings=0 && prettier --write ./**/*.{json,gql,yml,yaml,html,md,css}",
     "predeploy": "yarn sitemap",
+    "deploy": "yarn predeploy && zip -r deploy.zip * .ebextensions .elasticbeanstalk -x \"**node_modules**\"",
     "reinstall": "rm -rf node_modules && yarn install",
     "sitemap": "babel-node src/sitemap-builder.js",
     "webhint": "hint http://localhost:3000"
