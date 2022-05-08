@@ -4,6 +4,7 @@ import ReactGA from 'react-ga';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import Dice from './pages/Dice/Dice';
+import Gayford from './pages/Gayford/Gayford'
 import Home from './pages/Home/Home';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
 import Spin from './pages/Spin/Spin';
@@ -24,6 +25,7 @@ const App = ({}) => {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/dice" component={Dice} />
+        <Route path="/gayford" component={Gayford} />
         <Route path="/home" component={HomeRedirect} />
         <Route path="/humans.txt" component={AboutRedirect} />
         <Route path="/spin" component={Spin} />
