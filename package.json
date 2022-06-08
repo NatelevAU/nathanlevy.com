@@ -19,7 +19,7 @@
     "predeploy": "npm run sitemap",
     "deploy": "npm run predeploy && zip -r deploy.zip * .ebextensions .elasticbeanstalk -x \"**node_modules**\"",
     "reinstall": "rm -rf node_modules && npm install",
-    "sitemap": "babel-node src/sitemap-builder.js",
+    "sitemap": "echo sitemap not implemented yet for node16",
     "webhint": "hint http://localhost:3000"
   },
   "dependencies": {
