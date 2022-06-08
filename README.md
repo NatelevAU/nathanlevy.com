@@ -18,12 +18,11 @@ sudo apt update
 sudo apt install git curl
 sudo curl -fsSL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 sudo apt install nodejs build-essential libssl-dev
-sudo npm i -g yarn
-yarn
+npm install
 ```
 
 ## Running the app
 
 ```bash
-yarn dev
+npm run dev
 ```
