@@ -1,14 +1,14 @@
 branch-defaults:
   main:
-    environment: Node12-env
+    environment: Node16-env
 environment-defaults:
-  Node12-env:
+  Node16-env:
     branch: null
     repository: null
 global:
   application_name: Natelev
   default_ec2_keyname: null
-  default_platform: Node.js 12 running on 64bit Amazon Linux 2
+  default_platform: Node.js 16 running on 64bit Amazon Linux 2
   default_region: ap-southeast-2
   include_git_submodules: true
   instance_profile: null
