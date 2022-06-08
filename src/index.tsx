@@ -6,7 +6,6 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import Dice from './pages/Dice/Dice';
 import Home from './pages/Home/Home';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
-import Spin from './pages/Spin/Spin';
 
 import './index.css';
 
@@ -26,7 +25,6 @@ const App = ({}) => {
         <Route path="/dice" component={Dice} />
         <Route path="/home" component={HomeRedirect} />
         <Route path="/humans.txt" component={AboutRedirect} />
-        <Route path="/spin" component={Spin} />
         <Route component={PageNotFound} />
       </Switch>
     </BrowserRouter>
