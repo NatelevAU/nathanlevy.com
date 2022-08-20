@@ -20,7 +20,7 @@
     "deploy": "npm run predeploy && zip -r deploy.zip * .ebextensions .elasticbeanstalk -x \"**node_modules**\"",
     "reinstall": "rm -rf node_modules && npm install",
     "sitemap": "",
-    "webhint": "hint http://localhost:3000"
+    "webhint": ""
   },
   "dependencies": {
     "@material-ui/core": "^4.12.3",
