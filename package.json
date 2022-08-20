@@ -59,8 +59,6 @@
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-unused-imports": "^1.1.2",
     "eslint-plugin-yaml": "^0.5.0",
-    "hint": "^6.1.4",
-    "npm-check-updates": "^13.1.1",
     "prettier": "^2.3.2"
   },
   "engines": {
