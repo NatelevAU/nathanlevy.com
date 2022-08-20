@@ -6,4 +6,3 @@ export default (
     <Route path="/dice" />
   </Switch>
 );
-
