@@ -19,12 +19,15 @@
     "predeploy": "npm run sitemap",
     "deploy": "npm run predeploy && zip -r deploy.zip * .ebextensions .elasticbeanstalk -x \"**node_modules**\"",
     "reinstall": "rm -rf node_modules && npm install",
-    "sitemap": "",
-    "webhint": ""
+    "sitemap": "echo sitemap not implemented yet for node16",
+    "webhint": "hint http://localhost:3000"
   },
   "dependencies": {
-    "@material-ui/core": "^4.12.3",
-    "@types/react": "^17.0.48",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/material": "^5.11.13",
+    "@mui/styles": "^5.11.13",
+    "@types/react": "^17.0.15",
     "@types/react-dom": "^17.0.0",
     "@types/react-helmet": "^6.1.2",
     "@types/react-router-dom": "^5.1.8",
@@ -34,9 +37,9 @@
     "react-dom": "^17.0.2",
     "react-ga": "^3.3.1",
     "react-helmet": "^6.1.0",
+    "react-icons": "^4.8.0",
     "react-router-dom": "^5.2.0",
-    "react-router-sitemap": "^1.2.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "4.0.3",
     "serve": "^12.0.0",
     "typescript": "^4.7.4"
   },
@@ -62,8 +65,8 @@
     "prettier": "^2.7.1"
   },
   "engines": {
-    "node": ">=12.18",
-    "npm": ">=7.20"
+    "node": ">=16.15",
+    "npm": ">=8.5"
   },
   "eslintConfig": {
     "extends": [

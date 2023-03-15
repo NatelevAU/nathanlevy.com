@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [16.x]
 
     steps:
       - uses: actions/checkout@v2
@@ -52,9 +52,9 @@ jobs:
           aws_access_key: ${{secrets.AWS_ACCESS_KEY}}
           aws_secret_key: ${{secrets.AWS_SECRET_KEY}}
           application_name: 'Natelev'
-          environment_name: 'Node12-env'
+          environment_name: 'Node16-env'
           region: 'ap-southeast-2'
-          version_label: 'natelev-node12-${{ steps.format-time.outputs.replaced }}'
+          version_label: 'natelev-node16-${{ steps.format-time.outputs.replaced }}'
           deployment_package: deploy.zip
 
       - name: Deployed!

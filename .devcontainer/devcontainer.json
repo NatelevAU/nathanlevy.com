@@ -2,9 +2,9 @@
   "name": "Node.js & TypeScript",
   "build": {
     "dockerfile": "Dockerfile",
-    // Update 'VARIANT' to pick a Node version: 10, 12, 14
+    // Update 'VARIANT' to pick a Node version: 10, 12, 14, 16
     "args": {
-      "VARIANT": "12"
+      "VARIANT": "16"
     }
   },
   // Add the IDs of extensions you want installed when the container is created.
