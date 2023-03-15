@@ -9,30 +9,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-<<<<<<< HEAD
-
-=======
->>>>>>> node16
     strategy:
       matrix:
         node-version: [16.x]
 
     steps:
       - uses: actions/checkout@v2
-<<<<<<< HEAD
-=======
-
->>>>>>> node16
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-<<<<<<< HEAD
-      - run: npm install
-      - run: npm run lint-full
-      - run: npm run build
-=======
 
       - run: npm install
       - run: npm run lint-full
@@ -73,4 +60,3 @@ jobs:
 
       - name: Deployed!
         run: echo App deployed to ELB
->>>>>>> node16
