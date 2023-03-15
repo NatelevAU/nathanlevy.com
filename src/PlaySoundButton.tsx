@@ -1,4 +1,4 @@
-import { Box, Button, SvgIcon } from '@material-ui/core';
+import { Box, Button, SvgIcon } from '@mui/material';
 import { useState } from 'react';
 
 // import Sound from 'react-sound';

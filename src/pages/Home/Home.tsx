@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core';
+import { Button } from '@mui/material';
 import React from 'react';
 import ReactGA from 'react-ga';
 import { Link } from 'react-router-dom';
@@ -14,7 +14,7 @@ const sectionStyle = {
 };
 
 const Home: React.FC<{}> = () => {
-  const GithubLink: React.FC<{}> = props => (
+  const SourceLink: React.FC<{}> = props => (
     <Link
       to={{ pathname: 'https://github.com/NatelevAU/natelev' }}
       target="_blank"
@@ -29,7 +29,7 @@ const Home: React.FC<{}> = () => {
     <div className="Home" style={sectionStyle}>
       <header className="Home-header">
         <h1> Coming soon... </h1>
-        <Button size="large" variant="contained" color="primary" component={GithubLink}>
+        <Button color="primary" size="large" variant="contained" component={SourceLink}>
           Source Code
         </Button>
       </header>

@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core';
+import { Button } from '@mui/material';
 import React from 'react';
 import ReactGA from 'react-ga';
 import Helmet from 'react-helmet';

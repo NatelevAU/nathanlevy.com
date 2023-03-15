@@ -23,7 +23,10 @@
     "webhint": "hint http://localhost:3000"
   },
   "dependencies": {
-    "@material-ui/core": "^4.12.3",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/material": "^5.11.13",
+    "@mui/styles": "^5.11.13",
     "@types/react": "^17.0.15",
     "@types/react-dom": "^17.0.0",
     "@types/react-helmet": "^6.1.2",
@@ -34,6 +37,7 @@
     "react-dom": "^17.0.2",
     "react-ga": "^3.3.0",
     "react-helmet": "^6.1.0",
+    "react-icons": "^4.8.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "serve": "^12.0.0",
