@@ -1,0 +1,40 @@
+/* TEAM */
+
+The Idea Generator
+Name: Nathan Levy
+Role: Conjurer of creative concepts
+
+The Intrepid Designer
+Name: Nathan Levy
+Role: Master of pixels and colors
+
+The Coding Guru
+Name: Nathan Levy
+Role: Slinger of code and conqueror of bugs
+
+The Content Wizard
+Name: Nathan Levy
+Role: Wordsmith extraordinaire
+
+The SEO Sensei
+Name: Nathan Levy
+Role: Keyword ninja and search engine whisperer
+
+The Analytics Detective
+Name: Nathan Levy
+Role: Tracker of trends and data diviner
+
+The Office DJ
+Name: Nathan Levy
+Role: Playlist picker and groove provider
+
+The Morale Booster
+Name: Nathan Levy
+Role: Self high-fiver and motivational speaker
+
+/* THANKS */
+
+Special Thanks:
+- Mum, for the endless encouragement
+- Dad, for believing in my crazy dreams
+- My dogs, Gizmo and Lucy, for keeping my lap warm
