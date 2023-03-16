@@ -1,8 +1,8 @@
 branch-defaults:
   main:
-    environment: Node16-env
+    environment: Node16
 environment-defaults:
-  Node16-env:
+  Node16:
     branch: null
     repository: null
 global:

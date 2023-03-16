@@ -2,9 +2,9 @@ name: Build
 
 on:
   push:
-    branches-ignore: [main, node12, node16]
+    branches-ignore: [main]
   pull_request:
-    branches-ignore: [node12, node16]
+    branches-ignore: []
 
 jobs:
   build:
