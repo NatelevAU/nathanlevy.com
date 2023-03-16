@@ -12,7 +12,7 @@ jobs:
         node-version: [16.x]
 
     steps:
-    # Create a deployment package and compressing it into a zip file
+      # Create a deployment package and compressing it into a zip file
       - name: Generate deployment package
         run: npm run deploy
 
