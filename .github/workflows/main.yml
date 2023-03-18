@@ -29,33 +29,39 @@ jobs:
       #   run: mv build/static/js/main.*.*.js build/static/js/main.js
 
       # Create a deployment package and compressing it into a zip file
-      - name: Generate deployment package
-        run: npm run deploy
+      # - name: Generate deployment package
+      #   run: npm run deploy
 
-      - name: Get timestamp
-        uses: gerred/actions/current-time@master
-        id: current-time
+      # - name: Get timestamp
+      #   uses: gerred/actions/current-time@master
+      #   id: current-time
 
-      - name: Run string replace
-        uses: frabert/replace-string-action@master
-        id: format-time
-        with:
-          pattern: '[:\.]+'
-          string: '${{ steps.current-time.outputs.time }}'
-          replace-with: '-'
-          flags: 'g'
+      # - name: Run string replace
+      #   uses: frabert/replace-string-action@master
+      #   id: format-time
+      #   with:
+      #     pattern: '[:\.]+'
+      #     string: '${{ steps.current-time.outputs.time }}'
+      #     replace-with: '-'
+      #     flags: 'g'
 
       # Deploy the package to Elastic Beanstalk
-      - name: Elastic Beanstalk Deploy
-        uses: einaregilsson/beanstalk-deploy@v10
+      # - name: Elastic Beanstalk Deploy
+      #   uses: einaregilsson/beanstalk-deploy@v10
+      #   with:
+      #     aws_access_key: ${{secrets.AWS_ACCESS_KEY}}
+      #     aws_secret_key: ${{secrets.AWS_SECRET_KEY}}
+      #     application_name: ${{vars.AWS_APPLICATION}}
+      #     environment_name: ${{vars.AWS_ENVIRONMENT}}
+      #     region: 'ap-southeast-2'
+      #     version_label: '${{vars.AWS_APPLICATION}}-${{vars.AWS_ENVIRONMENT}}-${{ steps.format-time.outputs.replaced }}'
+      #     deployment_package: deploy.zip
+
+      - name: Deploy to Github Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
-          aws_access_key: ${{secrets.AWS_ACCESS_KEY}}
-          aws_secret_key: ${{secrets.AWS_SECRET_KEY}}
-          application_name: ${{vars.AWS_APPLICATION}}
-          environment_name: ${{vars.AWS_ENVIRONMENT}}
-          region: 'ap-southeast-2'
-          version_label: '${{vars.AWS_APPLICATION}}-${{vars.AWS_ENVIRONMENT}}-${{ steps.format-time.outputs.replaced }}'
-          deployment_package: deploy.zip
+          branch: gh-pages
+          folder: build
 
       - name: Deployed!
-        run: echo App deployed to ELB
+        run: echo App deployed
