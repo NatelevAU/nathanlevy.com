@@ -1,7 +1,13 @@
 // src/hooks/useSnakeGame.ts
+import Cookies from 'js-cookie';
 import { useCallback, useEffect, useState } from 'react';
 
 import { Direction, GameState, Position, Snake } from './types';
+
+export interface GameStats {
+  currentScore: number;
+  highScore: number;
+}
 
 const initialGameState: GameState = {
   snake: [
@@ -14,8 +20,14 @@ const initialGameState: GameState = {
   isGameOver: false,
 };
 
+const initialHighScore = Number(Cookies.get('highScore')) || 0;
+
 const useSnakeGame = () => {
   const [gameState, setGameState] = useState<GameState>(initialGameState);
+  const [gameStats, setGameStats] = useState<GameStats>({
+    currentScore: 0,
+    highScore: initialHighScore,
+  });
 
   const generateFood = useCallback((snake: Snake): Position => {
     let newFood: Position;
@@ -65,6 +77,16 @@ const useSnakeGame = () => {
       }
 
       const newFood = hasEatenFood ? generateFood(newSnake) : state.food;
+      const newScore = hasEatenFood ? gameStats.currentScore + 1 : gameStats.currentScore;
+      const newHighScore = Math.max(gameStats.highScore, newScore);
+
+      if (hasEatenFood) {
+        Cookies.set('highScore', newHighScore.toString(), { expires: 365 });
+        setGameStats({
+          currentScore: gameStats.currentScore + 1,
+          highScore: Math.max(gameStats.highScore, gameStats.currentScore + 1),
+        });
+      }
 
       return {
         snake: newSnake,
@@ -73,7 +95,15 @@ const useSnakeGame = () => {
         isGameOver: hasCollided(newSnake),
       };
     });
-  }, [moveSnake, hasCollided, generateFood]);
+  }, [moveSnake, hasCollided, generateFood, gameStats]);
+
+  const resetGame = () => {
+    setGameState(initialGameState);
+    setGameStats(stats => ({
+      ...stats,
+      currentScore: 0,
+    }));
+  };
 
   useEffect(() => {
     if (!gameState.isGameOver) {
@@ -99,7 +129,9 @@ const useSnakeGame = () => {
 
   return {
     gameState,
+    gameStats,
     changeDirection,
+    resetGame,
   };
 };
 

@@ -1,5 +1,6 @@
 // src/components/GameBoard.tsx
 import React, { useEffect } from 'react';
+import { useCallback } from 'react';
 import styled from 'styled-components';
 
 import { Direction } from './types';
@@ -21,10 +22,24 @@ const Cell = styled.div<{ isSnake: boolean; isFood: boolean }>`
   background-color: ${props => (props.isSnake ? 'green' : props.isFood ? 'red' : 'white')};
 `;
 
-const GameBoard: React.FC = () => {
-  const { gameState, changeDirection } = useSnakeGame();
+const GameInfo = styled.div`
+  margin-bottom: 1rem;
+`;
 
-  const handleKeyPress = (event: KeyboardEvent) => {
+const GameOver = styled.div`
+  color: red;
+  margin-top: 1rem;
+`;
+
+const StartAgainButton = styled.button`
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+`;
+
+const GameBoard: React.FC = () => {
+  const { gameState, gameStats, changeDirection, resetGame } = useSnakeGame();
+
+  const handleKeyPress = useCallback((event: KeyboardEvent) => {
     switch (event.key) {
       case 'ArrowUp':
         changeDirection(Direction.Up);
@@ -39,7 +54,7 @@ const GameBoard: React.FC = () => {
         changeDirection(Direction.Right);
         break;
     }
-  };
+  }, []);
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyPress);
@@ -49,15 +64,27 @@ const GameBoard: React.FC = () => {
   }, [handleKeyPress]);
 
   return (
-    <Board>
-      {Array.from({ length: 20 * 20 }, (_, i) => {
-        const x = i % 20;
-        const y = Math.floor(i / 20);
-        const isSnake = gameState.snake.some(([sx, sy]) => sx === x && sy === y);
-        const isFood = gameState.food[0] === x && gameState.food[1] === y;
-        return <Cell key={i} isSnake={isSnake} isFood={isFood} />;
-      })}
-    </Board>
+    <div>
+      <GameInfo>
+        <div>Score: {gameStats.currentScore}</div>
+        <div>High Score: {gameStats.highScore}</div>
+      </GameInfo>
+      <Board>
+        {Array.from({ length: 20 * 20 }, (_, i) => {
+          const x = i % 20;
+          const y = Math.floor(i / 20);
+          const isSnake = gameState.snake.some(([sx, sy]) => sx === x && sy === y);
+          const isFood = gameState.food[0] === x && gameState.food[1] === y;
+          return <Cell key={i} isSnake={isSnake} isFood={isFood} />;
+        })}
+      </Board>
+      {gameState.isGameOver && (
+        <div>
+          <GameOver>Game Over!</GameOver>
+          <StartAgainButton onClick={resetGame}>Start Again</StartAgainButton>
+        </div>
+      )}
+    </div>
   );
 };
 
