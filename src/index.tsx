@@ -6,6 +6,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Dice from './pages/Dice/Dice';
 import Home from './pages/Home/Home';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
+import Snake from './pages/Snake/Snake';
 
 import './index.css';
 
@@ -21,6 +22,7 @@ const App = ({}) => {
         <Route path="/" element={<Home />} />
         <Route path="/dice" element={<Dice />} />
         <Route path="/home" element={<Navigate to="/" replace />} />
+        <Route path="/snake" element={<Snake />} />
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
