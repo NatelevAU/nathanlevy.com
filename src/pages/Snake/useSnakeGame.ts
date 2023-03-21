@@ -105,6 +105,14 @@ const useSnakeGame = () => {
     }));
   };
 
+  const deleteHighScore = () => {
+    Cookies.remove('highScore');
+    setGameStats(stats => ({
+      ...stats,
+      highScore: 0,
+    }));
+  };
+
   useEffect(() => {
     if (!gameState.isGameOver) {
       const intervalId = setInterval(updateGameState, 100);
@@ -132,6 +140,7 @@ const useSnakeGame = () => {
     gameStats,
     changeDirection,
     resetGame,
+    deleteHighScore,
   };
 };
 

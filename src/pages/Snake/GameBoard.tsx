@@ -36,8 +36,13 @@ const StartAgainButton = styled.button`
   padding: 0.5rem 1rem;
 `;
 
+const DeleteHighScoreButton = styled.button`
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+`;
+
 const GameBoard: React.FC = () => {
-  const { gameState, gameStats, changeDirection, resetGame } = useSnakeGame();
+  const { gameState, gameStats, changeDirection, resetGame, deleteHighScore } = useSnakeGame();
 
   const handleKeyPress = useCallback((event: KeyboardEvent) => {
     switch (event.key) {
@@ -82,6 +87,7 @@ const GameBoard: React.FC = () => {
         <div>
           <GameOver>Game Over!</GameOver>
           <StartAgainButton onClick={resetGame}>Start Again</StartAgainButton>
+          <DeleteHighScoreButton onClick={deleteHighScore}>Delete High Score</DeleteHighScoreButton>
         </div>
       )}
     </div>
