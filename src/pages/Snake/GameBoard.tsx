@@ -1,5 +1,5 @@
 // src/components/GameBoard.tsx
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useCallback } from 'react';
 import styled from 'styled-components';
 
@@ -44,6 +44,7 @@ const DeleteHighScoreButton = styled.button`
 
 const GameBoard: React.FC = () => {
   const { gameState, gameStats, changeDirection, resetGame, deleteHighScore } = useSnakeGame();
+  const boardRef = useRef<HTMLDivElement>(null);
 
   const handleKeyPress = useCallback((event: KeyboardEvent) => {
     switch (event.key) {
@@ -69,13 +70,68 @@ const GameBoard: React.FC = () => {
     };
   }, [handleKeyPress]);
 
+  const handleTouchStart = (e: TouchEvent) => {
+    if (!boardRef.current) return;
+    const rect = boardRef.current.getBoundingClientRect();
+    const touch = e.touches[0];
+    const startX = touch.clientX - rect.left;
+    const startY = touch.clientY - rect.top;
+    const touchData = { startX, startY };
+    boardRef.current.dataset.touchData = JSON.stringify(touchData);
+  };
+
+  const handleTouchEnd = (e: TouchEvent) => {
+    if (!boardRef.current) return;
+    const rect = boardRef.current.getBoundingClientRect();
+    const touchDataString = boardRef.current.dataset.touchData;
+    if (!touchDataString) return;
+
+    const touchData = JSON.parse(touchDataString) as {
+      startX: number;
+      startY: number;
+    };
+
+    const touch = e.changedTouches[0];
+    const endX = touch.clientX - rect.left;
+    const endY = touch.clientY - rect.top;
+    const deltaX = endX - touchData.startX;
+    const deltaY = endY - touchData.startY;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (deltaX > 0) {
+        changeDirection(Direction.Right);
+      } else {
+        changeDirection(Direction.Left);
+      }
+    } else {
+      if (deltaY > 0) {
+        changeDirection(Direction.Down);
+      } else {
+        changeDirection(Direction.Up);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const board = boardRef.current;
+    if (!board) return;
+
+    board.addEventListener('touchstart', handleTouchStart);
+    board.addEventListener('touchend', handleTouchEnd);
+
+    return () => {
+      board.removeEventListener('touchstart', handleTouchStart);
+      board.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, []);
+
   return (
     <div>
       <GameInfo>
         <div>Score: {gameStats.currentScore}</div>
         <div>High Score: {gameStats.highScore}</div>
       </GameInfo>
-      <Board>
+      <Board ref={boardRef}>
         {Array.from({ length: 20 * 20 }, (_, i) => {
           const x = i % 20;
           const y = Math.floor(i / 20);
