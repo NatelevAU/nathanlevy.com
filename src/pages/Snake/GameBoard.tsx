@@ -16,10 +16,11 @@ const Board = styled.div`
   height: 400px;
 `;
 
-const Cell = styled.div<{ isSnake: boolean; isFood: boolean }>`
+const Cell = styled.div<{ isSnake: boolean; isFood: boolean; isWall: boolean }>`
   width: 100%;
   height: 100%;
-  background-color: ${props => (props.isSnake ? 'green' : props.isFood ? 'red' : 'white')};
+  background-color: ${props =>
+    props.isSnake ? 'green' : props.isFood ? 'red' : props.isWall ? 'black' : 'white'};
 `;
 
 const GameInfo = styled.div`
@@ -78,9 +79,10 @@ const GameBoard: React.FC = () => {
         {Array.from({ length: 20 * 20 }, (_, i) => {
           const x = i % 20;
           const y = Math.floor(i / 20);
-          const isSnake = gameState.snake.some(([sx, sy]) => sx === x && sy === y);
+          const isWall = x === 0 || x === 19 || y === 0 || y === 19;
+          const isSnake = !isWall && gameState.snake.some(([sx, sy]) => sx === x && sy === y);
           const isFood = gameState.food[0] === x && gameState.food[1] === y;
-          return <Cell key={i} isSnake={isSnake} isFood={isFood} />;
+          return <Cell key={i} isSnake={isSnake} isFood={isFood} isWall={isWall} />;
         })}
       </Board>
       {gameState.isGameOver && (

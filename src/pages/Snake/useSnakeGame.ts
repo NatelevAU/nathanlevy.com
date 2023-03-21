@@ -32,7 +32,7 @@ const useSnakeGame = () => {
   const generateFood = useCallback((snake: Snake): Position => {
     let newFood: Position;
     do {
-      newFood = [Math.floor(Math.random() * 20), Math.floor(Math.random() * 20)];
+      newFood = [Math.floor(Math.random() * 18 + 1), Math.floor(Math.random() * 18 + 1)];
     } while (snake.some(([x, y]) => x === newFood[0] && y === newFood[1]));
     return newFood;
   }, []);
@@ -59,10 +59,10 @@ const useSnakeGame = () => {
   const hasCollided = useCallback((snake: Snake): boolean => {
     const [headX, headY] = snake[0];
     return (
-      headX < 0 ||
-      headX >= 20 ||
-      headY < 0 ||
-      headY >= 20 ||
+      headX <= 0 ||
+      headX >= 19 ||
+      headY <= 0 ||
+      headY >= 19 ||
       snake.slice(1).some(([x, y]) => x === headX && y === headY)
     );
   }, []);
