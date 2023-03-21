@@ -14,6 +14,8 @@ const sectionStyle = {
 };
 
 const Home: React.FC<{}> = () => {
+  const SnakeLink: React.FC<{}> = props => <Link to="/snake" {...props} />;
+
   const SourceLink: React.FC<{}> = props => (
     <Link
       to={{ pathname: 'https://github.com/NatelevAU/natelev' }}
@@ -29,7 +31,22 @@ const Home: React.FC<{}> = () => {
     <div className="Home" style={sectionStyle}>
       <header className="Home-header">
         <h1> Coming soon... </h1>
-        <Button color="primary" size="large" variant="contained" component={SourceLink}>
+        <Button
+          color="secondary"
+          size="large"
+          variant="contained"
+          sx={{ margin: 2 }}
+          component={SnakeLink}
+        >
+          Snake
+        </Button>
+        <Button
+          color="primary"
+          size="large"
+          variant="contained"
+          sx={{ margin: 2 }}
+          component={SourceLink}
+        >
           Source Code
         </Button>
       </header>
