@@ -5,7 +5,6 @@ import { Box, IconButton } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import ReactGA from 'react-ga';
 
-import './Home.css';
 import background from '../../images/backgrounds/Home.jpg';
 
 const sectionStyle = {
@@ -34,10 +33,27 @@ const Home: React.FC<{}> = () => {
   ReactGA.pageview(window.location.pathname);
 
   return (
-    <Box className="Home Home-header" style={sectionStyle}>
+    <Box
+      sx={{
+        textAlign: 'center',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 'calc(10px + 2vmin)',
+        color: 'white',
+        ...sectionStyle,
+      }}
+    >
       <h1> Nathan Levy </h1>
       <h2> {subtitles[subtitleIndex]} </h2>
-      <Box style={{ display: 'flex', justifyContent: 'center' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
         <IconButton
           color="primary"
           sx={{ margin: 1 }}
