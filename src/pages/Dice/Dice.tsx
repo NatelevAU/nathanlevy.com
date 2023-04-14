@@ -46,7 +46,7 @@ const Dice: React.FC<{}> = () => {
   };
 
   return (
-    <div className="Dice">
+    <Box className="Dice">
       <header className="Dice-header">
         <h1> {wins} Successes </h1>
         <h2> {ones} ones rolled </h2>
@@ -90,7 +90,7 @@ const Dice: React.FC<{}> = () => {
           </Button>
         </Box>
       </header>
-    </div>
+    </Box>
   );
 };
 

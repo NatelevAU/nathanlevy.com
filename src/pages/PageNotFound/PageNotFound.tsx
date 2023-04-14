@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import React from 'react';
 import ReactGA from 'react-ga';
 import Helmet from 'react-helmet';
@@ -13,7 +13,7 @@ const PageNotFound: React.FC<{}> = () => {
   ReactGA.pageview(window.location.pathname);
 
   return (
-    <div className="PageNotFound">
+    <Box className="PageNotFound">
       <Helmet>
         <meta name="robots" content="noindex" />
       </Helmet>
@@ -24,7 +24,7 @@ const PageNotFound: React.FC<{}> = () => {
           Home
         </Button>
       </header>
-    </div>
+    </Box>
   );
 };
 

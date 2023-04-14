@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { ReactNode } from 'react';
 
 import NavigationBar from './NavigationBar';
@@ -9,7 +9,7 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div>
+    <Box>
       <NavigationBar />
       {children}
       <Button
@@ -29,7 +29,7 @@ const Layout = ({ children }: LayoutProps) => {
       >
         Source Code
       </Button>
-    </div>
+    </Box>
   );
 };
 
