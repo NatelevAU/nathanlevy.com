@@ -17,8 +17,8 @@ const Home: React.FC<{}> = () => {
   const SnakeLink: React.FC<{}> = props => <Link to="/snake" {...props} />;
 
   const SourceLink: React.FC<{}> = props => (
-    <Link
-      to={{ pathname: 'https://github.com/NatelevAU/natelev' }}
+    <a
+      href="https://github.com/NatelevAU/natelev"
       target="_blank"
       rel="noopener noreferrer"
       {...props}
