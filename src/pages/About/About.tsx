@@ -37,18 +37,18 @@ const About: React.FC<{}> = () => {
             </Typography>
 
             <Box mt={2}>
-              <Typography variant="h5" align="center">
+              <Typography variant="h5" align="left">
                 I'm Nathan Levy, a Software Engineer based in Melbourne, Australia.
               </Typography>
-              <Typography variant="h6" align="center">
+              <Typography variant="h6" align="left">
                 I've been coding since I was 13, when I created a simple game and my own Minecraft
                 plugin.
               </Typography>
-              <Typography variant="h6" align="center">
+              <Typography variant="h6" align="left">
                 I'm passionate about solving complex problems and creating innovative solutions
                 using technology.
               </Typography>
-              <Typography variant="h6" align="center">
+              <Typography variant="h6" align="left">
                 My recent experience includes full-stack web development as well as game
                 development.
               </Typography>
