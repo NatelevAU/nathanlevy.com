@@ -8,7 +8,6 @@
 }
 
 .Home-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -20,4 +19,12 @@
 
 .Home-link {
   color: #61dafb;
+}
+
+.background-image {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
 }
