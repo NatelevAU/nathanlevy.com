@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import ReactGA from 'react-ga';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
+import Layout from './components/Layout';
 import Dice from './pages/Dice/Dice';
 import Home from './pages/Home/Home';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
@@ -17,13 +18,15 @@ const App = ({}) => {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/dice" element={<Dice />} />
-        <Route path="/home" element={<Navigate to="/" replace />} />
-        {/* <Route path="/snake" element={<Snake />} /> */}
-        <Route path="/*" element={<PageNotFound />} />
-      </Routes>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dice" element={<Dice />} />
+          <Route path="/home" element={<Navigate to="/" replace />} />
+          {/* <Route path="/snake" element={<Snake />} /> */}
+          <Route path="/*" element={<PageNotFound />} />
+        </Routes>
+      </Layout>
     </BrowserRouter>
   );
 };
