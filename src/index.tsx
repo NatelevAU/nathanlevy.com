@@ -22,7 +22,7 @@ const App = ({}) => {
         <Route path="/" element={<Home />} />
         <Route path="/dice" element={<Dice />} />
         <Route path="/home" element={<Navigate to="/" replace />} />
-        <Route path="/snake" element={<Snake />} />
+        {/* <Route path="/snake" element={<Snake />} /> */}
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
