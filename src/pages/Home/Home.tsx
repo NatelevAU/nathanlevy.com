@@ -32,15 +32,6 @@ const Home: React.FC<{}> = () => {
       <header className="Home-header">
         <h1> Coming soon... </h1>
         <Button
-          color="secondary"
-          size="large"
-          variant="contained"
-          sx={{ margin: 2 }}
-          component={SnakeLink}
-        >
-          Snake
-        </Button>
-        <Button
           color="primary"
           size="large"
           variant="contained"
