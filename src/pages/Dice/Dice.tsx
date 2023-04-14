@@ -3,8 +3,6 @@ import TextField from '@mui/material/TextField';
 import React from 'react';
 import ReactGA from 'react-ga';
 
-import './Dice.css';
-
 const Dice: React.FC<{}> = () => {
   const defaultNumDice = 1;
   const [numDice, setNumDice] = React.useState(defaultNumDice);
@@ -46,8 +44,19 @@ const Dice: React.FC<{}> = () => {
   };
 
   return (
-    <div className="Dice">
-      <header className="Dice-header">
+    <Box
+      sx={{
+        textAlign: 'center',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 'calc(10px + 2vmin)',
+        color: 'black',
+      }}
+    >
+      <header>
         <h1> {wins} Successes </h1>
         <h2> {ones} ones rolled </h2>
         <h2> {crit ? 'CRITICAL HIT' : ''}</h2>
@@ -90,7 +99,7 @@ const Dice: React.FC<{}> = () => {
           </Button>
         </Box>
       </header>
-    </div>
+    </Box>
   );
 };
 

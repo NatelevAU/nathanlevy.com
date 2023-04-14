@@ -1,4 +1,5 @@
 // src/components/GameBoard.tsx
+import { Box } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
 import { useCallback } from 'react';
 import styled from 'styled-components';
@@ -126,10 +127,10 @@ const GameBoard: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <Box>
       <GameInfo>
-        <div>Score: {gameStats.currentScore}</div>
-        <div>High Score: {gameStats.highScore}</div>
+        <Box>Score: {gameStats.currentScore}</Box>
+        <Box>High Score: {gameStats.highScore}</Box>
       </GameInfo>
       <Board ref={boardRef}>
         {Array.from({ length: 20 * 20 }, (_, i) => {
@@ -142,13 +143,13 @@ const GameBoard: React.FC = () => {
         })}
       </Board>
       {gameState.isGameOver && (
-        <div>
+        <Box>
           <GameOver>Game Over!</GameOver>
           <StartAgainButton onClick={resetGame}>Start Again</StartAgainButton>
           <DeleteHighScoreButton onClick={deleteHighScore}>Delete High Score</DeleteHighScoreButton>
-        </div>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 };
 
