@@ -10,6 +10,9 @@ const lightTheme = createTheme({
     primary: {
       main: primaryColor,
     },
+    secondary: {
+      main: white,
+    },
     background: {
       default: white,
     },
@@ -26,10 +29,8 @@ const lightTheme = createTheme({
       },
     },
     MuiIconButton: {
-      styleOverrides: {
-        root: {
-          color: primaryColor,
-        },
+      defaultProps: {
+        color: 'primary',
       },
     },
   },
