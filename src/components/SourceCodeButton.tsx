@@ -5,10 +5,9 @@ interface SourceCodeButtonProps {
   href: string;
 }
 
-export const SourceCodeButton: React.FC<SourceCodeButtonProps> = ({ href }) => {
+const SourceCodeButton: React.FC<SourceCodeButtonProps> = ({ href }) => {
   return (
     <Button
-      color="primary"
       size="large"
       variant="contained"
       sx={{ margin: 2 }}
