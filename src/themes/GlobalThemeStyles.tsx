@@ -14,11 +14,6 @@ const GlobalThemeStyles: React.FC<GlobalThemeStylesProps> = ({ theme }) => {
         },
         body: {
           backgroundColor: theme.palette.background.default,
-          margin: 0,
-          padding: 0,
-        },
-        '#root': {
-          minHeight: '100vh',
         },
       }}
     />
