@@ -67,11 +67,7 @@ function NavigationBar() {
               onClose={handleCloseNavMenu}
             >
               {pages.map(page => (
-                <MenuItem
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  // sx={{ backgroundColor: '#1976d2', '&:hover': { backgroundColor: '#1976d2' } }}
-                >
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Button
                     key={page}
                     component={Link}
@@ -79,8 +75,7 @@ function NavigationBar() {
                     onClick={handleCloseNavMenu}
                     sx={{
                       my: 2,
-                      // backgroundColor: '#1976d2',
-                      color: 'black',
+                      color: 'white',
                       display: 'block',
                     }}
                   >
