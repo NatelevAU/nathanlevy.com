@@ -55,7 +55,6 @@ const Home: React.FC<{}> = () => {
         }}
       >
         <IconButton
-          color="primary"
           sx={{ margin: 1 }}
           href="https://github.com/NatelevAU"
           target="_blank"
@@ -64,7 +63,6 @@ const Home: React.FC<{}> = () => {
           <GitHubIcon />
         </IconButton>
         <IconButton
-          color="primary"
           sx={{ margin: 1 }}
           href="https://www.linkedin.com/in/nathan-levy-au"
           target="_blank"
@@ -72,11 +70,7 @@ const Home: React.FC<{}> = () => {
         >
           <LinkedInIcon />
         </IconButton>
-        <IconButton
-          color="primary"
-          sx={{ margin: 1 }}
-          onClick={() => Mailto('nathan.levy.au@gmail.com')}
-        >
+        <IconButton sx={{ margin: 1 }} onClick={() => Mailto('nathan.levy.au@gmail.com')}>
           <EmailIcon />
         </IconButton>
       </Box>

@@ -1,26 +1,36 @@
+import { Palette } from '@mui/icons-material';
 import { createTheme } from '@mui/material';
 
+const primaryColor = '#1976d2';
+const white = '#ffffff';
+const black = '#000000';
+
 const lightTheme = createTheme({
+  palette: {
+    primary: {
+      main: primaryColor,
+    },
+    background: {
+      default: white,
+    },
+    text: {
+      primary: white,
+    },
+  },
   components: {
     MuiList: {
       styleOverrides: {
         root: {
-          backgroundColor: '#1976d2',
+          backgroundColor: primaryColor,
         },
       },
     },
-  },
-  palette: {
-    primary: {
-      main: '#1976d2',
-    },
-    background: {
-      default: '#d32f2f',
-    },
-    text: {
-      primary: '#d32f2f',
-      secondary: '#d32f2f',
-      disabled: '#d32f2f',
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          color: primaryColor,
+        },
+      },
     },
   },
 });

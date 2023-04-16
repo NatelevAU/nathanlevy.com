@@ -1,4 +1,4 @@
-import { Box, ThemeProvider } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
 import { ReactNode } from 'react';
 
 import NavigationBar from './components/NavigationBar';
