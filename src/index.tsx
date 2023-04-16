@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import ReactGA from 'react-ga';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
-import Layout from './components/Layout';
+import Layout from './Layout';
 import About from './pages/About/About';
 import Dice from './pages/Dice/Dice';
 import Home from './pages/Home/Home';
