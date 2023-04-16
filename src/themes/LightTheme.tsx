@@ -20,16 +20,21 @@ const lightTheme = createTheme({
     },
   },
   components: {
-    MuiList: {
-      styleOverrides: {
-        root: {
-          backgroundColor: primaryColor,
-        },
+    MuiButton: {
+      defaultProps: {
+        color: 'primary',
       },
     },
     MuiIconButton: {
       defaultProps: {
         color: 'primary',
+      },
+    },
+    MuiList: {
+      styleOverrides: {
+        root: {
+          backgroundColor: primaryColor,
+        },
       },
     },
   },
