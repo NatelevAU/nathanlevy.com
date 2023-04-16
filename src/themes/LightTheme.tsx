@@ -1,4 +1,3 @@
-import { Palette } from '@mui/icons-material';
 import { createTheme } from '@mui/material';
 
 const primaryColor = '#1976d2';
