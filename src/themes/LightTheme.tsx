@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material';
 
-const theme = createTheme({
+const lightTheme = createTheme({
   components: {
     MuiList: {
       styleOverrides: {
@@ -14,7 +14,15 @@ const theme = createTheme({
     primary: {
       main: '#1976d2',
     },
+    background: {
+      default: '#d32f2f',
+    },
+    text: {
+      primary: '#d32f2f',
+      secondary: '#d32f2f',
+      disabled: '#d32f2f',
+    },
   },
 });
 
-export default theme;
+export default lightTheme;

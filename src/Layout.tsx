@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 import NavigationBar from './components/NavigationBar';
 import SourceCodeButton from './components/SourceCodeButton';
-import theme from './Theme';
+import lightTheme from './themes/LightTheme';
 
 type LayoutProps = {
   children: ReactNode;
@@ -11,12 +11,10 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <ThemeProvider theme={theme}>
-      <Box>
-        <NavigationBar />
-        {children}
-        <SourceCodeButton href={'https://github.com/NatelevAU/natelev'} />
-      </Box>
+    <ThemeProvider theme={lightTheme}>
+      <NavigationBar />
+      {children}
+      <SourceCodeButton href={'https://github.com/NatelevAU/natelev'} />
     </ThemeProvider>
   );
 };
