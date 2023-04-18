@@ -13,9 +13,11 @@ interface AllPagesProps {
 
 function AllPagesPdfViewer(props: AllPagesProps) {
   const [numPages, setNumPages] = useState<number | null>(null);
+  const [responsiveWidth, setResponsiveWidth] = useState<number | undefined>();
   const theme = useTheme();
 
   useEffect(() => {
+    updateResponsiveWidth();
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -27,16 +29,17 @@ function AllPagesPdfViewer(props: AllPagesProps) {
   }
 
   function handleResize() {
-    setNumPages(null);
+    updateResponsiveWidth();
   }
 
-  const responsiveWidth = () => {
+  function updateResponsiveWidth() {
     if (window.innerWidth < theme.breakpoints.values.sm) {
       const spacingValue = parseInt(theme.spacing(2).replace('px', ''), 10);
-      return window.innerWidth - spacingValue;
+      setResponsiveWidth(window.innerWidth - spacingValue);
+    } else {
+      setResponsiveWidth(undefined);
     }
-    return undefined;
-  };
+  }
 
   const { pdf } = props;
 
@@ -48,7 +51,7 @@ function AllPagesPdfViewer(props: AllPagesProps) {
           pageNumber={index + 1}
           scale={1}
           renderAnnotationLayer={false}
-          width={responsiveWidth()}
+          width={responsiveWidth}
         />
       ))}
     </Document>
