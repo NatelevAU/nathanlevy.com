@@ -10,7 +10,7 @@ import Toolbar from '@mui/material/Toolbar';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-const pages = ['Home', 'About'];
+const pages = ['Home', 'About', 'Resume'];
 
 function NavigationBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
