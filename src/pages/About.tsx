@@ -1,7 +1,7 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
 import React from 'react';
 
-import headshot from '../../assets/logos/Nathan.jpg';
+import headshot from '../assets/logos/Nathan.jpg';
 
 const About: React.FC<{}> = () => {
   return (

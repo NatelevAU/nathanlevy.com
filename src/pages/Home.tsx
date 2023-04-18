@@ -5,7 +5,7 @@ import { Box, IconButton } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import ReactGA from 'react-ga';
 
-import background from '../../assets/backgrounds/Home.jpg';
+import background from '../assets/backgrounds/Home.jpg';
 
 const sectionStyle = {
   backgroundImage: `url(${background})`,
