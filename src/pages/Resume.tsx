@@ -12,6 +12,9 @@ const Resume: React.FC<{}> = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: { xs: 'left', md: 'center' },
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden',
       }}
     >
       <AllPagesPdfViewer pdf={resume} />
