@@ -4,7 +4,7 @@ import ReactGA from 'react-ga';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
 
-import logo from '../../images/backgrounds/PageNotFound.png';
+import logo from '../../assets/backgrounds/PageNotFound.png';
 
 const PageNotFound: React.FC<{}> = () => {
   const HomeLink: React.FC<{}> = props => <Link to="/" {...props} />;
