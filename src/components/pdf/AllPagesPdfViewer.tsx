@@ -14,6 +14,7 @@ interface AllPagesProps {
 function AllPagesPdfViewer(props: AllPagesProps) {
   const [numPages, setNumPages] = useState<number | null>(null);
   const [responsiveWidth, setResponsiveWidth] = useState<number | undefined>();
+  const [scale, setScale] = useState(1);
   const theme = useTheme();
 
   useEffect(() => {
@@ -36,8 +37,12 @@ function AllPagesPdfViewer(props: AllPagesProps) {
     if (window.innerWidth < theme.breakpoints.values.sm) {
       const spacingValue = parseInt(theme.spacing(2).replace('px', ''), 10);
       setResponsiveWidth(window.innerWidth - spacingValue);
+      setScale(1);
     } else {
+      const approximatePageHeight = 792; // Approximate height of a PDF page in points
+      const scaleFactor = window.innerHeight / approximatePageHeight;
       setResponsiveWidth(undefined);
+      setScale(scaleFactor);
     }
   }
 
@@ -49,7 +54,7 @@ function AllPagesPdfViewer(props: AllPagesProps) {
         <Page
           key={`page_${index + 1}`}
           pageNumber={index + 1}
-          scale={1}
+          scale={scale}
           renderAnnotationLayer={false}
           width={responsiveWidth}
         />
