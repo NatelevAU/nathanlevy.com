@@ -7,11 +7,9 @@
     "url": "https://github.com/NatelevAU/natelev.git"
   },
   "scripts": {
-    "start": "serve -s build",
-    "build": "rm -rf build && react-scripts build && npm run sitemap",
+    "build": "rm -rf build && tsc && vite build && npm run sitemap",
     "test": "echo no tests implemented",
-    "dev": "NODE_ENV=development react-scripts start",
-    "eject": "react-scripts eject",
+    "dev": "vite",
     "clean": "rm -rf build hint-report *.log *.zip && npm run lint-fix",
     "lint": "npm run lint-full",
     "lint-full": "eslint . --max-warnings=0 && prettier --check ./**/*.{json,gql,yml,yaml,html,md,css}",
@@ -19,7 +17,7 @@
     "predeploy": "npm run sitemap",
     "deploy": "npm run predeploy && zip -r deploy.zip * .ebextensions .elasticbeanstalk -x \"**node_modules**\"",
     "reinstall": "rm -rf node_modules package-lock.json && npm install",
-    "sitemap": "echo sitemap not implemented yet for node16",
+    "sitemap": "echo sitemap not implemented yet for node18",
     "webhint": "hint http://localhost:3000"
   },
   "dependencies": {
@@ -43,7 +41,6 @@
     "react-icons": "^4.8.0",
     "react-pdf": "^6.2.2",
     "react-router-dom": "^6.9.0",
-    "react-scripts": "5.0.1",
     "serve": "^14.2.0",
     "styled-components": "^5.3.9",
     "typescript": "^4.9.5"
@@ -53,6 +50,7 @@
     "@types/react-pdf": "^6.2.0",
     "@typescript-eslint/eslint-plugin": "^5.55.0",
     "@typescript-eslint/parser": "^5.55.0",
+    "@vitejs/plugin-react": "^4.0.4",
     "babel-eslint": "^10.1.0",
     "depcheck": "^1.4.3",
     "eslint": "^8.36.0",
@@ -69,16 +67,16 @@
     "eslint-plugin-unused-imports": "^2.0.0",
     "eslint-plugin-yaml": "^0.5.0",
     "npm-check-updates": "^16.7.12",
-    "prettier": "^2.8.4"
+    "prettier": "^2.8.4",
+    "vite": "^4.4.9",
+    "vite-plugin-checker": "^0.6.1",
+    "vite-plugin-handlebars": "^1.6.0",
+    "vite-plugin-svgr": "^3.2.0",
+    "vite-tsconfig-paths": "^4.2.0"
   },
   "engines": {
     "node": ">=18.1",
-    "npm": ">=8.19"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app"
-    ]
+    "npm": ">=8.19.2"
   },
   "browserslist": {
     "production": [
