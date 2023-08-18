@@ -1,0 +1,57 @@
+name: Reverse Deployment
+
+on:
+  workflow_dispatch:
+
+env:
+  APP_NAME: 'partplace'
+  DEPLOY_HOSTNAME: 'partplace.com.au'
+  PROD_BRANCH: 'main'
+  DEV_BRANCH: 'dev'
+
+jobs:
+  reverse_deploy_prod:
+    runs-on: ubuntu-latest
+    container:
+      image: node:18-slim
+
+    steps:
+      - name: Setup SSH
+        run: |
+          apt-get update
+          apt-get install -y openssh-client rsync
+          eval $(ssh-agent -s)
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          ssh-keyscan "${{ env.DEPLOY_HOSTNAME }}" >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Reverse the most recent production deployment
+        run: |
+          RELEASE_BASE="/var/www/${{ env.APP_NAME }}"
+          SECOND_LAST_RELEASE=$(ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ls -t ${RELEASE_BASE}/releases | sed -n '2p'")
+          ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${RELEASE_BASE}/releases/${SECOND_LAST_RELEASE} ${RELEASE_BASE}/current"
+
+  reverse_deploy_dev:
+    runs-on: ubuntu-latest
+    container:
+      image: node:18-slim
+
+    steps:
+      - name: Setup SSH
+        run: |
+          apt-get update
+          apt-get install -y openssh-client rsync
+          eval $(ssh-agent -s)
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          ssh-keyscan "${{ env.DEPLOY_HOSTNAME }}" >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Reverse the most recent development deployment
+        run: |
+          RELEASE_BASE="/var/www/dev-${{ env.APP_NAME }}"
+          SECOND_LAST_RELEASE=$(ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ls -t ${RELEASE_BASE}/releases | sed -n '2p'")
+          ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${RELEASE_BASE}/releases/${SECOND_LAST_RELEASE} ${RELEASE_BASE}/current"
