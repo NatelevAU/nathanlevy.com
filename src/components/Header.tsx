@@ -1,18 +1,18 @@
 import MenuIcon from '@mui/icons-material/Menu';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Toolbar from '@mui/material/Toolbar';
+import { AppBar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar } from '@mui/material';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-const pages = ['Home', 'About', 'Resume'];
+interface Page {
+  name: string;
+  url: string;
+}
 
-function NavigationBar() {
+interface NavigationBarProps {
+  pages: Page[];
+}
+
+function NavigationBar({ pages }: NavigationBarProps) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -30,13 +30,13 @@ function NavigationBar() {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
             {pages.map(page => (
               <Button
-                key={page}
+                key={page.name}
                 component={Link}
-                to={`/${page.toLowerCase()}`}
+                to={page.url}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                {page.name}
               </Button>
             ))}
           </Box>
@@ -67,11 +67,11 @@ function NavigationBar() {
               onClose={handleCloseNavMenu}
             >
               {pages.map(page => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
                   <Button
-                    key={page}
+                    key={page.name}
                     component={Link}
-                    to={`/${page.toLowerCase()}`}
+                    to={page.url}
                     onClick={handleCloseNavMenu}
                     sx={{
                       my: 2,
@@ -79,7 +79,7 @@ function NavigationBar() {
                       display: 'block',
                     }}
                   >
-                    {page}
+                    {page.name}
                   </Button>
                 </MenuItem>
               ))}
