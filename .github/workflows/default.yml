@@ -1,23 +1,89 @@
-name: Build
-
+name: Default Branch Workflow
 on:
   push:
-    branches-ignore: [main]
+    branches-ignore:
+      - main
+      - dev
+    paths:
+      - 'src/**/*'
+      - 'public/**/*'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.eslintignore'
+      - '.eslintrc.js'
+      - '.github/workflows/*.yml'
+      - '.prettierignore'
+      - '.prettierrc'
 
 jobs:
-  build:
+  install_dependencies:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18.x]
-
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: npm install
-      - run: npm run lint-full
-      - run: npm run build
+          node-version: '18'
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules/
+            .npm/
+          key: npm-cache-${{ hashFiles('package.json', 'package-lock.json') }}
+          restore-keys: |
+            npm-cache-
+      - name: Install dependencies
+        run: |
+          if [ -d "node_modules/" ]; then
+            echo "Cache exists, skipping install_dependencies job";
+            exit 0;
+          fi
+          sudo apt-get update
+          sudo apt-get install -y apt-transport-https libx11-xcb1 libxtst6 libnss3 libasound2 libatk-bridge2.0-0 libgtk-3.0
+          npm ci
+
+  lint:
+    needs: install_dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules/
+            .npm/
+          key: npm-cache-${{ hashFiles('package.json', 'package-lock.json') }}
+          restore-keys: |
+            npm-cache-
+      - name: Lint codebase
+        run: npm run lint-full
+
+  tests:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules/
+            .npm/
+          key: npm-cache-${{ hashFiles('package.json', 'package-lock.json') }}
+          restore-keys: |
+            npm-cache-
+      - name: Run tests
+        run: npm run test

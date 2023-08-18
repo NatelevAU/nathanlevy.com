@@ -1,0 +1,48 @@
+name: Dev Branch Workflow
+on:
+  push:
+    branches:
+      - dev
+    paths:
+      - 'src/**/*'
+      - 'public/**/*'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.eslintignore'
+      - '.eslintrc.js'
+      - '.github/workflows/*.yml'
+      - '.prettierignore'
+      - '.prettierrc'
+
+env:
+  APP_NAME: 'NatelevAU'
+  DEPLOY_HOSTNAME: 'nathanlevy.com'
+  RELEASE_BASE: '/var/www/dev-${{ env.APP_NAME }}'
+  RELEASE_PATH: '/var/www/dev-${{ env.APP_NAME }}/releases/${{ github.sha }}'
+  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+# Jobs for install_dependencies, lint, tests, build are the same as in the main branch workflow
+
+jobs:
+  # ... (install_dependencies, lint, tests, build)
+
+  deploy_dev:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      # ... (SSH setup, Download build artifacts)
+      - name: Deploy to development
+        run: |
+          rsync -rav --delete build/ deploy@${{ env.DEPLOY_HOSTNAME }}:${{ env.RELEASE_PATH }}
+          ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${{ env.RELEASE_PATH }} ${{ env.RELEASE_BASE }}/current"
+
+  reverse_deploy_dev:
+    needs: deploy_dev
+    runs-on: ubuntu-latest
+    steps:
+      # ... (SSH setup)
+      - name: Reverse deploy
+        run: |
+          RELEASE_BASE="/var/www/dev-${{ env.APP_NAME }}"
+          SECOND_LAST_RELEASE=$(ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ls -t ${{ env.RELEASE_BASE }}/releases | sed -n '2p'")
+          ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${{ env.RELEASE_BASE }}/releases/${SECOND_LAST_RELEASE} ${{ env.RELEASE_BASE }}/current"
