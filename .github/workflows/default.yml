@@ -1,7 +1,8 @@
-name: Default Branch Workflow
+name: CI/CD Pipeline
+
 on:
   push:
-    branches-ignore:
+    branches:
       - main
       - dev
     paths:
@@ -15,16 +16,22 @@ on:
       - '.prettierignore'
       - '.prettierrc'
 
+env:
+  APP_NAME: 'partplace'
+  DEPLOY_HOSTNAME: 'partplace.com.au'
+  PROD_BRANCH: 'main'
+  DEV_BRANCH: 'dev'
+
 jobs:
   install_dependencies:
     runs-on: ubuntu-latest
+    container:
+      image: node:18-slim
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18'
+
       - name: Cache node modules
         uses: actions/cache@v2
         with:
@@ -34,26 +41,27 @@ jobs:
           key: npm-cache-${{ hashFiles('package.json', 'package-lock.json') }}
           restore-keys: |
             npm-cache-
+
       - name: Install dependencies
         run: |
           if [ -d "node_modules/" ]; then
             echo "Cache exists, skipping install_dependencies job";
             exit 0;
           fi
-          sudo apt-get update
-          sudo apt-get install -y apt-transport-https libx11-xcb1 libxtst6 libnss3 libasound2 libatk-bridge2.0-0 libgtk-3.0
+          apt-get update
+          apt-get install -y apt-transport-https libx11-xcb1 libxtst6 libnss3 libasound2 libatk-bridge2.0-0 libgtk-3.0
           npm ci
 
   lint:
     needs: install_dependencies
     runs-on: ubuntu-latest
+    container:
+      image: node:18-slim
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18'
+
       - name: Cache node modules
         uses: actions/cache@v2
         with:
@@ -63,19 +71,20 @@ jobs:
           key: npm-cache-${{ hashFiles('package.json', 'package-lock.json') }}
           restore-keys: |
             npm-cache-
+
       - name: Lint codebase
         run: npm run lint-full
 
   tests:
     needs: lint
     runs-on: ubuntu-latest
+    container:
+      image: node:18-slim
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18'
+
       - name: Cache node modules
         uses: actions/cache@v2
         with:
@@ -85,5 +94,157 @@ jobs:
           key: npm-cache-${{ hashFiles('package.json', 'package-lock.json') }}
           restore-keys: |
             npm-cache-
+
       - name: Run tests
         run: npm run test
+
+  build:
+    needs: tests
+    runs-on: ubuntu-latest
+    container:
+      image: node:18-slim
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules/
+            .npm/
+          key: npm-cache-${{ hashFiles('package.json', 'package-lock.json') }}
+          restore-keys: |
+            npm-cache-
+
+      - name: Build application
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/${{ env.PROD_BRANCH }}" || "${{ github.ref }}" == "refs/heads/${{ env.DEV_BRANCH }}" ]]; then
+            npm run build
+          fi
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: build/
+          retention-days: 1
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    container:
+      image: node:18-slim
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: build/
+
+      - name: Setup SSH
+        run: |
+          apt-get update
+          apt-get install -y openssh-client rsync
+          eval $(ssh-agent -s)
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          ssh-keyscan "${{ env.DEPLOY_HOSTNAME }}" >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Deploy to production
+        if: github.ref == 'refs/heads/${{ env.PROD_BRANCH }}'
+        run: |
+          RELEASE_BASE='/var/www/${{ env.APP_NAME }}'
+          RELEASE_PATH='/var/www/${{ env.APP_NAME }}/releases/${{ github.sha }}'
+          rsync -rav --delete build/ deploy@${{ env.DEPLOY_HOSTNAME }}:${RELEASE_PATH}
+          ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${RELEASE_PATH} ${RELEASE_BASE}/current"
+
+      - name: Deploy to development
+        if: github.ref == 'refs/heads/${{ env.DEV_BRANCH }}'
+        run: |
+          RELEASE_BASE='/var/www/dev-${{ env.APP_NAME }}'
+          RELEASE_PATH='/var/www/dev-${{ env.APP_NAME }}/releases/${{ github.sha }}'
+          rsync -rav --delete build/ deploy@${{ env.DEPLOY_HOSTNAME }}:${RELEASE_PATH}
+          ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${RELEASE_PATH} ${RELEASE_BASE}/current"
+
+  cleanup_releases:
+    needs: deploy
+    runs-on: ubuntu-latest
+    container:
+      image: node:18-slim
+
+    steps:
+      - name: Setup SSH
+        run: |
+          apt-get update
+          apt-get install -y openssh-client rsync
+          eval $(ssh-agent -s)
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          ssh-keyscan "${{ env.DEPLOY_HOSTNAME }}" >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Cleanup releases
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/${{ env.PROD_BRANCH }}" ]]; then
+            RELEASE_BASE="/var/www/${{ env.APP_NAME }}"
+          elif [[ "${{ github.ref }}" == "refs/heads/${{ env.DEV_BRANCH }}" ]]; then
+            RELEASE_BASE="/var/www/dev-${{ env.APP_NAME }}"
+          fi
+          ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ls -t ${RELEASE_BASE}/releases | tail -n +6 | xargs -I {} rm -rf ${RELEASE_BASE}/releases/{}"
+
+  reverse_deploy_prod:
+    runs-on: ubuntu-latest
+    container:
+      image: node:18-slim
+
+    steps:
+      - name: Setup SSH
+        run: |
+          apt-get update
+          apt-get install -y openssh-client rsync
+          eval $(ssh-agent -s)
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          ssh-keyscan "${{ env.DEPLOY_HOSTNAME }}" >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Reverse the most recent production deployment
+        if: github.ref == 'refs/heads/${{ env.PROD_BRANCH }}'
+        run: |
+          RELEASE_BASE="/var/www/${{ env.APP_NAME }}"
+          SECOND_LAST_RELEASE=$(ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ls -t ${RELEASE_BASE}/releases | sed -n '2p'")
+          ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${RELEASE_BASE}/releases/${SECOND_LAST_RELEASE} ${RELEASE_BASE}/current"
+
+  reverse_deploy_dev:
+    runs-on: ubuntu-latest
+    container:
+      image: node:18-slim
+
+    steps:
+      - name: Setup SSH
+        run: |
+          apt-get update
+          apt-get install -y openssh-client rsync
+          eval $(ssh-agent -s)
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          ssh-keyscan "${{ env.DEPLOY_HOSTNAME }}" >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Reverse the most recent development deployment
+        if: github.ref == 'refs/heads/${{ env.DEV_BRANCH }}'
+        run: |
+          RELEASE_BASE="/var/www/dev-${{ env.APP_NAME }}"
+          SECOND_LAST_RELEASE=$(ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ls -t ${RELEASE_BASE}/releases | sed -n '2p'")
+          ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${RELEASE_BASE}/releases/${SECOND_LAST_RELEASE} ${RELEASE_BASE}/current"
