@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
 env:
-  APP_NAME: 'partplace'
-  DEPLOY_HOSTNAME: 'partplace.com.au'
+  APP_NAME: 'nathanlevy'
+  DEPLOY_HOSTNAME: '52.62.243.101'
   PROD_BRANCH: 'main'
   DEV_BRANCH: 'dev'
 
