@@ -17,8 +17,6 @@ on:
 env:
   APP_NAME: 'NatelevAU'
   DEPLOY_HOSTNAME: 'nathanlevy.com'
-  RELEASE_BASE: '/var/www/dev-${{ env.APP_NAME }}'
-  RELEASE_PATH: '/var/www/dev-${{ env.APP_NAME }}/releases/${{ github.sha }}'
   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
 # Jobs for install_dependencies, lint, tests, build are the same as in the main branch workflow
@@ -31,6 +29,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # ... (SSH setup, Download build artifacts)
+      - name: Set up environment variables
+        run: |
+          echo "RELEASE_BASE=/var/www/dev-${{ env.APP_NAME }}" >> $GITHUB_ENV
+          echo "RELEASE_PATH=/var/www/dev-${{ env.APP_NAME }}/releases/${{ github.sha }}" >> $GITHUB_ENV
       - name: Deploy to development
         run: |
           rsync -rav --delete build/ deploy@${{ env.DEPLOY_HOSTNAME }}:${{ env.RELEASE_PATH }}
