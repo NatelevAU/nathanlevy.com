@@ -51,8 +51,8 @@ jobs:
       - name: Install dependencies
         run: |
           if [ ! -d "node_modules/" ]; then
-            apt-get update
-            apt-get install -y apt-transport-https libx11-xcb1 libxtst6 libnss3 libasound2 libatk-bridge2.0-0 libgtk-3.0
+            sudo apt-get update
+            sudo apt-get install -y apt-transport-https libx11-xcb1 libxtst6 libnss3 libasound2 libatk-bridge2.0-0 libgtk-3.0
             npm ci
           else
             echo "Cache exists, skipping install_dependencies job";
