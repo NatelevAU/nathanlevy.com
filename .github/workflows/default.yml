@@ -27,7 +27,7 @@ jobs:
     defaults:
       run:
         shell: bash
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -63,7 +63,7 @@ jobs:
       run:
         shell: bash
     needs: install_dependencies
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -92,7 +92,7 @@ jobs:
       run:
         shell: bash
     needs: lint
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -121,7 +121,7 @@ jobs:
       run:
         shell: bash
     needs: tests
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -161,7 +161,7 @@ jobs:
       run:
         shell: bash
     needs: build
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -190,7 +190,7 @@ jobs:
           chmod 644 ~/.ssh/known_hosts
 
       - name: Deploy to production
-        if: github.ref == 'refs/heads/${{ env.PROD_BRANCH }}'
+        if: github.ref == "refs/heads/${{ env.PROD_BRANCH }}"
         run: |
           RELEASE_BASE='/var/www/${{ env.APP_NAME }}'
           RELEASE_PATH='/var/www/${{ env.APP_NAME }}/releases/${{ github.sha }}'
@@ -199,7 +199,7 @@ jobs:
           ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${RELEASE_PATH} ${RELEASE_BASE}/current"
 
       - name: Deploy to development
-        if: github.ref == 'refs/heads/${{ env.DEV_BRANCH }}'
+        if: github.ref == "refs/heads/${{ env.DEV_BRANCH }}"
         run: |
           RELEASE_BASE='/var/www/dev-${{ env.APP_NAME }}'
           RELEASE_PATH='/var/www/dev-${{ env.APP_NAME }}/releases/${{ github.sha }}'
@@ -211,7 +211,7 @@ jobs:
       run:
         shell: bash
     needs: deploy
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Setup SSH
