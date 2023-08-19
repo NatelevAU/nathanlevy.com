@@ -24,6 +24,9 @@ env:
 
 jobs:
   install_dependencies:
+    defaults:
+      run:
+        shell: bash
     runs-on: ubuntu-latest
     container:
       image: node:18-slim
@@ -58,6 +61,9 @@ jobs:
           npm ci
 
   lint:
+    defaults:
+      run:
+        shell: bash
     needs: install_dependencies
     runs-on: ubuntu-latest
     container:
@@ -86,6 +92,9 @@ jobs:
         run: npm run lint-full
 
   tests:
+    defaults:
+      run:
+        shell: bash
     needs: lint
     runs-on: ubuntu-latest
     container:
@@ -114,6 +123,9 @@ jobs:
         run: npm run test
 
   build:
+    defaults:
+      run:
+        shell: bash
     needs: tests
     runs-on: ubuntu-latest
     container:
@@ -153,6 +165,9 @@ jobs:
           retention-days: 1
 
   deploy:
+    defaults:
+      run:
+        shell: bash
     needs: build
     runs-on: ubuntu-latest
     container:
@@ -189,7 +204,8 @@ jobs:
         run: |
           RELEASE_BASE='/var/www/${{ env.APP_NAME }}'
           RELEASE_PATH='/var/www/${{ env.APP_NAME }}/releases/${{ github.sha }}'
-          rsync -rav --delete build/ deploy@${{ env.DEPLOY_HOSTNAME }}:${RELEASE_PATH}
+          echo "release_base: ${RELEASE_BASE}, release_path: ${RELEASE_PATH}"
+          rsync -rav -e "ssh -v" --delete build/ deploy@${{ env.DEPLOY_HOSTNAME }}:${RELEASE_PATH}
           ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${RELEASE_PATH} ${RELEASE_BASE}/current"
 
       - name: Deploy to development
@@ -201,6 +217,9 @@ jobs:
           ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${RELEASE_PATH} ${RELEASE_BASE}/current"
 
   cleanup_releases:
+    defaults:
+      run:
+        shell: bash
     needs: deploy
     runs-on: ubuntu-latest
     container:

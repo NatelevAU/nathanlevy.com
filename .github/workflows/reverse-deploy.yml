@@ -11,6 +11,9 @@ env:
 
 jobs:
   reverse_deploy_prod:
+    defaults:
+      run:
+        shell: bash
     runs-on: ubuntu-latest
     container:
       image: node:18-slim
@@ -34,6 +37,9 @@ jobs:
           ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${RELEASE_BASE}/releases/${SECOND_LAST_RELEASE} ${RELEASE_BASE}/current"
 
   reverse_deploy_dev:
+    defaults:
+      run:
+        shell: bash
     runs-on: ubuntu-latest
     container:
       image: node:18-slim
