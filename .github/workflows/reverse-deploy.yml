@@ -19,8 +19,8 @@ jobs:
     steps:
       - name: Setup SSH
         run: |
-          apt-get update
-          apt-get install -y openssh-client rsync
+          sudo apt-get update
+          sudo apt-get install -y openssh-client rsync
           eval $(ssh-agent -s)
           echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
           mkdir -p ~/.ssh
@@ -43,8 +43,8 @@ jobs:
     steps:
       - name: Setup SSH
         run: |
-          apt-get update
-          apt-get install -y openssh-client rsync
+          sudo apt-get update
+          sudo apt-get install -y openssh-client rsync
           eval $(ssh-agent -s)
           echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
           mkdir -p ~/.ssh
