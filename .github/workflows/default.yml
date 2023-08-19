@@ -186,8 +186,9 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-          ssh-keyscan "${{ env.DEPLOY_HOSTNAME }}" >> ~/.ssh/known_hosts
-          chmod 644 ~/.ssh/known_hosts
+          ssh-keyscan "${{ env.DEPLOY_HOSTNAME }}" >> /ssh/known_hosts
+          chmod 644 /ssh/known_hosts
+          ln -s /ssh/known_hosts ~/.ssh/known_hosts
           cat ~/.ssh/known_hosts
 
       - name: Deploy to production
