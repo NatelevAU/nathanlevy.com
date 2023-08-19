@@ -178,6 +178,11 @@ jobs:
           name: build
           path: build/
 
+      - name: Create SSH directory
+        run: |
+          mkdir -p /ssh
+          chmod 700 /ssh
+
       - name: Setup SSH
         run: |
           sudo apt-get update
