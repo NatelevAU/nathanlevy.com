@@ -178,8 +178,7 @@ jobs:
           name: build
           path: build/
 
-      - name: Setup SSH and deploy to production
-        if: github.ref == "refs/heads/${{ env.PROD_BRANCH }}"
+      - name: Setup SSH
         run: |
           sudo apt-get update
           sudo apt-get install -y openssh-client rsync
@@ -189,24 +188,20 @@ jobs:
           ssh-keyscan "${{ env.DEPLOY_HOSTNAME }}" >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
           cat ~/.ssh/known_hosts
+
+      - name: Deploy to production
+        if: github.ref == "refs/heads/${{ env.PROD_BRANCH }}"
+        run: |
           RELEASE_BASE='/var/www/${{ env.APP_NAME }}'
           RELEASE_PATH='/var/www/${{ env.APP_NAME }}/releases/${{ github.sha }}'
-          rsync -rav -e "ssh -v" --delete build/ deploy@${{ env.DEPLOY_HOSTNAME }}:${RELEASE_PATH}
           cat ~/.ssh/known_hosts
           echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
+          rsync -rav -e "ssh -v" --delete build/ deploy@${{ env.DEPLOY_HOSTNAME }}:${RELEASE_PATH}
           ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${RELEASE_PATH} ${RELEASE_BASE}/current"
 
       - name: Deploy to development
         if: github.ref == "refs/heads/${{ env.DEV_BRANCH }}"
         run: |
-          sudo apt-get update
-          sudo apt-get install -y openssh-client rsync
-          eval $(ssh-agent -s)
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-          ssh-keyscan "${{ env.DEPLOY_HOSTNAME }}" >> ~/.ssh/known_hosts
-          chmod 644 ~/.ssh/known_hosts
-          cat ~/.ssh/known_hosts
           RELEASE_BASE='/var/www/dev-${{ env.APP_NAME }}'
           RELEASE_PATH='/var/www/dev-${{ env.APP_NAME }}/releases/${{ github.sha }}'
           cat ~/.ssh/known_hosts
