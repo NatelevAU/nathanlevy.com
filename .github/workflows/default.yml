@@ -196,6 +196,7 @@ jobs:
           RELEASE_BASE='/var/www/${{ env.APP_NAME }}'
           RELEASE_PATH='/var/www/${{ env.APP_NAME }}/releases/${{ github.sha }}'
           cat ~/.ssh/known_hosts
+          cd ~/.ssh
           rsync -rav -e "ssh -v" --delete build/ deploy@${{ env.DEPLOY_HOSTNAME }}:${RELEASE_PATH}
           ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${RELEASE_PATH} ${RELEASE_BASE}/current"
 
