@@ -186,8 +186,6 @@ jobs:
           chmod 700 ~/.ssh
           ssh-keyscan "${{ env.DEPLOY_HOSTNAME }}" >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
-          eval $(ssh-agent -s)
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
 
       - name: Deploy to production
         if: github.ref == format('refs/heads/{0}', env.PROD_BRANCH)
@@ -195,6 +193,7 @@ jobs:
           RELEASE_BASE='/var/www/${{ env.APP_NAME }}'
           RELEASE_PATH='/var/www/${{ env.APP_NAME }}/releases/${{ github.sha }}'
           eval $(ssh-agent -s)
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
           rsync -rav -e "ssh -v" --delete build/ deploy@${{ env.DEPLOY_HOSTNAME }}:${RELEASE_PATH}
           ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${RELEASE_PATH} ${RELEASE_BASE}/current"
 
@@ -204,6 +203,7 @@ jobs:
           RELEASE_BASE='/var/www/dev-${{ env.APP_NAME }}'
           RELEASE_PATH='/var/www/dev-${{ env.APP_NAME }}/releases/${{ github.sha }}'
           eval $(ssh-agent -s)
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
           rsync -rav --delete build/ deploy@${{ env.DEPLOY_HOSTNAME }}:${RELEASE_PATH}
           ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${RELEASE_PATH} ${RELEASE_BASE}/current"
 
@@ -219,8 +219,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y openssh-client rsync
-          eval $(ssh-agent -s)
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
           ssh-keyscan "${{ env.DEPLOY_HOSTNAME }}" >> ~/.ssh/known_hosts
@@ -233,5 +231,7 @@ jobs:
           elif [[ "${{ github.ref }}" == "refs/heads/${{ env.DEV_BRANCH }}" ]]; then
             RELEASE_BASE="/var/www/dev-${{ env.APP_NAME }}"
           fi
+          eval $(ssh-agent -s)
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
           ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ls -t ${RELEASE_BASE}/releases | tail -n +6 | xargs -I {} rm -rf ${RELEASE_BASE}/releases/{}"
         shell: bash
