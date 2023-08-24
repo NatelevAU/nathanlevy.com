@@ -1,23 +1,237 @@
-name: Build
+name: CI/CD Pipeline
 
 on:
   push:
-    branches-ignore: [main]
+    branches:
+      - main
+      - dev
+    paths:
+      - 'src/**/*'
+      - 'public/**/*'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.eslintignore'
+      - '.eslintrc.js'
+      - '.github/workflows/*.yml'
+      - '.prettierignore'
+      - '.prettierrc'
+
+env:
+  APP_NAME: 'nathanlevy'
+  DEPLOY_HOSTNAME: '52.62.243.101'
+  PROD_BRANCH: 'main'
+  DEV_BRANCH: 'dev'
 
 jobs:
-  build:
+  install_dependencies:
+    defaults:
+      run:
+        shell: bash
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18.x]
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js 18
+        uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: npm install
-      - run: npm run lint-full
-      - run: npm run build
+          node-version: '18'
+
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules/
+            ~/.npm/
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - name: Install dependencies
+        run: |
+          if [ ! -d "node_modules/" ]; then
+            sudo apt-get update
+            sudo apt-get install -y apt-transport-https libx11-xcb1 libxtst6 libnss3 libasound2 libatk-bridge2.0-0 libgtk-3.0
+            npm ci
+          else
+            echo "Cache exists, skipping install_dependencies job";
+          fi
+
+  lint:
+    defaults:
+      run:
+        shell: bash
+    needs: install_dependencies
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules/
+            ~/.npm/
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - name: Lint codebase
+        run: npm run lint-full
+
+  tests:
+    defaults:
+      run:
+        shell: bash
+    needs: lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules/
+            ~/.npm/
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - name: Run tests
+        run: npm run test
+
+  build:
+    defaults:
+      run:
+        shell: bash
+    needs: tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules/
+            ~/.npm/
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - name: Build application
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/${{ env.PROD_BRANCH }}" || "${{ github.ref }}" == "refs/heads/${{ env.DEV_BRANCH }}" ]]; then
+            npm run build
+          fi
+        shell: bash
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: build/
+          retention-days: 1
+
+  deploy:
+    defaults:
+      run:
+        shell: bash
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: build/
+
+      - name: Setup SSH
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openssh-client rsync
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          ssh-keyscan "${{ env.DEPLOY_HOSTNAME }}" >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Deploy to production
+        if: github.ref == format('refs/heads/{0}', env.PROD_BRANCH)
+        run: |
+          RELEASE_BASE='/var/www/${{ env.APP_NAME }}'
+          RELEASE_PATH='/var/www/${{ env.APP_NAME }}/releases/${{ github.sha }}'
+          eval $(ssh-agent -s)
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
+          rsync -rav -e "ssh -v" --delete build/ deploy@${{ env.DEPLOY_HOSTNAME }}:${RELEASE_PATH}
+          ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${RELEASE_PATH} ${RELEASE_BASE}/current"
+
+      - name: Deploy to development
+        if: github.ref == format('refs/heads/{0}', env.DEV_BRANCH)
+        run: |
+          RELEASE_BASE='/var/www/dev-${{ env.APP_NAME }}'
+          RELEASE_PATH='/var/www/dev-${{ env.APP_NAME }}/releases/${{ github.sha }}'
+          eval $(ssh-agent -s)
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
+          rsync -rav --delete build/ deploy@${{ env.DEPLOY_HOSTNAME }}:${RELEASE_PATH}
+          ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${RELEASE_PATH} ${RELEASE_BASE}/current"
+
+  cleanup_releases:
+    defaults:
+      run:
+        shell: bash
+    needs: deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup SSH
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openssh-client rsync
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          ssh-keyscan "${{ env.DEPLOY_HOSTNAME }}" >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Cleanup releases
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/${{ env.PROD_BRANCH }}" ]]; then
+            RELEASE_BASE="/var/www/${{ env.APP_NAME }}"
+          elif [[ "${{ github.ref }}" == "refs/heads/${{ env.DEV_BRANCH }}" ]]; then
+            RELEASE_BASE="/var/www/dev-${{ env.APP_NAME }}"
+          fi
+          eval $(ssh-agent -s)
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
+          ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ls -t ${RELEASE_BASE}/releases | tail -n +6 | xargs -I {} rm -rf ${RELEASE_BASE}/releases/{}"
+        shell: bash
