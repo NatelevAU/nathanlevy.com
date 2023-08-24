@@ -79,10 +79,10 @@ jobs:
         with:
           path: |
             node_modules/
-            .npm/
-          key: npm-cache-${{ hashFiles('package.json', 'package-lock.json') }}
+            ~/.npm/
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            npm-cache-
+            ${{ runner.os }}-npm-
 
       - name: Lint codebase
         run: npm run lint-full
@@ -108,10 +108,10 @@ jobs:
         with:
           path: |
             node_modules/
-            .npm/
-          key: npm-cache-${{ hashFiles('package.json', 'package-lock.json') }}
+            ~/.npm/
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            npm-cache-
+            ${{ runner.os }}-npm-
 
       - name: Run tests
         run: npm run test
@@ -137,10 +137,10 @@ jobs:
         with:
           path: |
             node_modules/
-            .npm/
-          key: npm-cache-${{ hashFiles('package.json', 'package-lock.json') }}
+            ~/.npm/
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            npm-cache-
+            ${{ runner.os }}-npm-
 
       - name: Build application
         run: |
