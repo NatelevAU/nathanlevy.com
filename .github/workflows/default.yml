@@ -182,12 +182,12 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y openssh-client rsync
-          eval $(ssh-agent -s)
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
           ssh-keyscan "${{ env.DEPLOY_HOSTNAME }}" >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
+          eval $(ssh-agent -s)
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
 
       - name: Deploy to production
         if: github.ref == "refs/heads/${{ env.PROD_BRANCH }}"
@@ -231,6 +231,5 @@ jobs:
           elif [[ "${{ github.ref }}" == "refs/heads/${{ env.DEV_BRANCH }}" ]]; then
             RELEASE_BASE="/var/www/dev-${{ env.APP_NAME }}"
           fi
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
           ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ls -t ${RELEASE_BASE}/releases | tail -n +6 | xargs -I {} rm -rf ${RELEASE_BASE}/releases/{}"
         shell: bash
