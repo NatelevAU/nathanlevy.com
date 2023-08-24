@@ -188,7 +188,6 @@ jobs:
           ssh-keyscan "${{ env.DEPLOY_HOSTNAME }}" >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
           cat ~/.ssh/known_hosts
-          eval $(ssh-agent -s)
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/natelevau.pem
           chmod 600 ~/.ssh/natelevau.pem
 
@@ -198,6 +197,7 @@ jobs:
           RELEASE_BASE='/var/www/${{ env.APP_NAME }}'
           RELEASE_PATH='/var/www/${{ env.APP_NAME }}/releases/${{ github.sha }}'
           cat ~/.ssh/known_hosts
+          eval $(ssh-agent -s)
           echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
           rsync -rav -e "ssh -v" --delete build/ deploy@${{ env.DEPLOY_HOSTNAME }}:${RELEASE_PATH}
           ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${RELEASE_PATH} ${RELEASE_BASE}/current"
@@ -208,6 +208,7 @@ jobs:
           RELEASE_BASE='/var/www/dev-${{ env.APP_NAME }}'
           RELEASE_PATH='/var/www/dev-${{ env.APP_NAME }}/releases/${{ github.sha }}'
           cat ~/.ssh/known_hosts
+          eval $(ssh-agent -s)
           echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
           rsync -rav --delete build/ deploy@${{ env.DEPLOY_HOSTNAME }}:${RELEASE_PATH}
           ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${RELEASE_PATH} ${RELEASE_BASE}/current"
