@@ -190,18 +190,20 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
 
       - name: Deploy to production
-        if: github.ref == "refs/heads/${{ env.PROD_BRANCH }}"
+        if: github.ref == format('refs/heads/{0}', env.PROD_BRANCH)
         run: |
           RELEASE_BASE='/var/www/${{ env.APP_NAME }}'
           RELEASE_PATH='/var/www/${{ env.APP_NAME }}/releases/${{ github.sha }}'
+          eval $(ssh-agent -s)
           rsync -rav -e "ssh -v" --delete build/ deploy@${{ env.DEPLOY_HOSTNAME }}:${RELEASE_PATH}
           ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${RELEASE_PATH} ${RELEASE_BASE}/current"
 
       - name: Deploy to development
-        if: github.ref == "refs/heads/${{ env.DEV_BRANCH }}"
+        if: github.ref == format('refs/heads/{0}', env.DEV_BRANCH)
         run: |
           RELEASE_BASE='/var/www/dev-${{ env.APP_NAME }}'
           RELEASE_PATH='/var/www/dev-${{ env.APP_NAME }}/releases/${{ github.sha }}'
+          eval $(ssh-agent -s)
           rsync -rav --delete build/ deploy@${{ env.DEPLOY_HOSTNAME }}:${RELEASE_PATH}
           ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${RELEASE_PATH} ${RELEASE_BASE}/current"
 
