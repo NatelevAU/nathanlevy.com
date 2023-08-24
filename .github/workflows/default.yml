@@ -188,6 +188,7 @@ jobs:
           ssh-keyscan "${{ env.DEPLOY_HOSTNAME }}" >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
           cat ~/.ssh/known_hosts
+          eval $(ssh-agent -s)
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/natelevau.pem
           chmod 600 ~/.ssh/natelevau.pem
 
