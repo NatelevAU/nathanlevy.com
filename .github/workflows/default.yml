@@ -182,28 +182,28 @@ jobs:
           sudo apt-get install -y openssh-client rsync
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-          ssh-keyscan "${{ env.DEPLOY_HOSTNAME }}" >> ~/.ssh/known_hosts
+          ssh-keyscan "$DEPLOY_HOSTNAME" >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
 
       - name: Deploy to production
         if: github.ref == format('refs/heads/{0}', env.PROD_BRANCH)
         run: |
-          RELEASE_BASE='/var/www/${{ env.APP_NAME }}'
-          RELEASE_PATH='/var/www/${{ env.APP_NAME }}/releases/${{ github.sha }}'
+          RELEASE_BASE='/var/www/$APP_NAME'
+          RELEASE_PATH='/var/www/$APP_NAME/releases/${{ github.sha }}'
           eval $(ssh-agent -s)
           echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
-          rsync -rav -e "ssh -v" --delete build/ deploy@${{ env.DEPLOY_HOSTNAME }}:${RELEASE_PATH}
-          ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${RELEASE_PATH} ${RELEASE_BASE}/current"
+          rsync -rav -e "ssh -v" --delete build/ deploy@$DEPLOY_HOSTNAME:${RELEASE_PATH}
+          ssh deploy@$DEPLOY_HOSTNAME "ln -nfs ${RELEASE_PATH} ${RELEASE_BASE}/current"
 
       - name: Deploy to development
         if: github.ref == format('refs/heads/{0}', env.DEV_BRANCH)
         run: |
-          RELEASE_BASE='/var/www/dev-${{ env.APP_NAME }}'
-          RELEASE_PATH='/var/www/dev-${{ env.APP_NAME }}/releases/${{ github.sha }}'
+          RELEASE_BASE='/var/www/dev-$APP_NAME'
+          RELEASE_PATH='/var/www/dev-$APP_NAME/releases/${{ github.sha }}'
           eval $(ssh-agent -s)
           echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
-          rsync -rav --delete build/ deploy@${{ env.DEPLOY_HOSTNAME }}:${RELEASE_PATH}
-          ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${RELEASE_PATH} ${RELEASE_BASE}/current"
+          rsync -rav --delete build/ deploy@$DEPLOY_HOSTNAME:${RELEASE_PATH}
+          ssh deploy@$DEPLOY_HOSTNAME "ln -nfs ${RELEASE_PATH} ${RELEASE_BASE}/current"
 
   cleanup_releases:
     defaults:
@@ -219,17 +219,17 @@ jobs:
           sudo apt-get install -y openssh-client rsync
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-          ssh-keyscan "${{ env.DEPLOY_HOSTNAME }}" >> ~/.ssh/known_hosts
+          ssh-keyscan "$DEPLOY_HOSTNAME" >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
 
       - name: Cleanup releases
         run: |
           if [[ "${{ github.ref }}" == "refs/heads/${{ env.PROD_BRANCH }}" ]]; then
-            RELEASE_BASE="/var/www/${{ env.APP_NAME }}"
+            RELEASE_BASE="/var/www/$APP_NAME"
           elif [[ "${{ github.ref }}" == "refs/heads/${{ env.DEV_BRANCH }}" ]]; then
-            RELEASE_BASE="/var/www/dev-${{ env.APP_NAME }}"
+            RELEASE_BASE="/var/www/dev-$APP_NAME"
           fi
           eval $(ssh-agent -s)
           echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
-          ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ls -t ${RELEASE_BASE}/releases | tail -n +6 | xargs -I {} rm -rf ${RELEASE_BASE}/releases/{}"
+          ssh deploy@$DEPLOY_HOSTNAME "ls -t ${RELEASE_BASE}/releases | tail -n +6 | xargs -I {} rm -rf ${RELEASE_BASE}/releases/{}"
         shell: bash

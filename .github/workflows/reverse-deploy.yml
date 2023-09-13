@@ -23,14 +23,14 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-          ssh-keyscan "${{ env.DEPLOY_HOSTNAME }}" >> ~/.ssh/known_hosts
+          ssh-keyscan "$DEPLOY_HOSTNAME" >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
 
       - name: Reverse the most recent production deployment
         run: |
-          RELEASE_BASE="/var/www/${{ env.APP_NAME }}"
-          SECOND_LAST_RELEASE=$(ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ls -t ${RELEASE_BASE}/releases | sed -n '2p'")
-          ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${RELEASE_BASE}/releases/${SECOND_LAST_RELEASE} ${RELEASE_BASE}/current"
+          RELEASE_BASE="/var/www/$APP_NAME"
+          SECOND_LAST_RELEASE=$(ssh deploy@$DEPLOY_HOSTNAME "ls -t ${RELEASE_BASE}/releases | sed -n '2p'")
+          ssh deploy@$DEPLOY_HOSTNAME "ln -nfs ${RELEASE_BASE}/releases/${SECOND_LAST_RELEASE} ${RELEASE_BASE}/current"
 
   reverse_deploy_dev:
     defaults:
@@ -47,11 +47,11 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-          ssh-keyscan "${{ env.DEPLOY_HOSTNAME }}" >> ~/.ssh/known_hosts
+          ssh-keyscan "$DEPLOY_HOSTNAME" >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
 
       - name: Reverse the most recent development deployment
         run: |
-          RELEASE_BASE="/var/www/dev-${{ env.APP_NAME }}"
-          SECOND_LAST_RELEASE=$(ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ls -t ${RELEASE_BASE}/releases | sed -n '2p'")
-          ssh deploy@${{ env.DEPLOY_HOSTNAME }} "ln -nfs ${RELEASE_BASE}/releases/${SECOND_LAST_RELEASE} ${RELEASE_BASE}/current"
+          RELEASE_BASE="/var/www/dev-$APP_NAME"
+          SECOND_LAST_RELEASE=$(ssh deploy@$DEPLOY_HOSTNAME "ls -t ${RELEASE_BASE}/releases | sed -n '2p'")
+          ssh deploy@$DEPLOY_HOSTNAME "ln -nfs ${RELEASE_BASE}/releases/${SECOND_LAST_RELEASE} ${RELEASE_BASE}/current"
