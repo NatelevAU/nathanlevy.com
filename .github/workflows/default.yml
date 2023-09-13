@@ -17,8 +17,6 @@ on:
       - '.prettierrc'
 
 env:
-  APP_NAME: 'nathanlevy'
-  DEPLOY_HOSTNAME: '52.62.243.101'
   PROD_BRANCH: 'main'
   DEV_BRANCH: 'dev'
 
