@@ -5,15 +5,6 @@ import { Box, IconButton } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import ReactGA from 'react-ga';
 
-import background from '../assets/backgrounds/Home.jpg';
-
-const sectionStyle = {
-  backgroundImage: `url(${background})`,
-  backgroundPosition: 'center',
-  backgroundSize: 'cover',
-  backgroundRepeat: 'no-repeat',
-};
-
 const Home: React.FC<{}> = () => {
   const [subtitleIndex, setSubtitleIndex] = useState(0);
   const subtitles = ['Software Engineer', 'Web Developer', 'Dog Lover'];
@@ -33,19 +24,7 @@ const Home: React.FC<{}> = () => {
   ReactGA.pageview(window.location.pathname);
 
   return (
-    <Box
-      sx={{
-        textAlign: 'center',
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: 'calc(10px + 2vmin)',
-        color: 'white',
-        ...sectionStyle,
-      }}
-    >
+    <Box>
       <h1> Nathan Levy </h1>
       <h2> {subtitles[subtitleIndex]} </h2>
       <Box
