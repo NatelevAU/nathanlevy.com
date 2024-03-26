@@ -9,7 +9,7 @@ import { PageConfig } from '../config/PagesConfigTypes';
 import GlobalThemeStyles from '../themes/GlobalThemeStyles';
 import lightTheme from '../themes/LightTheme';
 
-import background from '../assets/backgrounds/Gradient.svg';
+import background from '/gradient.svg';
 
 type LayoutProps = {
   children: ReactNode;
