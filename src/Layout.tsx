@@ -31,7 +31,6 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalThemeStyles theme={theme} />
-      <Header pages={headerPages} />
       <Box
         sx={{
           textAlign: 'center',
@@ -45,6 +44,7 @@ const Layout = ({ children }: LayoutProps) => {
           ...sectionStyle,
         }}
       >
+        <Header pages={headerPages} />
         {children}
       </Box>
       <SourceCodeButton href={'https://github.com/NatelevAU/natelev'} />

@@ -1,7 +1,7 @@
-import { Box, Container, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import React from 'react';
 
-import headshot from '../assets/logos/Nathan.jpg';
+import headshot from '../assets/logos/headshot_short.png';
 
 const About: React.FC<{}> = () => {
   return (
@@ -9,53 +9,59 @@ const About: React.FC<{}> = () => {
       id="about"
       sx={{
         display: 'flex',
-        minHeight: 'calc(100vh - 8rem)',
+        flexDirection: 'column',
+        minHeight: 'calc(100vh)',
         alignItems: 'center',
-        justifyContent: 'center',
-        m: '4rem',
+        justifyContent: 'flex-start',
+        ml: '4rem',
       }}
     >
-      <Container>
-        <Grid container spacing={4} alignItems="center" justifyContent="center">
-          <Grid item xs={12} md={5}>
-            <Box
-              component="img"
-              sx={{
-                maxHeight: { xs: 256, md: 384 },
-                maxWidth: { xs: 256, md: 384 },
-                display: 'block',
-                mx: 'auto',
-              }}
-              alt="Nathan Levy"
-              src={headshot}
-            />
-          </Grid>
+      <Grid container spacing={4} style={{ flexGrow: 1 }}>
+        <Grid
+          item
+          xs={12}
+          md={8}
+          style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
+        >
+          <Typography variant="h2" align="center">
+            About Me
+          </Typography>
 
-          <Grid item xs={12} md={7}>
-            <Typography variant="h2" align="center">
-              About Me
+          <Box mt={2}>
+            <Typography variant="h5" align="left">
+              I'm Nathan Levy, a Software Engineer based in Melbourne, Australia.
             </Typography>
-
-            <Box mt={2}>
-              <Typography variant="h5" align="left">
-                I'm Nathan Levy, a Software Engineer based in Melbourne, Australia.
-              </Typography>
-              <Typography variant="h6" align="left">
-                I've been coding since I was 13, when I created a simple game and my own Minecraft
-                plugin.
-              </Typography>
-              <Typography variant="h6" align="left">
-                I'm passionate about solving complex problems and creating innovative solutions
-                using technology.
-              </Typography>
-              <Typography variant="h6" align="left">
-                My recent experience includes full-stack web development as well as game
-                development.
-              </Typography>
-            </Box>
-          </Grid>
+            <Typography variant="h6" align="left">
+              I've been coding since I was 13, when I created my own Minecraft plugin.
+            </Typography>
+            <Typography variant="h6" align="left">
+              Since then, I've launched websites, created games, developed APIs, and more!
+            </Typography>
+            <Typography variant="h6" align="left">
+              Recently, I've been focusing on full-stack web development.
+            </Typography>
+          </Box>
         </Grid>
-      </Container>
+
+        <Grid
+          item
+          xs={12}
+          md={4}
+          style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}
+        >
+          <Box
+            component="img"
+            sx={{
+              maxHeight: { xs: 256, md: 384 },
+              maxWidth: { xs: 256, md: 384 },
+              alignSelf: 'flex-end',
+              display: 'block',
+            }}
+            alt="Nathan Levy"
+            src={headshot}
+          />
+        </Grid>
+      </Grid>
     </Box>
   );
 };
