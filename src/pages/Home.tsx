@@ -24,7 +24,7 @@ const Home: React.FC<{}> = () => {
   ReactGA.pageview(window.location.pathname);
 
   return (
-    <Box>
+    <Box sx={{ paddingBottom: 15 }}>
       <h1> Nathan Levy </h1>
       <h2> {subtitles[subtitleIndex]} </h2>
       <Box

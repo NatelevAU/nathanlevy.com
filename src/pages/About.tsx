@@ -7,12 +7,10 @@ const About: React.FC<{}> = () => {
   return (
     <Box
       id="about"
+      flex={1}
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        minHeight: 'calc(100vh)',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
         ml: '4rem',
       }}
     >
