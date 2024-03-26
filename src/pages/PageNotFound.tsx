@@ -12,18 +12,7 @@ const PageNotFound: React.FC<{}> = () => {
   ReactGA.pageview(window.location.pathname);
 
   return (
-    <Box
-      sx={{
-        textAlign: 'center',
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: 'calc(10px + 2vmin)',
-        color: 'rgb(0, 0, 0)',
-      }}
-    >
+    <div>
       <Helmet>
         <meta name="robots" content="noindex" />
       </Helmet>
@@ -34,13 +23,14 @@ const PageNotFound: React.FC<{}> = () => {
         sx={{
           height: '40vmin',
           pointerEvents: 'none',
+          color: 'white',
         }}
       />
       <h1>404 - Page not found</h1>
       <Button size="large" variant="contained" color="primary" component={HomeLink}>
         Home
       </Button>
-    </Box>
+    </div>
   );
 };
 
