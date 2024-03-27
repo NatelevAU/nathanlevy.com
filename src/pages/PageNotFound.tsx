@@ -1,4 +1,4 @@
-import { Box, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import React from 'react';
 import ReactGA from 'react-ga';
 import Helmet from 'react-helmet';
@@ -12,12 +12,8 @@ const PageNotFound: React.FC = () => {
   const HomeLink: React.FC = props => <Link to="/" {...props} />;
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
+    <div
+      style={{
         color: 'black',
       }}
     >
@@ -25,15 +21,10 @@ const PageNotFound: React.FC = () => {
         <title>Page Not Found</title>
         <meta name="robots" content="noindex" />
       </Helmet>
-      <Box
-        component="img"
-        src={background}
-        alt="Page Not Found Background"
-        sx={{ height: '40vmin', pointerEvents: 'none' }}
-      />
+      <img src={background} alt="Page Not Found Background" style={{ height: '40vmin' }} />
       <h1>Page Not Found</h1>
       <Button component={HomeLink}>Home</Button>
-    </Box>
+    </div>
   );
 };
 
