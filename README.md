@@ -7,7 +7,8 @@
 # Nathan Levy
 
 [![Website](https://img.shields.io/website?url=https://nathanlevy.com)](https://nathanlevy.com)
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/NatelevAU/natelev/main.yml?branch=main)](https://github.com/NatelevAU/natelev/actions)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/NatelevAU/nathanlevy.com/default.yml?branch=main)](https://github.com/NatelevAU/nathanlevy.com/actions)
+
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?label=style)](https://github.com/prettier/prettier)
 [![GitHub](https://img.shields.io/github/license/NatelevAU/natelev)](https://choosealicense.com/licenses/isc/)
 
