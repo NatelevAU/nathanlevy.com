@@ -28,22 +28,19 @@ const backgroundStyle = {
 const LandingLayout = ({ children }: LayoutProps) => {
   const location = useLocation();
   const currentPageConfig = pagesConfig.find((page: PageConfig) => page.path === location.pathname);
-  const [headerHeight, setHeaderHeight] = useState(0);
+  const [viewportHeight, setViewportHeight] = useState(window.innerHeight);
 
   useEffect(() => {
-    const updateHeaderHeight = () => {
-      const headerElement = document.querySelector('header');
-      if (headerElement) {
-        setHeaderHeight(headerElement.clientHeight);
-      }
+    const handleResize = () => {
+      // Set the viewport height to window's innerHeight to account for mobile browser address bar
+      setViewportHeight(window.innerHeight);
     };
 
-    // Update the header height initially and whenever the window resizes
-    updateHeaderHeight();
-    window.addEventListener('resize', updateHeaderHeight);
+    // Listen for resize events
+    window.addEventListener('resize', handleResize);
 
     // Cleanup the event listener on component unmount
-    return () => window.removeEventListener('resize', updateHeaderHeight);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   let childrenStyle: React.CSSProperties = {
@@ -70,6 +67,7 @@ const LandingLayout = ({ children }: LayoutProps) => {
           flexDirection: 'column',
           fontSize: 'calc(10px + 2vmin)',
           color: 'white',
+          minHeight: `${viewportHeight}px`,
           ...backgroundStyle,
         }}
       >
@@ -78,7 +76,6 @@ const LandingLayout = ({ children }: LayoutProps) => {
           style={{
             display: 'flex',
             flex: '1 0 auto',
-            minHeight: `calc(100vh - ${headerHeight}px)`,
           }}
         >
           <Container style={childrenStyle}>{children}</Container>
