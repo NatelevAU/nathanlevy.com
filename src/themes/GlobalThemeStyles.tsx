@@ -1,5 +1,5 @@
+import { GlobalStyles } from '@mui/material';
 import { Theme } from '@mui/material/styles';
-import { GlobalStyles } from '@mui/system';
 
 interface GlobalThemeStylesProps {
   theme: Theme;
