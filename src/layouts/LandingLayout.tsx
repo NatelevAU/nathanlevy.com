@@ -1,5 +1,5 @@
 import { Box, Container, ThemeProvider } from '@mui/material';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import Header from '../components/Header/Header';
@@ -27,16 +27,26 @@ const backgroundStyle = {
 const LandingLayout = ({ children }: LayoutProps) => {
   const location = useLocation();
   const currentPageConfig = pagesConfig.find((page: PageConfig) => page.path === location.pathname);
+  const [headerHeight, setHeaderHeight] = useState(0);
 
-  const divStyle: React.CSSProperties = {
+  useEffect(() => {
+    const updateHeaderHeight = () => {
+      const headerElement = document.querySelector('header');
+      if (headerElement) {
+        setHeaderHeight(headerElement.clientHeight);
+      }
+    };
+
+    // Update the header height initially and whenever the window resizes
+    updateHeaderHeight();
+    window.addEventListener('resize', updateHeaderHeight);
+
+    // Cleanup the event listener on component unmount
+    return () => window.removeEventListener('resize', updateHeaderHeight);
+  }, []);
+
+  let childrenStyle: React.CSSProperties = {
     // backgroundColor: hasBackground ? undefined : 'white',
-    display: 'flex',
-    flex: '1 0 auto',
-    justifyContent: 'center',
-    textAlign: 'center',
-  };
-
-  let contentStyle: React.CSSProperties = {
     display: 'flex',
     flex: '1 0 auto',
     flexDirection: 'column',
@@ -45,7 +55,7 @@ const LandingLayout = ({ children }: LayoutProps) => {
 
   if (currentPageConfig && 'component' in currentPageConfig) {
     if (currentPageConfig.maxWidth) {
-      contentStyle = { ...contentStyle, padding: 0, minWidth: '100vw' };
+      childrenStyle = { ...childrenStyle, padding: 0, minWidth: '100vw' };
     }
   }
 
@@ -55,7 +65,6 @@ const LandingLayout = ({ children }: LayoutProps) => {
       <Box
         sx={{
           textAlign: 'center',
-          minHeight: '100vh',
           display: 'flex',
           flexDirection: 'column',
           fontSize: 'calc(10px + 2vmin)',
@@ -64,8 +73,14 @@ const LandingLayout = ({ children }: LayoutProps) => {
         }}
       >
         <Header middlePages={headerMiddlePages} />
-        <div style={divStyle}>
-          <Container style={contentStyle}>{children}</Container>
+        <div
+          style={{
+            display: 'flex',
+            flex: '1 0 auto',
+            minHeight: `calc(100vh - ${headerHeight}px)`,
+          }}
+        >
+          <Container style={childrenStyle}>{children}</Container>
         </div>
       </Box>
       <SourceCodeButton href={'https://github.com/NatelevAU/natelev'} />
