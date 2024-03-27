@@ -11,7 +11,7 @@ const About: React.FC<{}> = () => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        ml: '4rem',
+        ml: { xs: 'auto', md: '4rem' },
       }}
     >
       <Grid container spacing={4} style={{ flexGrow: 1 }}>
