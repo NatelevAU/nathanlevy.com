@@ -23,11 +23,23 @@ const lightTheme = createTheme({
     MuiButton: {
       defaultProps: {
         color: 'primary',
+        size: 'large',
+        variant: 'contained',
+      },
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          borderRadius: '24px',
+          paddingLeft: '15px',
+          paddingRight: '15px',
+          margin: '20px',
+        },
       },
     },
     MuiIconButton: {
       defaultProps: {
         color: 'primary',
+        size: 'large',
       },
     },
     MuiList: {
