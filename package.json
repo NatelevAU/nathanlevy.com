@@ -1,7 +1,7 @@
 {
   "private": true,
   "main": "src/index.tsx",
-  "homepage": "https://nathanlevy.com",
+  "homepage": "https://www.nathanlevy.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/NatelevAU/natelev.git"
@@ -25,13 +25,11 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.14",
     "@mui/material": "^5.15.14",
-    "@mui/system": "^5.15.14",
     "@natelev/header": "^1.0.3",
-    "@types/react": "^18.2.71",
+    "@types/react": "^18.2.72",
     "@types/react-dom": "^18.2.22",
     "@types/react-helmet": "^6.1.11",
     "@types/react-router-dom": "^5.3.3",
-    "babel-register": "^6.26.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-ga": "^3.3.1",
@@ -58,7 +56,6 @@
     "prettier": "^3.2.5",
     "vite": "^5.2.6",
     "vite-plugin-checker": "^0.6.4",
-    "vite-plugin-handlebars": "^2.0.0",
     "vite-plugin-svgr": "^4.2.0",
     "vite-tsconfig-paths": "^4.3.2"
   },
@@ -82,7 +79,7 @@
   "author": {
     "name": "Nathan Levy",
     "email": "nathan.levy.au@gmail.com",
-    "url": "https://nathanlevy.com"
+    "url": "https://www.nathanlevy.com"
   },
   "license": "ISC"
 }
