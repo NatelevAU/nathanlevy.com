@@ -1,7 +1,7 @@
 {
   "private": true,
   "main": "src/index.tsx",
-  "homepage": "https://nathanlevy.com",
+  "homepage": "https://www.nathanlevy.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/NatelevAU/natelev.git"
@@ -79,7 +79,7 @@
   "author": {
     "name": "Nathan Levy",
     "email": "nathan.levy.au@gmail.com",
-    "url": "https://nathanlevy.com"
+    "url": "https://www.nathanlevy.com"
   },
   "license": "ISC"
 }

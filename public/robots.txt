@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: https://nathanlevy.com/sitemap.xml
+Sitemap: https://www.nathanlevy.com/sitemap.xml
