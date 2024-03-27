@@ -5,6 +5,8 @@ import { Box, IconButton } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import ReactGA from 'react-ga';
 
+import { emailAddress, githubUrl, linkedinUrl } from '../config/Config';
+
 const Home: React.FC<{}> = () => {
   const [subtitleIndex, setSubtitleIndex] = useState(0);
   const subtitles = ['Software Engineer', 'Web Developer', 'Dog Lover'];
@@ -33,23 +35,13 @@ const Home: React.FC<{}> = () => {
           justifyContent: 'center',
         }}
       >
-        <IconButton
-          sx={{ margin: 1 }}
-          href="https://github.com/NatelevAU"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <IconButton sx={{ margin: 1 }} href={githubUrl} target="_blank" rel="noopener noreferrer">
           <GitHubIcon />
         </IconButton>
-        <IconButton
-          sx={{ margin: 1 }}
-          href="https://www.linkedin.com/in/nathan-levy-au"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <IconButton sx={{ margin: 1 }} href={linkedinUrl} target="_blank" rel="noopener noreferrer">
           <LinkedInIcon />
         </IconButton>
-        <IconButton sx={{ margin: 1 }} onClick={() => Mailto('nathan.levy.au@gmail.com')}>
+        <IconButton sx={{ margin: 1 }} onClick={() => Mailto(emailAddress)}>
           <EmailIcon />
         </IconButton>
       </Box>

@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 import Header from '../components/Header/Header';
 import SourceCodeButton from '../components/SourceCodeButton';
+import { repoUrl } from '../config/Config';
 import { headerMiddlePages, pagesConfig } from '../config/PagesConfig';
 import { PageConfig } from '../config/PagesConfigTypes';
 import GlobalThemeStyles from '../themes/GlobalThemeStyles';
@@ -83,7 +84,7 @@ const LandingLayout = ({ children }: LayoutProps) => {
           <Container style={childrenStyle}>{children}</Container>
         </div>
       </Box>
-      <SourceCodeButton href={'https://github.com/NatelevAU/natelev'} />
+      <SourceCodeButton href={repoUrl} />
     </ThemeProvider>
   );
 };
