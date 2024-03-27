@@ -10,6 +10,7 @@ import { PageConfig } from './PagesConfigTypes';
 const homePage: PageConfig = {
   component: Home,
   layout: LandingLayout,
+  background: '/gradient.svg',
   name: 'Home',
   path: '/',
   redirectPaths: ['/home'],
@@ -18,6 +19,7 @@ const homePage: PageConfig = {
 const aboutPage: PageConfig = {
   component: About,
   layout: LandingLayout,
+  background: '/gradient.svg',
   name: 'About',
   path: '/about',
   longName: 'About Me',

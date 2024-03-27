@@ -10,20 +10,11 @@ import { PageConfig } from '../config/PagesConfigTypes';
 import GlobalThemeStyles from '../themes/GlobalThemeStyles';
 import lightTheme from '../themes/LightTheme';
 
-import background from '/gradient.svg';
-
 type LayoutProps = {
   children: ReactNode;
 };
 
 const theme = lightTheme;
-
-const backgroundStyle = {
-  backgroundImage: `url(${background})`,
-  backgroundPosition: 'center',
-  backgroundSize: 'cover',
-  backgroundRepeat: 'no-repeat',
-};
 
 const LandingLayout = ({ children }: LayoutProps) => {
   const location = useLocation();
@@ -43,6 +34,9 @@ const LandingLayout = ({ children }: LayoutProps) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  let backgroundStyle: React.CSSProperties = {};
+  let hasBackground = false;
+
   let childrenStyle: React.CSSProperties = {
     // backgroundColor: hasBackground ? undefined : 'white',
     display: 'flex',
@@ -52,6 +46,16 @@ const LandingLayout = ({ children }: LayoutProps) => {
   };
 
   if (currentPageConfig && 'component' in currentPageConfig) {
+    hasBackground = currentPageConfig.background !== undefined;
+
+    backgroundStyle = {
+      backgroundImage: hasBackground ? `url(${currentPageConfig.background})` : undefined,
+      backgroundColor: hasBackground ? undefined : 'white',
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+    };
+
     if (currentPageConfig.maxWidth) {
       childrenStyle = { ...childrenStyle, padding: 0, minWidth: '100vw' };
     }
