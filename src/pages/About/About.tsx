@@ -1,7 +1,7 @@
 import { Box, Grid, Typography } from '@mui/material';
 import React from 'react';
 
-import headshot from '../assets/logos/headshot_short.png';
+import headshot from 'src/assets/logos/headshot_short.png';
 
 const About: React.FC<{}> = () => {
   return (

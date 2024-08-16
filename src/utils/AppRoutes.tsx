@@ -1,8 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-
-import { MetaTags } from '../components/MetaTags';
-import { pagesConfig } from '../config/PagesConfig';
+import { MetaTags } from 'src/components/MetaTags';
+import { pagesConfig } from 'src/config/PagesConfig';
 
 const AppRoutes = () => {
   return (

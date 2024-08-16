@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { resumeUrl } from '../config/Config';
+import { resumeUrl } from 'src/config/Config';
 
 const Resume: React.FC<{}> = () => {
   return (

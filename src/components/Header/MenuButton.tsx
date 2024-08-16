@@ -1,8 +1,7 @@
 import { Box, Button } from '@mui/material';
 import { useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-
-import { PageConfig } from '../../config/PagesConfigTypes';
+import { PageConfig } from 'src/config/PagesConfigTypes';
 
 interface MenuButtonProps {
   page: PageConfig;

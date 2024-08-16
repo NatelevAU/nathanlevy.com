@@ -3,11 +3,10 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import React, { useEffect, useState } from 'react';
 import ReactGA from 'react-ga';
+import CustomIconButton from 'src/components/CustomIconButton';
+import { emailAddress, githubUrl, linkedinUrl } from 'src/config/Config';
 
-import CustomIconButton from '../components/CustomIconButton';
-import { emailAddress, githubUrl, linkedinUrl } from '../config/Config';
-
-import workstationImage from '../assets/images/workstation.png';
+import workstationImage from 'src/assets/images/workstation.png';
 
 const Mailto = (email: string) => {
   window.location.href = `mailto:${email}`;

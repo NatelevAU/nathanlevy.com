@@ -1,7 +1,7 @@
 import Header from '@natelev/header';
 import * as React from 'react';
+import { PageConfig } from 'src/config/PagesConfigTypes';
 
-import { PageConfig } from '../../config/PagesConfigTypes';
 import MenuButton from './MenuButton';
 
 interface TopHeaderProps {

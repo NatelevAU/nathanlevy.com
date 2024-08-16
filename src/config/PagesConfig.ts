@@ -1,10 +1,11 @@
 // Landing pages
 
-import LandingLayout from '../layouts/LandingLayout';
-import About from '../pages/About';
-import Home from '../pages/Home';
-import PageNotFound from '../pages/PageNotFound';
-import Resume from '../pages/Resume';
+import LandingLayout from 'src/layouts/LandingLayout';
+import About from 'src/pages/About/About';
+import Home from 'src/pages/Home/Home';
+import PageNotFound from 'src/pages/PageNotFound/PageNotFound';
+import Resume from 'src/pages/Resume/Resume';
+
 import { PageConfig } from './PagesConfigTypes';
 
 const homePage: PageConfig = {

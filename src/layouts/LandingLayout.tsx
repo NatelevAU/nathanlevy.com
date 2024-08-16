@@ -1,14 +1,13 @@
 import { Box, Container, ThemeProvider } from '@mui/material';
 import { ReactNode, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-
-import Header from '../components/Header/Header';
-import SourceCodeButton from '../components/SourceCodeButton';
-import { repoUrl } from '../config/Config';
-import { headerMiddlePages, pagesConfig } from '../config/PagesConfig';
-import { PageConfig } from '../config/PagesConfigTypes';
-import GlobalThemeStyles from '../themes/GlobalThemeStyles';
-import lightTheme from '../themes/LightTheme';
+import Header from 'src/components/Header/Header';
+import SourceCodeButton from 'src/components/SourceCodeButton';
+import { repoUrl } from 'src/config/Config';
+import { headerMiddlePages, pagesConfig } from 'src/config/PagesConfig';
+import { PageConfig } from 'src/config/PagesConfigTypes';
+import GlobalThemeStyles from 'src/themes/GlobalThemeStyles';
+import lightTheme from 'src/themes/LightTheme';
 
 type LayoutProps = {
   children: ReactNode;
