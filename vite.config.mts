@@ -1,5 +1,4 @@
 import react from '@vitejs/plugin-react';
-import { resolve } from 'path';
 import { defineConfig, Plugin } from 'vite';
 import checker from 'vite-plugin-checker';
 import svgrPlugin from 'vite-plugin-svgr';
@@ -29,5 +28,10 @@ export default defineConfig({
   },
   build: {
     outDir: 'build',
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['./src/setupTests.ts'],
   },
 });

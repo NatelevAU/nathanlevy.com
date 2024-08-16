@@ -15,7 +15,11 @@
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
     "jsx": "react-jsx",
-    "types": ["vite/client", "vite-plugin-svgr/client"]
+    "types": ["vite/client", "vite-plugin-svgr/client"],
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["src/*"]
+    }
   },
-  "include": ["src", "sitemap-builder.tsx", "vite.config.mts"]
+  "include": ["src", "sitemap-builder.tsx", "vite.config.mts", "vitest.config.ts"]
 }
