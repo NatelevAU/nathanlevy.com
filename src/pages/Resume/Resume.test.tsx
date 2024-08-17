@@ -19,7 +19,7 @@ describe('Resume component', () => {
   it('has the correct src attribute', () => {
     render(<Resume />);
     const iframe = screen.getByTitle('Resume');
-    expect(iframe).toHaveAttribute('src', expect.stringContaining('drive.google.com'));
+    expect(iframe).toHaveAttribute('src', expect.stringContaining('registry.jsonresume.org'));
   });
 
   it('has the correct styling', () => {
