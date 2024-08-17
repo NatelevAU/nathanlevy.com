@@ -1,55 +1,49 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <link rel="icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="120x120" href="/logo120.png" />
-    <link rel="apple-touch-icon" sizes="152x152" href="/logo152.png" />
-    <link rel="apple-touch-icon" sizes="167x167" href="/logo167.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/logo180.png" />
-    <link rel="manifest" href="/manifest.webmanifest" />
-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
-    <!-- HTML Meta Tags -->
+    <!-- Primary Meta Tags -->
     <title>Nathan Levy | Software Engineer & Full Stack Dev</title>
+    <meta name="title" content="Nathan Levy | Software Engineer & Full Stack Dev" />
     <meta
       name="description"
-      content="Nathan Levy is a Software Engineer and Full Stack Web Developer living in Greater Sydney. Nathan works as a freelance programmer."
+      content="Nathan Levy is a Software Engineer and Full Stack Web Developer living in Melbourne, Australia."
     />
 
-    <!-- Google / Search Engine Tags -->
-    <meta itemprop="name" content="Nathan Levy | Software Engineer & Full Stack Dev" />
-    <meta
-      itemprop="description"
-      content="Nathan Levy is a Software Engineer and Full Stack Web Developer living in Greater Sydney. Nathan works as a freelance programmer."
-    />
-    <meta itemprop="image" content="/card500.png" />
-
-    <!-- Facebook Meta Tags -->
-    <meta property="og:url" content="https://www.nathanlevy.com" />
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.nathanlevy.com/" />
     <meta property="og:title" content="Nathan Levy | Software Engineer & Full Stack Dev" />
     <meta
       property="og:description"
-      content="Nathan Levy is a Software Engineer and Full Stack Web Developer living in Greater Sydney. Nathan works as a freelance programmer."
+      content="Nathan Levy is a Software Engineer and Full Stack Web Developer living in Melbourne, Australia."
     />
-    <meta property="og:image" content="/card500.png" />
+    <meta property="og:image" content="https://www.nathanlevy.com/og-image.jpg" />
 
-    <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Nathan Levy | Software Engineer & Full Stack Dev" />
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://www.nathanlevy.com/" />
+    <meta property="twitter:title" content="Nathan Levy | Software Engineer & Full Stack Dev" />
     <meta
-      name="twitter:description"
-      content="Nathan Levy is a Software Engineer and Full Stack Web Developer living in Greater Sydney. Nathan works as a freelance programmer."
+      property="twitter:description"
+      content="Nathan Levy is a Software Engineer and Full Stack Web Developer living in Melbourne, Australia."
     />
-    <meta name="twitter:image" content="/card500.png" />
-  </head>
+    <meta property="twitter:image" content="https://www.nathanlevy.com/twitter-image.jpg" />
 
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/src/index.tsx" as="script" />
+    <link rel="preload" href="/fonts/main-font.woff2" as="font" type="font/woff2" crossorigin />
+  </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-
     <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>
