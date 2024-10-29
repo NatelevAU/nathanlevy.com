@@ -33,14 +33,6 @@ module.exports = {
     },
   },
   overrides: [
-    // {
-    //     files: ['*.gql'],
-    //     parser: '@graphql-eslint/eslint-plugin',
-    //     plugins: ['@graphql-eslint'],
-    //     rules: {
-    //         'prettier/prettier': ['warn', { parser: 'graphql' }],
-    //     },
-    // },
     {
       files: ['*.json'],
       extends: ['plugin:json/recommended'],
