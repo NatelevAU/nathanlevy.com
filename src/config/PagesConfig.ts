@@ -4,7 +4,6 @@ import LandingLayout from 'src/layouts/LandingLayout';
 import About from 'src/pages/About/About';
 import Home from 'src/pages/Home/Home';
 import PageNotFound from 'src/pages/PageNotFound/PageNotFound';
-import Portfolio from 'src/pages/Portfolio/Portfolio';
 import Resume from 'src/pages/Resume/Resume';
 
 import { PageConfig } from './PagesConfigTypes';
@@ -35,14 +34,6 @@ const resumePage: PageConfig = {
   maxWidth: true,
 };
 
-const portfolioPage: PageConfig = {
-  component: Portfolio,
-  layout: LandingLayout,
-  background: '/gradient.svg',
-  name: 'Portfolio',
-  path: '/portfolio',
-};
-
 // Page Not Found
 
 const pageNotFound: PageConfig = {
@@ -52,12 +43,6 @@ const pageNotFound: PageConfig = {
   path: '/*',
 };
 
-export const pagesConfig: PageConfig[] = [
-  homePage,
-  aboutPage,
-  resumePage,
-  portfolioPage,
-  pageNotFound,
-];
+export const pagesConfig: PageConfig[] = [homePage, aboutPage, resumePage, pageNotFound];
 
-export const headerMiddlePages = [homePage, aboutPage, resumePage, portfolioPage];
+export const headerMiddlePages = [homePage, aboutPage, resumePage];
