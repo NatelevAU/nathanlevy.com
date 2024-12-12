@@ -2,7 +2,6 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import {
   Box,
-  Button,
   Card,
   CardContent,
   CardMedia,
@@ -66,22 +65,32 @@ const Experiments: React.FC = () => {
   const renderCard = (experiment: Experiment, index: number, isCurrent: boolean) => {
     return (
       <Card
+        onClick={() => navigate(experiment.route)}
         sx={{
-          width: isCurrent ? 280 : 220,
-          height: isCurrent ? 360 : 300,
+          width: isCurrent ? 240 : 200,
+          height: isCurrent ? 300 : 260,
           transition: 'all 0.3s ease',
           opacity: isCurrent ? 1 : 0.7,
           transform: isCurrent ? 'scale(1)' : 'scale(0.9)',
           display: 'flex',
           flexDirection: 'column',
+          cursor: 'pointer',
+          borderRadius: '8%',
+          overflow: 'hidden',
+          '&:hover': {
+            transform: isCurrent ? 'scale(1.2)' : 'scale(1.1)',
+            boxShadow: '0 8px 16px rgba(0,0,0,0.2)',
+          },
         }}
       >
         <CardMedia
           component="img"
           sx={{
-            height: isCurrent ? 200 : 160,
+            height: isCurrent ? 160 : 140,
+            transition: 'height 0.3s ease',
             objectFit: 'contain',
             backgroundColor: '#f0f0f0',
+            borderRadius: '8% 8% 0 0',
           }}
           image={experiment.image}
           alt={experiment.name}
@@ -91,27 +100,17 @@ const Experiments: React.FC = () => {
             flexGrow: 1,
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-between',
+            justifyContent: 'center',
             alignItems: 'center',
             p: 1,
           }}
         >
-          <Box>
-            <Typography variant="subtitle1" gutterBottom align="center">
-              {experiment.name}
-            </Typography>
-            <Typography variant="body2" color="text.secondary" align="center">
-              {experiment.description}
-            </Typography>
-          </Box>
-          <Button
-            variant="outlined"
-            size="small"
-            onClick={() => navigate(experiment.route)}
-            sx={{ fontSize: '0.7rem', width: '80%', mt: 1 }}
-          >
-            Try it out
-          </Button>
+          <Typography variant="subtitle1" gutterBottom align="center">
+            {experiment.name}
+          </Typography>
+          <Typography variant="body2" color="text.secondary" align="center">
+            {experiment.description}
+          </Typography>
         </CardContent>
       </Card>
     );
@@ -139,8 +138,8 @@ const Experiments: React.FC = () => {
           <Box
             sx={{
               position: 'relative',
-              width: experiments.length > 1 ? 840 : 280,
-              height: 360,
+              width: experiments.length > 1 ? 720 : 280,
+              height: 340,
               overflow: 'hidden',
             }}
           >
