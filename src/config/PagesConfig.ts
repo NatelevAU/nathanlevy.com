@@ -2,6 +2,8 @@
 
 import LandingLayout from 'src/layouts/LandingLayout';
 import About from 'src/pages/About/About';
+import Experiments from 'src/pages/Experiments/Experiments';
+import TicTacToe from 'src/pages/Experiments/TicTacToe/TicTacToe';
 import Home from 'src/pages/Home/Home';
 import PageNotFound from 'src/pages/PageNotFound/PageNotFound';
 import Resume from 'src/pages/Resume/Resume';
@@ -34,6 +36,21 @@ const resumePage: PageConfig = {
   maxWidth: true,
 };
 
+const experimentsPage: PageConfig = {
+  component: Experiments,
+  layout: LandingLayout,
+  background: '/gradient.svg',
+  name: 'Experiments',
+  path: '/experiments',
+};
+
+const ticTacToePage: PageConfig = {
+  component: TicTacToe,
+  layout: LandingLayout,
+  name: 'Tic Tac Toe',
+  path: '/experiments/tictactoe',
+};
+
 // Page Not Found
 
 const pageNotFound: PageConfig = {
@@ -43,6 +60,13 @@ const pageNotFound: PageConfig = {
   path: '/*',
 };
 
-export const pagesConfig: PageConfig[] = [homePage, aboutPage, resumePage, pageNotFound];
+export const pagesConfig: PageConfig[] = [
+  homePage,
+  aboutPage,
+  resumePage,
+  experimentsPage,
+  ticTacToePage,
+  pageNotFound,
+];
 
-export const headerMiddlePages = [homePage, aboutPage, resumePage];
+export const headerMiddlePages = [homePage, aboutPage, resumePage, experimentsPage];
