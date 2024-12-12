@@ -1,4 +1,4 @@
-import { Box, Button, Paper, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
 type Square = 'X' | 'O' | null;
@@ -43,10 +43,10 @@ const TicTacToe: React.FC = () => {
       variant="outlined"
       onClick={() => handleClick(i)}
       sx={{
-        width: 100,
-        height: 100,
-        m: 0.5,
-        fontSize: '2rem',
+        width: 70,
+        height: 70,
+        m: 0.25,
+        fontSize: '1.5rem',
         fontWeight: 'bold',
       }}
     >
@@ -73,37 +73,42 @@ const TicTacToe: React.FC = () => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        p: 4,
+        p: 2,
       }}
     >
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" color="black" gutterBottom>
         Tic Tac Toe
       </Typography>
-      <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
-        <Typography variant="h6" sx={{ mb: 2 }}>
-          {status}
-        </Typography>
-        <Box sx={{ mb: 2 }}>
-          <Box sx={{ display: 'flex' }}>
-            {renderSquare(0)}
-            {renderSquare(1)}
-            {renderSquare(2)}
-          </Box>
-          <Box sx={{ display: 'flex' }}>
-            {renderSquare(3)}
-            {renderSquare(4)}
-            {renderSquare(5)}
-          </Box>
-          <Box sx={{ display: 'flex' }}>
-            {renderSquare(6)}
-            {renderSquare(7)}
-            {renderSquare(8)}
-          </Box>
+      <Typography
+        variant="h6"
+        sx={{
+          mb: 2,
+          color: winner ? 'success.main' : isDraw ? 'warning.main' : 'text.primary',
+          fontWeight: winner || isDraw ? 'bold' : 'normal',
+        }}
+      >
+        {status}
+      </Typography>
+      <Box sx={{ mb: 2 }}>
+        <Box sx={{ display: 'flex' }}>
+          {renderSquare(0)}
+          {renderSquare(1)}
+          {renderSquare(2)}
         </Box>
-        <Button variant="contained" onClick={resetGame}>
-          Reset Game
-        </Button>
-      </Paper>
+        <Box sx={{ display: 'flex' }}>
+          {renderSquare(3)}
+          {renderSquare(4)}
+          {renderSquare(5)}
+        </Box>
+        <Box sx={{ display: 'flex' }}>
+          {renderSquare(6)}
+          {renderSquare(7)}
+          {renderSquare(8)}
+        </Box>
+      </Box>
+      <Button variant="contained" onClick={resetGame}>
+        Reset Game
+      </Button>
     </Box>
   );
 };
