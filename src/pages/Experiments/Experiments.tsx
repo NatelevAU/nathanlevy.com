@@ -44,6 +44,12 @@ const Experiments: React.FC = () => {
       route: '/experiments/tictactoe',
       image: '/src/assets/images/tictactoe.jpg',
     },
+    {
+      name: 'Test Tac Toe',
+      description: 'A classic game of Tic Tac Toe',
+      route: '/experiments/tictactoe',
+      image: '/src/assets/images/tictactoe.jpg',
+    },
     // Add more experiments here as they are created
   ];
 
@@ -80,6 +86,10 @@ const Experiments: React.FC = () => {
           '&:hover': {
             transform: isCurrent ? 'scale(1.2)' : 'scale(1.1)',
             boxShadow: '0 8px 16px rgba(0,0,0,0.2)',
+            borderRadius: 0,
+            '& .MuiCardMedia-root': {
+              borderRadius: 0,
+            },
           },
         }}
       >
@@ -87,7 +97,7 @@ const Experiments: React.FC = () => {
           component="img"
           sx={{
             height: isCurrent ? 160 : 140,
-            transition: 'height 0.3s ease',
+            transition: 'all 0.3s ease',
             objectFit: 'contain',
             backgroundColor: '#f0f0f0',
             borderRadius: '8% 8% 0 0',
