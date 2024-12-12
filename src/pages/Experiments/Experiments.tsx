@@ -8,6 +8,8 @@ import {
   CssBaseline,
   IconButton,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import React, { useState } from 'react';
@@ -38,6 +40,8 @@ const theme = createTheme({
 const Experiments: React.FC = () => {
   const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const experiments: Experiment[] = [
     {
@@ -70,23 +74,37 @@ const Experiments: React.FC = () => {
     setCurrentIndex(prevIndex => (prevIndex < experiments.length - 1 ? prevIndex + 1 : 0));
   };
 
+  const getCardDimensions = (isCurrent: boolean) => {
+    if (isMobile) {
+      return {
+        width: 240,
+        height: 300,
+      };
+    }
+    return {
+      width: isCurrent ? 240 : 200,
+      height: isCurrent ? 300 : 260,
+    };
+  };
+
   const renderCard = (experiment: Experiment, index: number, isCurrent: boolean) => {
+    const dimensions = getCardDimensions(isCurrent);
     return (
       <Card
         onClick={() => navigate(experiment.route)}
         sx={{
-          width: isCurrent ? 240 : 200,
-          height: isCurrent ? 300 : 260,
+          width: dimensions.width,
+          height: dimensions.height,
           transition: 'all 0.3s ease',
-          opacity: isCurrent ? 1 : 0.7,
-          transform: isCurrent ? 'scale(1)' : 'scale(0.9)',
+          opacity: isMobile ? 1 : isCurrent ? 1 : 0.7,
+          transform: isMobile ? 'scale(1)' : isCurrent ? 'scale(1)' : 'scale(0.9)',
           display: 'flex',
           flexDirection: 'column',
           cursor: 'pointer',
           borderRadius: '8%',
           overflow: 'hidden',
           '&:hover': {
-            transform: isCurrent ? 'scale(1.2)' : 'scale(1.1)',
+            transform: 'scale(1.1)',
             boxShadow: '0 8px 16px rgba(0,0,0,0.2)',
             borderRadius: 0,
             '& .MuiCardMedia-root': {
@@ -98,7 +116,7 @@ const Experiments: React.FC = () => {
         <CardMedia
           component="img"
           sx={{
-            height: isCurrent ? 160 : 140,
+            height: isMobile ? 180 : isCurrent ? 160 : 140,
             transition: 'all 0.3s ease',
             objectFit: 'contain',
             backgroundColor: '#f0f0f0',
@@ -114,13 +132,13 @@ const Experiments: React.FC = () => {
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            p: 1,
+            p: isMobile ? 2 : 1,
           }}
         >
-          <Typography variant="subtitle1" gutterBottom align="center">
+          <Typography variant={isMobile ? 'h6' : 'subtitle1'} gutterBottom align="center">
             {experiment.name}
           </Typography>
-          <Typography variant="body2" color="text.secondary" align="center">
+          <Typography variant={isMobile ? 'body1' : 'body2'} color="text.secondary" align="center">
             {experiment.description}
           </Typography>
         </CardContent>
@@ -131,8 +149,15 @@ const Experiments: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box>
-        <Typography variant="h4" align="center" sx={{ mb: 6 }}>
+      <Box sx={{ px: { xs: 2, sm: 3, md: 4 } }}>
+        <Typography
+          variant={isMobile ? 'h5' : 'h4'}
+          align="center"
+          sx={{
+            mb: { xs: 3, sm: 4, md: 6 },
+            px: { xs: 1, sm: 2 },
+          }}
+        >
           A collection of small projects and experiments
         </Typography>
         <Box
@@ -143,15 +168,31 @@ const Experiments: React.FC = () => {
           }}
         >
           {experiments.length > 1 && (
-            <IconButton onClick={handlePrev} sx={{ mr: 2 }}>
+            <IconButton
+              onClick={handlePrev}
+              sx={{
+                mr: { xs: 1, sm: 2 },
+                '& svg': {
+                  fontSize: isMobile ? '1.2rem' : '1.5rem',
+                },
+              }}
+            >
               <ArrowBackIosNewIcon />
             </IconButton>
           )}
           <Box
             sx={{
               position: 'relative',
-              width: experiments.length > 1 ? 720 : 280,
-              height: 340,
+              width: {
+                xs: 240,
+                sm: experiments.length > 1 ? 600 : 240,
+                md: experiments.length > 1 ? 720 : 280,
+              },
+              height: {
+                xs: 300,
+                sm: 300,
+                md: 340,
+              },
               overflow: 'hidden',
             }}
           >
@@ -165,17 +206,19 @@ const Experiments: React.FC = () => {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '16px',
+                  gap: isMobile ? '8px' : '16px',
                 }}
               >
-                {experiments.length > 1 &&
+                {!isMobile &&
+                  experiments.length > 1 &&
                   renderCard(
                     experiments[(i - 1 + experiments.length) % experiments.length],
                     (i - 1 + experiments.length) % experiments.length,
                     false,
                   )}
                 {renderCard(experiments[i], i, true)}
-                {experiments.length > 1 &&
+                {!isMobile &&
+                  experiments.length > 1 &&
                   renderCard(
                     experiments[(i + 1) % experiments.length],
                     (i + 1) % experiments.length,
@@ -185,7 +228,15 @@ const Experiments: React.FC = () => {
             ))}
           </Box>
           {experiments.length > 1 && (
-            <IconButton onClick={handleNext} sx={{ ml: 2 }}>
+            <IconButton
+              onClick={handleNext}
+              sx={{
+                ml: { xs: 1, sm: 2 },
+                '& svg': {
+                  fontSize: isMobile ? '1.2rem' : '1.5rem',
+                },
+              }}
+            >
               <ArrowForwardIosIcon />
             </IconButton>
           )}
