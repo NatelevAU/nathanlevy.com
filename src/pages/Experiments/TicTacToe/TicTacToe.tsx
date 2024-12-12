@@ -2,29 +2,36 @@ import { Box, Button, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
 type Square = 'X' | 'O' | null;
+type WinInfo = { winner: Square; lines: number[][] } | null;
 
 const TicTacToe: React.FC = () => {
   const [squares, setSquares] = useState<Square[]>(Array(9).fill(null));
   const [xIsNext, setXIsNext] = useState(true);
 
-  const calculateWinner = (squares: Square[]): Square => {
+  const calculateWinner = (squares: Square[]): WinInfo => {
     const lines = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6],
+      [0, 1, 2], // horizontal top
+      [3, 4, 5], // horizontal middle
+      [6, 7, 8], // horizontal bottom
+      [0, 3, 6], // vertical left
+      [1, 4, 7], // vertical middle
+      [2, 5, 8], // vertical right
+      [0, 4, 8], // diagonal top-left to bottom-right
+      [2, 4, 6], // diagonal top-right to bottom-left
     ];
 
-    for (const [a, b, c] of lines) {
+    const winningLines: number[][] = [];
+    let winner: Square = null;
+
+    for (const line of lines) {
+      const [a, b, c] = line;
       if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-        return squares[a];
+        winningLines.push(line);
+        winner = squares[a];
       }
     }
-    return null;
+
+    return winningLines.length > 0 ? { winner, lines: winningLines } : null;
   };
 
   const handleClick = (i: number) => {
@@ -54,13 +61,78 @@ const TicTacToe: React.FC = () => {
     </Button>
   );
 
-  const winner = calculateWinner(squares);
-  const isDraw = !winner && squares.every(square => square !== null);
-  const status = winner
-    ? `Winner: ${winner}`
+  const winInfo = calculateWinner(squares);
+  const isDraw = !winInfo && squares.every(square => square !== null);
+  const status = winInfo
+    ? `Winner: ${winInfo.winner}`
     : isDraw
       ? 'Game is a draw!'
       : `Next player: ${xIsNext ? 'X' : 'O'}`;
+
+  const renderWinningLines = () => {
+    if (!winInfo) return null;
+
+    return winInfo.lines.map((line, lineIndex) => {
+      const [a] = line;
+      const row = Math.floor(a / 3);
+      const col = a % 3;
+      const isHorizontal = Math.abs(line[0] - line[1]) === 1;
+      const isVertical = Math.abs(line[0] - line[1]) === 3;
+      const isDiagonal = Math.abs(line[0] - line[1]) === 4 || Math.abs(line[0] - line[1]) === 2;
+
+      if (isHorizontal) {
+        return (
+          <Box
+            key={lineIndex}
+            sx={{
+              position: 'absolute',
+              backgroundColor: '#2e7d32',
+              height: '3px',
+              width: '213px',
+              top: `${row * 70.5 + 35}px`,
+              left: '0',
+            }}
+          />
+        );
+      }
+
+      if (isVertical) {
+        return (
+          <Box
+            key={lineIndex}
+            sx={{
+              position: 'absolute',
+              backgroundColor: '#2e7d32',
+              width: '3px',
+              height: '224px',
+              left: `${col * 70.5 + 35}px`,
+              top: '-0.5px',
+            }}
+          />
+        );
+      }
+
+      if (isDiagonal) {
+        return (
+          <Box
+            key={lineIndex}
+            sx={{
+              position: 'absolute',
+              backgroundColor: '#2e7d32',
+              height: '3px',
+              width: '300px',
+              top: '106px',
+              left: '-43px',
+              transformOrigin: 'center',
+              transform: a === 0 ? 'rotate(45deg)' : 'rotate(-45deg)',
+            }}
+          />
+        );
+      }
+
+      return null;
+    });
+  };
 
   const resetGame = () => {
     setSquares(Array(9).fill(null));
@@ -76,34 +148,44 @@ const TicTacToe: React.FC = () => {
         p: 2,
       }}
     >
-      <Typography variant="h4" color="black" gutterBottom>
+      <Typography variant="h4" gutterBottom sx={{ color: 'black' }}>
         Tic Tac Toe
       </Typography>
       <Typography
         variant="h6"
         sx={{
           mb: 2,
-          color: winner ? 'success.main' : isDraw ? 'warning.main' : 'text.primary',
-          fontWeight: winner || isDraw ? 'bold' : 'normal',
+          color: 'black',
+          fontWeight: winInfo || isDraw ? 'bold' : 'normal',
         }}
       >
         {status}
       </Typography>
-      <Box sx={{ mb: 2 }}>
-        <Box sx={{ display: 'flex' }}>
-          {renderSquare(0)}
-          {renderSquare(1)}
-          {renderSquare(2)}
-        </Box>
-        <Box sx={{ display: 'flex' }}>
-          {renderSquare(3)}
-          {renderSquare(4)}
-          {renderSquare(5)}
-        </Box>
-        <Box sx={{ display: 'flex' }}>
-          {renderSquare(6)}
-          {renderSquare(7)}
-          {renderSquare(8)}
+      <Box
+        sx={{
+          mb: 2,
+          position: 'relative',
+          width: '213px',
+          height: '213px',
+        }}
+      >
+        {renderWinningLines()}
+        <Box>
+          <Box sx={{ display: 'flex' }}>
+            {renderSquare(0)}
+            {renderSquare(1)}
+            {renderSquare(2)}
+          </Box>
+          <Box sx={{ display: 'flex' }}>
+            {renderSquare(3)}
+            {renderSquare(4)}
+            {renderSquare(5)}
+          </Box>
+          <Box sx={{ display: 'flex' }}>
+            {renderSquare(6)}
+            {renderSquare(7)}
+            {renderSquare(8)}
+          </Box>
         </Box>
       </Box>
       <Button variant="contained" onClick={resetGame}>
