@@ -14,6 +14,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { animated, useTransition } from 'react-spring';
 
+import tictactoeImage from 'src/assets/images/tictactoe.jpg';
+
 interface Experiment {
   name: string;
   description: string;
@@ -42,13 +44,13 @@ const Experiments: React.FC = () => {
       name: 'Tic Tac Toe',
       description: 'A classic game of Tic Tac Toe',
       route: '/experiments/tictactoe',
-      image: '/src/assets/images/tictactoe.jpg',
+      image: tictactoeImage,
     },
     {
       name: 'Test Tac Toe',
       description: 'A classic game of Tic Tac Toe',
       route: '/experiments/tictactoe',
-      image: '/src/assets/images/tictactoe.jpg',
+      image: tictactoeImage,
     },
     // Add more experiments here as they are created
   ];
