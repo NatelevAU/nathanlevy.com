@@ -1,40 +1,45 @@
-import { Box, Button, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import { Box, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 
-type Square = 'X' | 'O' | null;
-type WinInfo = { winner: Square; lines: number[][] } | null;
+import { Board, calculateAIMove } from './ai';
+import GameBoard from './GameBoard';
+import GameSettings from './GameSettings';
+import { calculateWinner, Square } from './gameUtils';
 
 const TicTacToe: React.FC = () => {
   const [squares, setSquares] = useState<Square[]>(Array(9).fill(null));
   const [xIsNext, setXIsNext] = useState(true);
+  const [gameStarted, setGameStarted] = useState(false);
+  const [isSinglePlayer, setIsSinglePlayer] = useState(false);
 
-  const calculateWinner = (squares: Square[]): WinInfo => {
-    const lines = [
-      [0, 1, 2], // horizontal top
-      [3, 4, 5], // horizontal middle
-      [6, 7, 8], // horizontal bottom
-      [0, 3, 6], // vertical left
-      [1, 4, 7], // vertical middle
-      [2, 5, 8], // vertical right
-      [0, 4, 8], // diagonal top-left to bottom-right
-      [2, 4, 6], // diagonal top-right to bottom-left
+  // Convert 1D array to 2D board
+  const to2DBoard = (squares: Square[]): Board => {
+    return [
+      [squares[0], squares[1], squares[2]],
+      [squares[3], squares[4], squares[5]],
+      [squares[6], squares[7], squares[8]],
     ];
-
-    const winningLines: number[][] = [];
-    let winner: Square = null;
-
-    for (const line of lines) {
-      const [a, b, c] = line;
-      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-        winningLines.push(line);
-        winner = squares[a];
-      }
-    }
-
-    return winningLines.length > 0 ? { winner, lines: winningLines } : null;
   };
 
-  const handleClick = (i: number) => {
+  // Convert 2D position to 1D index
+  const toIndex = (row: number, col: number): number => {
+    return row * 3 + col;
+  };
+
+  useEffect(() => {
+    if (isSinglePlayer && !xIsNext && !calculateWinner(squares)) {
+      // Add a small delay to make AI moves feel more natural
+      const timer = setTimeout(() => {
+        const board = to2DBoard(squares);
+        const aiMove = calculateAIMove(board, 'O');
+        const moveIndex = toIndex(aiMove.row, aiMove.col);
+        handleSquareClick(moveIndex);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [isSinglePlayer, xIsNext, squares]);
+
+  const handleSquareClick = (i: number) => {
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
@@ -45,98 +50,15 @@ const TicTacToe: React.FC = () => {
     setXIsNext(!xIsNext);
   };
 
-  const renderSquare = (i: number) => (
-    <Button
-      variant="outlined"
-      onClick={() => handleClick(i)}
-      sx={{
-        width: 70,
-        height: 70,
-        m: 0.25,
-        fontSize: '1.5rem',
-        fontWeight: 'bold',
-      }}
-    >
-      {squares[i]}
-    </Button>
-  );
-
-  const winInfo = calculateWinner(squares);
-  const isDraw = !winInfo && squares.every(square => square !== null);
-  const status = winInfo
-    ? `Winner: ${winInfo.winner}`
-    : isDraw
-      ? 'Game is a draw!'
-      : `Next player: ${xIsNext ? 'X' : 'O'}`;
-
-  const renderWinningLines = () => {
-    if (!winInfo) return null;
-
-    return winInfo.lines.map((line, lineIndex) => {
-      const [a] = line;
-      const row = Math.floor(a / 3);
-      const col = a % 3;
-      const isHorizontal = Math.abs(line[0] - line[1]) === 1;
-      const isVertical = Math.abs(line[0] - line[1]) === 3;
-      const isDiagonal = Math.abs(line[0] - line[1]) === 4 || Math.abs(line[0] - line[1]) === 2;
-
-      if (isHorizontal) {
-        return (
-          <Box
-            key={lineIndex}
-            sx={{
-              position: 'absolute',
-              backgroundColor: '#2e7d32',
-              height: '3px',
-              width: '213px',
-              top: `${row * 70.5 + 35}px`,
-              left: '0',
-            }}
-          />
-        );
-      }
-
-      if (isVertical) {
-        return (
-          <Box
-            key={lineIndex}
-            sx={{
-              position: 'absolute',
-              backgroundColor: '#2e7d32',
-              width: '3px',
-              height: '224px',
-              left: `${col * 70.5 + 35}px`,
-              top: '-0.5px',
-            }}
-          />
-        );
-      }
-
-      if (isDiagonal) {
-        return (
-          <Box
-            key={lineIndex}
-            sx={{
-              position: 'absolute',
-              backgroundColor: '#2e7d32',
-              height: '3px',
-              width: '300px',
-              top: '106px',
-              left: '-43px',
-              transformOrigin: 'center',
-              transform: a === 0 ? 'rotate(45deg)' : 'rotate(-45deg)',
-            }}
-          />
-        );
-      }
-
-      return null;
-    });
-  };
-
-  const resetGame = () => {
+  const handleReset = () => {
     setSquares(Array(9).fill(null));
     setXIsNext(true);
+  };
+
+  const handleModeSelect = (singlePlayer: boolean) => {
+    setIsSinglePlayer(singlePlayer);
+    setGameStarted(true);
+    handleReset();
   };
 
   return (
@@ -151,46 +73,19 @@ const TicTacToe: React.FC = () => {
       <Typography variant="h4" gutterBottom sx={{ color: 'black' }}>
         Tic Tac Toe
       </Typography>
-      <Typography
-        variant="h6"
-        sx={{
-          mb: 2,
-          color: 'black',
-          fontWeight: winInfo || isDraw ? 'bold' : 'normal',
-        }}
-      >
-        {status}
-      </Typography>
-      <Box
-        sx={{
-          mb: 2,
-          position: 'relative',
-          width: '213px',
-          height: '213px',
-        }}
-      >
-        {renderWinningLines()}
-        <Box>
-          <Box sx={{ display: 'flex' }}>
-            {renderSquare(0)}
-            {renderSquare(1)}
-            {renderSquare(2)}
-          </Box>
-          <Box sx={{ display: 'flex' }}>
-            {renderSquare(3)}
-            {renderSquare(4)}
-            {renderSquare(5)}
-          </Box>
-          <Box sx={{ display: 'flex' }}>
-            {renderSquare(6)}
-            {renderSquare(7)}
-            {renderSquare(8)}
-          </Box>
-        </Box>
-      </Box>
-      <Button variant="contained" onClick={resetGame}>
-        Reset Game
-      </Button>
+
+      {!gameStarted ? (
+        <GameSettings onModeSelect={handleModeSelect} />
+      ) : (
+        <GameBoard
+          squares={squares}
+          xIsNext={xIsNext}
+          onSquareClick={handleSquareClick}
+          onReset={handleReset}
+          calculateWinner={calculateWinner}
+          isSinglePlayer={isSinglePlayer}
+        />
+      )}
     </Box>
   );
 };
