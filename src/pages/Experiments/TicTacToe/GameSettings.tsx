@@ -13,9 +13,18 @@ const GameSettings: React.FC<GameSettingsProps> = ({ onGameStart }) => {
       <Typography variant="h4" gutterBottom sx={{ color: 'black' }}>
         Tic Tac Toe
       </Typography>
-      <Grid container spacing={4} sx={{ maxWidth: 600, mt: 0 }}>
-        {/* Symbol Selection - Left Side */}
-        <Grid item xs={3}>
+      <Grid container spacing={2} sx={{ maxWidth: 600, mt: 0 }}>
+        {/* Symbol Selection */}
+        <Grid
+          item
+          xs={12}
+          md={3}
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            mb: { xs: 2, md: 0 },
+          }}
+        >
           <Box
             sx={{
               display: 'flex',
@@ -55,8 +64,16 @@ const GameSettings: React.FC<GameSettingsProps> = ({ onGameStart }) => {
           </Box>
         </Grid>
 
-        {/* Game Mode Selection - Middle */}
-        <Grid item xs={6}>
+        {/* Game Mode Selection */}
+        <Grid
+          item
+          xs={12}
+          md={6}
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
           <Box
             sx={{
               display: 'flex',
