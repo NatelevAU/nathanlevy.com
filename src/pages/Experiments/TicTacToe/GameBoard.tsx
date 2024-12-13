@@ -20,10 +20,18 @@ const GameBoard: React.FC<GameBoardProps> = ({
   calculateWinner,
   isSinglePlayer = false,
 }) => {
+  const handleSquareClick = (i: number) => {
+    // Prevent user clicks during AI's turn in single player mode
+    if (isSinglePlayer && !xIsNext) {
+      return;
+    }
+    onSquareClick(i);
+  };
+
   const renderSquare = (i: number) => (
     <Button
       variant="outlined"
-      onClick={() => onSquareClick(i)}
+      onClick={() => handleSquareClick(i)}
       sx={{
         width: 70,
         height: 70,
