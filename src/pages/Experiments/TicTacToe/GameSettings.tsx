@@ -1,30 +1,88 @@
-import { Box, Button, Typography } from '@mui/material';
-import React from 'react';
+import { Box, Button, Grid, Typography } from '@mui/material';
+import React, { useState } from 'react';
 
 interface GameSettingsProps {
-  onModeSelect: (isSinglePlayer: boolean) => void;
+  onGameStart: (isSinglePlayer: boolean, playerSymbol: 'X' | 'O') => void;
 }
 
-const GameSettings: React.FC<GameSettingsProps> = ({ onModeSelect }) => {
+const GameSettings: React.FC<GameSettingsProps> = ({ onGameStart }) => {
+  const [selectedSymbol, setSelectedSymbol] = useState<'X' | 'O'>('X');
+
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 2,
-      }}
-    >
-      <Typography variant="h6" sx={{ color: 'black' }}>
-        Select Game Mode
+    <>
+      <Typography variant="h4" gutterBottom sx={{ color: 'black' }}>
+        Tic Tac Toe
       </Typography>
-      <Button variant="contained" onClick={() => onModeSelect(true)} sx={{ width: 200 }}>
-        Play against AI
-      </Button>
-      <Button variant="contained" onClick={() => onModeSelect(false)} sx={{ width: 200 }}>
-        Play with a friend
-      </Button>
-    </Box>
+      <Grid container spacing={4} sx={{ maxWidth: 600, mt: 0 }}>
+        {/* Symbol Selection - Left Side */}
+        <Grid item xs={3}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 2,
+            }}
+          >
+            <Box sx={{ display: 'flex' }}>
+              <Button
+                variant={selectedSymbol === 'X' ? 'contained' : 'outlined'}
+                onClick={() => setSelectedSymbol('X')}
+                sx={{
+                  minWidth: '48px',
+                  width: '48px',
+                  borderRadius: '4px 0 0 4px',
+                  borderRight: 'none',
+                  mx: 0,
+                }}
+              >
+                X
+              </Button>
+              <Button
+                variant={selectedSymbol === 'O' ? 'contained' : 'outlined'}
+                onClick={() => setSelectedSymbol('O')}
+                sx={{
+                  minWidth: '48px',
+                  width: '48px',
+                  borderRadius: '0 4px 4px 0',
+                  borderLeft: 'none',
+                  mx: 0,
+                }}
+              >
+                O
+              </Button>
+            </Box>
+          </Box>
+        </Grid>
+
+        {/* Game Mode Selection - Middle */}
+        <Grid item xs={6}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 2,
+            }}
+          >
+            <Button
+              variant="contained"
+              onClick={() => onGameStart(true, selectedSymbol)}
+              sx={{ width: 200 }}
+            >
+              Play against AI
+            </Button>
+            <Button
+              variant="contained"
+              onClick={() => onGameStart(false, selectedSymbol)}
+              sx={{ width: 200 }}
+            >
+              Play with a friend
+            </Button>
+          </Box>
+        </Grid>
+      </Grid>
+    </>
   );
 };
 

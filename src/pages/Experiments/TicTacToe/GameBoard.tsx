@@ -10,6 +10,7 @@ interface GameBoardProps {
   onReset: () => void;
   calculateWinner: (squares: Square[]) => WinInfo;
   isSinglePlayer?: boolean;
+  playerSymbol?: 'X' | 'O';
 }
 
 const GameBoard: React.FC<GameBoardProps> = ({
@@ -19,11 +20,15 @@ const GameBoard: React.FC<GameBoardProps> = ({
   onReset,
   calculateWinner,
   isSinglePlayer = false,
+  playerSymbol = 'X',
 }) => {
   const handleSquareClick = (i: number) => {
-    // Prevent user clicks during AI's turn in single player mode
-    if (isSinglePlayer && !xIsNext) {
-      return;
+    // In single player mode, only allow clicks on player's turn
+    if (isSinglePlayer) {
+      const isPlayerTurn = xIsNext ? playerSymbol === 'X' : playerSymbol === 'O';
+      if (!isPlayerTurn) {
+        return;
+      }
     }
     onSquareClick(i);
   };
@@ -50,7 +55,12 @@ const GameBoard: React.FC<GameBoardProps> = ({
     ? `Winner: ${winInfo.winner}`
     : isDraw
       ? 'Game is a draw!'
-      : `Next player: ${xIsNext ? 'X' : 'O'}${isSinglePlayer && !xIsNext ? ' (AI)' : ''}`;
+      : `Next player: ${xIsNext ? 'X' : 'O'}${
+          isSinglePlayer &&
+          ((xIsNext && playerSymbol === 'O') || (!xIsNext && playerSymbol === 'X'))
+            ? ' (AI)'
+            : ''
+        }`;
 
   const renderWinningLines = () => {
     if (!winInfo) return null;

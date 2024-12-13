@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
 import { Board, calculateAIMove } from './ai';
@@ -11,6 +11,7 @@ const TicTacToe: React.FC = () => {
   const [xIsNext, setXIsNext] = useState(true);
   const [gameStarted, setGameStarted] = useState(false);
   const [isSinglePlayer, setIsSinglePlayer] = useState(false);
+  const [playerSymbol, setPlayerSymbol] = useState<'X' | 'O'>('X');
 
   // Convert 1D array to 2D board
   const to2DBoard = (squares: Square[]): Board => {
@@ -27,17 +28,20 @@ const TicTacToe: React.FC = () => {
   };
 
   useEffect(() => {
-    if (isSinglePlayer && !xIsNext && !calculateWinner(squares)) {
-      // Add a small delay to make AI moves feel more natural
-      const timer = setTimeout(() => {
-        const board = to2DBoard(squares);
-        const aiMove = calculateAIMove(board, 'O');
-        const moveIndex = toIndex(aiMove.row, aiMove.col);
-        handleSquareClick(moveIndex);
-      }, 500);
-      return () => clearTimeout(timer);
+    if (isSinglePlayer && !calculateWinner(squares)) {
+      const isPlayerTurn = xIsNext ? playerSymbol === 'X' : playerSymbol === 'O';
+      if (!isPlayerTurn) {
+        // Add a small delay to make AI moves feel more natural
+        const timer = setTimeout(() => {
+          const board = to2DBoard(squares);
+          const aiMove = calculateAIMove(board, playerSymbol === 'X' ? 'O' : 'X');
+          const moveIndex = toIndex(aiMove.row, aiMove.col);
+          handleSquareClick(moveIndex);
+        }, 500);
+        return () => clearTimeout(timer);
+      }
     }
-  }, [isSinglePlayer, xIsNext, squares]);
+  }, [isSinglePlayer, xIsNext, squares, playerSymbol]);
 
   const handleSquareClick = (i: number) => {
     if (calculateWinner(squares) || squares[i]) {
@@ -55,10 +59,23 @@ const TicTacToe: React.FC = () => {
     setXIsNext(true);
   };
 
-  const handleModeSelect = (singlePlayer: boolean) => {
+  const handleGameStart = (singlePlayer: boolean, symbol: 'X' | 'O') => {
     setIsSinglePlayer(singlePlayer);
+    setPlayerSymbol(symbol);
     setGameStarted(true);
     handleReset();
+    // If player chose O, AI (X) goes first
+    if (singlePlayer && symbol === 'O') {
+      const board = to2DBoard(Array(9).fill(null));
+      const aiMove = calculateAIMove(board, 'X');
+      const moveIndex = toIndex(aiMove.row, aiMove.col);
+      setTimeout(() => {
+        const newSquares = Array(9).fill(null);
+        newSquares[moveIndex] = 'X';
+        setSquares(newSquares);
+        setXIsNext(false);
+      }, 500);
+    }
   };
 
   return (
@@ -70,12 +87,8 @@ const TicTacToe: React.FC = () => {
         p: 2,
       }}
     >
-      <Typography variant="h4" gutterBottom sx={{ color: 'black' }}>
-        Tic Tac Toe
-      </Typography>
-
       {!gameStarted ? (
-        <GameSettings onModeSelect={handleModeSelect} />
+        <GameSettings onGameStart={handleGameStart} />
       ) : (
         <GameBoard
           squares={squares}
@@ -84,6 +97,7 @@ const TicTacToe: React.FC = () => {
           onReset={handleReset}
           calculateWinner={calculateWinner}
           isSinglePlayer={isSinglePlayer}
+          playerSymbol={playerSymbol}
         />
       )}
     </Box>
