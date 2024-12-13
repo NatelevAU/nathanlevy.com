@@ -135,7 +135,12 @@ const Experiments: React.FC = () => {
             p: isMobile ? 2 : 1,
           }}
         >
-          <Typography variant={isMobile ? 'h6' : 'subtitle1'} gutterBottom align="center">
+          <Typography
+            variant={isMobile ? 'h6' : 'subtitle1'}
+            color="text.secondary"
+            gutterBottom
+            align="center"
+          >
             {experiment.name}
           </Typography>
           <Typography variant={isMobile ? 'body1' : 'body2'} color="text.secondary" align="center">
