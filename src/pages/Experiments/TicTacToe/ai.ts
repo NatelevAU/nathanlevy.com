@@ -64,8 +64,8 @@ export const calculateAIMove = (board: Board, player: Player): { row: number; co
     const result = checkWinner(currentBoard);
 
     // Terminal states
-    if (result === player) return 100 - depth; // Win (prefer winning sooner)
-    if (result === opponent) return -100 + depth; // Loss (prefer losing later)
+    if (result === player) return Infinity - depth; // Win (prefer winning sooner)
+    if (result === opponent) return -Infinity + depth; // Loss (prefer losing later)
     if (result === 'Draw') return 0; // Draw
 
     const moves = getAvailableMoves(currentBoard);
