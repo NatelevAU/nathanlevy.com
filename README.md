@@ -12,7 +12,7 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?label=style)](https://github.com/prettier/prettier)
 [![GitHub](https://img.shields.io/github/license/NatelevAU/natelev)](https://choosealicense.com/licenses/isc/)
 
-![](https://img.shields.io/badge/Node-v16-blueviolet)
+![](https://img.shields.io/badge/Node-v18-blueviolet)
 ![](https://img.shields.io/badge/React-v18-blue)
 ![](https://img.shields.io/badge/Typescript-v4-yellowgreen)
 
