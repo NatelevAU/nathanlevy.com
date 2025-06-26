@@ -27,16 +27,16 @@ const About: React.FC<{}> = () => {
 
           <Box mt={2}>
             <Typography variant="h5" align="left">
-              I'm Nathan Levy, a Software Engineer based in Melbourne, Australia.
+              I'm Nathan Levy, a Full-Stack Software Engineer with 5+ years of professional
+              experience, based in Melbourne, Australia.
             </Typography>
             <Typography variant="h6" align="left">
-              I've been coding since I was 13, when I created my own Minecraft plugin.
+              My coding journey started at 13 with developing a video-game addon. Since then I've
+              evolved into a lead developer working across diverse tech stacks and industries.
             </Typography>
             <Typography variant="h6" align="left">
-              Since then, I've launched websites, created games, developed APIs, and more!
-            </Typography>
-            <Typography variant="h6" align="left">
-              Recently, I've been focusing on full-stack web development.
+              I've built everything from fintech platforms and data pipelines to custom surveying
+              applications, using technologies like React, Node.js, Python, AWS, and PostgreSQL.
             </Typography>
           </Box>
         </Grid>
