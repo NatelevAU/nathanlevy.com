@@ -13,18 +13,19 @@ describe('About component', () => {
   it('displays the correct content', () => {
     render(<About />);
     expect(
-      screen.getByText("I'm Nathan Levy, a Software Engineer based in Melbourne, Australia."),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText("I've been coding since I was 13, when I created my own Minecraft plugin."),
-    ).toBeInTheDocument();
-    expect(
       screen.getByText(
-        "Since then, I've launched websites, created games, developed APIs, and more!",
+        "I'm Nathan Levy, a Full-Stack Software Engineer with 5+ years of professional experience, based in Melbourne, Australia.",
       ),
     ).toBeInTheDocument();
     expect(
-      screen.getByText("Recently, I've been focusing on full-stack web development."),
+      screen.getByText(
+        "My coding journey started at 13 with developing a video-game addon. Since then I've evolved into a lead developer working across diverse tech stacks and industries.",
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "I've built everything from fintech platforms and data pipelines to custom surveying applications, using technologies like React, Node.js, Python, AWS, and PostgreSQL.",
+      ),
     ).toBeInTheDocument();
   });
 
