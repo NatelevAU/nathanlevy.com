@@ -2,7 +2,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import React, { useEffect, useState } from 'react';
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 import CustomIconButton from 'src/components/CustomIconButton';
 import { emailAddress, githubUrl, linkedinUrl } from 'src/config/Config';
 
@@ -13,7 +13,7 @@ const Mailto = (email: string) => {
 };
 
 const Home: React.FC = () => {
-  ReactGA.pageview(window.location.pathname);
+  ReactGA.send({ hitType: 'pageview', page: window.location.pathname });
 
   const [subtitleIndex, setSubtitleIndex] = useState(0);
   const subtitles = ['Software Engineer', 'Web Developer', 'Dog Lover'];

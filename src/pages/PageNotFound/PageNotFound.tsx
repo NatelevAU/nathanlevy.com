@@ -1,12 +1,12 @@
 import { Button } from '@mui/material';
 import React from 'react';
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
 import background from 'src/assets/gifs/PageNotFound.gif';
 
 const PageNotFound: React.FC = () => {
-  ReactGA.pageview(window.location.pathname);
+  ReactGA.send({ hitType: 'pageview', page: window.location.pathname });
 
   const HomeLink: React.FC = props => <Link to="/" {...props} />;
 
