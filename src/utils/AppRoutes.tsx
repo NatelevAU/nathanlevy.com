@@ -16,7 +16,7 @@ const AppRoutes = () => {
               null,
               <MetaTags
                 key="meta"
-                title={`${route.name} | ${document.title}` || document.title}
+                title={route.name ? `${route.name} | ${document.title}` : document.title}
                 path={route.path}
               />,
               React.createElement(route.component, { key: 'component' }),
@@ -26,7 +26,7 @@ const AppRoutes = () => {
               <>
                 <MetaTags
                   key="meta"
-                  title={`${route.name} | ${document.title}` || document.title}
+                  title={route.name ? `${route.name} | ${document.title}` : document.title}
                   path={route.path}
                 />
                 {React.createElement(route.component, { key: 'component' })}
