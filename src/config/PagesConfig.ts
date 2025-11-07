@@ -69,4 +69,4 @@ export const pagesConfig: PageConfig[] = [
   pageNotFound,
 ];
 
-export const headerMiddlePages = [homePage, aboutPage, resumePage];
+export const headerMiddlePages = [homePage, aboutPage];
