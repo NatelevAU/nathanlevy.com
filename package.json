@@ -28,12 +28,10 @@
     "@natelev/header": "^1.0.4",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
-    "@types/react-helmet": "^6.1.11",
     "@types/react-router-dom": "^5.3.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-ga4": "^2.1.0",
-    "react-helmet": "^6.1.0",
     "react-router-dom": "^7.9.5",
     "react-spring": "^10.0.3",
     "typescript": "^5.9.3"
