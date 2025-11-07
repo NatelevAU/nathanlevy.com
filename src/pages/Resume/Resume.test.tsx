@@ -5,11 +5,6 @@ import { describe, expect, it, vi } from 'vitest';
 
 import Resume from './Resume';
 
-// Mock the config value
-vi.mock('../config/Config', () => ({
-  resumeUrl: 'https://drive.google.com/file/d/1COmkzJK7eUI51GdBAyjtipGIYy7725Ri/preview',
-}));
-
 describe('Resume component', () => {
   it('renders without crashing', () => {
     render(<Resume />);
