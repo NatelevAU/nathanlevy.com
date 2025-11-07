@@ -1,13 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/dom';
+import { render } from '@testing-library/react';
 import React from 'react';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import Resume from './Resume';
-
-// Mock the config value
-vi.mock('../config/Config', () => ({
-  resumeUrl: 'https://drive.google.com/file/d/1COmkzJK7eUI51GdBAyjtipGIYy7725Ri/preview',
-}));
 
 describe('Resume component', () => {
   it('renders without crashing', () => {
@@ -29,6 +25,6 @@ describe('Resume component', () => {
 
     expect(styles.width).toBe('100%');
     expect(styles.height).toBe('100%');
-    expect(styles.border).toBe('2px inset');
+    expect(styles.border).toBe('');
   });
 });

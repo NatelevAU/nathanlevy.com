@@ -1,5 +1,6 @@
 import { vi } from 'vitest';
 
 export default {
-  pageview: vi.fn(),
+  initialize: vi.fn(),
+  send: vi.fn(),
 };

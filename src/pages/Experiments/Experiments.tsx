@@ -91,7 +91,9 @@ const Experiments: React.FC = () => {
     const dimensions = getCardDimensions(isCurrent);
     return (
       <Card
-        onClick={() => navigate(experiment.route)}
+        onClick={() => {
+          void navigate(experiment.route);
+        }}
         sx={{
           width: dimensions.width,
           height: dimensions.height,

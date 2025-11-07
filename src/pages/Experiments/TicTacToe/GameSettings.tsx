@@ -16,9 +16,7 @@ const GameSettings: React.FC<GameSettingsProps> = ({ onGameStart }) => {
       <Grid container spacing={2} sx={{ maxWidth: 600, mt: 0 }}>
         {/* Symbol Selection */}
         <Grid
-          item
-          xs={12}
-          md={3}
+          size={{ xs: 12, md: 3 }}
           sx={{
             display: 'flex',
             justifyContent: 'center',
@@ -66,9 +64,7 @@ const GameSettings: React.FC<GameSettingsProps> = ({ onGameStart }) => {
 
         {/* Game Mode Selection */}
         <Grid
-          item
-          xs={12}
-          md={6}
+          size={{ xs: 12, md: 6 }}
           sx={{
             display: 'flex',
             justifyContent: 'center',

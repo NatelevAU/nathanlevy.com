@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 
 import AppRoutes from './utils/AppRoutes';
 
@@ -10,7 +10,7 @@ const App = ({}) => {
   const TRACKING_ID = 'UA-204322935-1';
 
   ReactGA.initialize(TRACKING_ID);
-  ReactGA.pageview(window.location.pathname);
+  ReactGA.send({ hitType: 'pageview', page: window.location.pathname });
 
   return (
     <>

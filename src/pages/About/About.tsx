@@ -3,7 +3,7 @@ import React from 'react';
 
 import headshot from 'src/assets/logos/headshot_short.png';
 
-const About: React.FC<{}> = () => {
+const About: React.FC = () => {
   return (
     <Box
       id="about"
@@ -16,9 +16,7 @@ const About: React.FC<{}> = () => {
     >
       <Grid container spacing={4} style={{ flexGrow: 1 }}>
         <Grid
-          item
-          xs={12}
-          md={8}
+          size={{ xs: 12, md: 8 }}
           style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
         >
           <Typography variant="h2" align="center">
@@ -42,9 +40,7 @@ const About: React.FC<{}> = () => {
         </Grid>
 
         <Grid
-          item
-          xs={12}
-          md={4}
+          size={{ xs: 12, md: 4 }}
           style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}
         >
           <Box

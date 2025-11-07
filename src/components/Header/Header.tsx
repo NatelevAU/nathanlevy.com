@@ -42,7 +42,7 @@ const TopHeader: React.FC<TopHeaderProps> = ({
   return (
     <div style={{ position: 'relative' }}>
       <Header
-        logo={logo}
+        logo={logo as any}
         firstElements={firstElements}
         middleElements={centerElements}
         lastElements={lastElements}

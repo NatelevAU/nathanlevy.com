@@ -19,7 +19,7 @@ on:
 env:
   PROD_BRANCH: 'main'
   DEV_BRANCH: 'dev'
-  NODE_VERSION: '18'
+  NODE_VERSION: '24'
 
 jobs:
   install_dependencies:

@@ -1,7 +1,7 @@
 import React from 'react';
 import { resumeUrl } from 'src/config/Config';
 
-const Resume: React.FC<{}> = () => {
+const Resume: React.FC = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const theme = urlParams.get('theme');
   const fullResumeUrl = theme
