@@ -3,7 +3,7 @@ import React from 'react';
 
 import headshot from 'src/assets/logos/headshot_short.png';
 
-const About: React.FC<{}> = () => {
+const About: React.FC = () => {
   return (
     <Box
       id="about"

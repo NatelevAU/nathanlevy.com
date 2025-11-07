@@ -12,7 +12,7 @@ const Mailto = (email: string) => {
   window.location.href = `mailto:${email}`;
 };
 
-const Home: React.FC<{}> = () => {
+const Home: React.FC = () => {
   ReactGA.pageview(window.location.pathname);
 
   const [subtitleIndex, setSubtitleIndex] = useState(0);
