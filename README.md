@@ -12,7 +12,7 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?label=style)](https://github.com/prettier/prettier)
 [![GitHub](https://img.shields.io/github/license/NatelevAU/natelev)](https://choosealicense.com/licenses/isc/)
 
-![](https://img.shields.io/badge/Node-v20-blueviolet)
+![](https://img.shields.io/badge/Node-v24-blueviolet)
 ![](https://img.shields.io/badge/React-v19-blue)
 ![](https://img.shields.io/badge/Typescript-v5-yellowgreen)
 
@@ -21,7 +21,7 @@
 ```bash
 sudo apt update
 sudo apt install curl
-sudo curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo curl -fsSL https://deb.nodesource.com/setup_24.x | sudo -E bash -
 sudo apt install nodejs build-essential libssl-dev
 npm install
 ```
