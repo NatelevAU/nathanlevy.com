@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/dom';
 import { render } from '@testing-library/react';
 import React from 'react';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import Resume from './Resume';
 
