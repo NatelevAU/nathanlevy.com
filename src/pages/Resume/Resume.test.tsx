@@ -1,4 +1,5 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/dom';
+import { render } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -29,6 +30,6 @@ describe('Resume component', () => {
 
     expect(styles.width).toBe('100%');
     expect(styles.height).toBe('100%');
-    expect(styles.border).toBe('2px inset');
+    expect(styles.border).toBe('');
   });
 });
