@@ -7,18 +7,13 @@
     "url": "https://github.com/NatelevAU/natelev.git"
   },
   "scripts": {
-    "build": "rm -rf build && tsc && vite build && npm run sitemap",
+    "build": "rm -rf build && tsc && vite build",
     "test": "vitest",
     "dev": "vite",
     "clean": "rm -rf build hint-report *.log *.zip && npm run lint-fix",
-    "lint": "npm run lint-full",
-    "lint-full": "eslint . --max-warnings=0 && prettier --check ./**/*.{json,gql,yml,yaml,html,md,css}",
+    "lint": "eslint . --max-warnings=0 && prettier --check ./**/*.{json,gql,yml,yaml,html,md,css}",
     "lint-fix": "eslint --fix . --max-warnings=0 && prettier --write ./**/*.{json,gql,yml,yaml,html,md,css}",
-    "predeploy": "npm run sitemap",
-    "deploy": "npm run predeploy && zip -r deploy.zip * .ebextensions .elasticbeanstalk -x \"**node_modules**\"",
-    "reinstall": "rm -rf node_modules package-lock.json && npm install",
-    "sitemap": "echo sitemap not implemented yet for node18",
-    "webhint": "hint http://localhost:3000"
+    "reinstall": "rm -rf node_modules package-lock.json && npm install"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
