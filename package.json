@@ -4,7 +4,7 @@
   "homepage": "https://www.nathanlevy.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/NatelevAU/natelev.git"
+    "url": "https://github.com/NatelevAU/nathanlevy.com"
   },
   "scripts": {
     "build": "rm -rf build && tsc && vite build",
