@@ -12,9 +12,9 @@ import {
   useTheme,
 } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { animated, useTransition } from '@react-spring/web';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { animated, useTransition } from 'react-spring';
 
 import tictactoeImage from 'src/assets/images/tictactoe.jpg';
 
