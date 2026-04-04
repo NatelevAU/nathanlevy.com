@@ -1,12 +1,14 @@
 // Landing pages
 
+import React from 'react';
 import LandingLayout from 'src/layouts/LandingLayout';
-import About from 'src/pages/About/About';
-import Experiments from 'src/pages/Experiments/Experiments';
-import TicTacToe from 'src/pages/Experiments/TicTacToe/TicTacToe';
-import Home from 'src/pages/Home/Home';
-import PageNotFound from 'src/pages/PageNotFound/PageNotFound';
-import Resume from 'src/pages/Resume/Resume';
+
+const About = React.lazy(() => import('src/pages/About/About'));
+const Experiments = React.lazy(() => import('src/pages/Experiments/Experiments'));
+const TicTacToe = React.lazy(() => import('src/pages/Experiments/TicTacToe/TicTacToe'));
+const Home = React.lazy(() => import('src/pages/Home/Home'));
+const PageNotFound = React.lazy(() => import('src/pages/PageNotFound/PageNotFound'));
+const Resume = React.lazy(() => import('src/pages/Resume/Resume'));
 
 import { PageConfig } from './PagesConfigTypes';
 

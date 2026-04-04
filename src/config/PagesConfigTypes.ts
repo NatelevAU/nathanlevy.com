@@ -5,7 +5,7 @@ export type LayoutProps = {
 };
 
 export type PageConfig = {
-  component: React.FC;
+  component: React.ComponentType;
   layout?: React.FC<LayoutProps>;
   name: string;
   path: string;
