@@ -1,5 +1,6 @@
 import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Square, WinInfo } from './gameUtils';
 
@@ -22,6 +23,8 @@ const GameBoard: React.FC<GameBoardProps> = ({
   isSinglePlayer = false,
   playerSymbol = 'X',
 }) => {
+  const { t } = useTranslation();
+
   const handleSquareClick = (i: number) => {
     // In single player mode, only allow clicks on player's turn
     if (isSinglePlayer) {
@@ -51,16 +54,16 @@ const GameBoard: React.FC<GameBoardProps> = ({
 
   const winInfo = calculateWinner(squares);
   const isDraw = !winInfo && squares.every(square => square !== null);
+  const currentPlayer = xIsNext ? 'X' : 'O';
+  const isAITurn =
+    isSinglePlayer && ((xIsNext && playerSymbol === 'O') || (!xIsNext && playerSymbol === 'X'));
   const status = winInfo
-    ? `Winner: ${winInfo.winner}`
+    ? t('tictactoe.status.winner', { winner: winInfo.winner })
     : isDraw
-      ? 'Game is a draw!'
-      : `Next player: ${xIsNext ? 'X' : 'O'}${
-          isSinglePlayer &&
-          ((xIsNext && playerSymbol === 'O') || (!xIsNext && playerSymbol === 'X'))
-            ? ' (AI)'
-            : ''
-        }`;
+      ? t('tictactoe.status.draw')
+      : isAITurn
+        ? t('tictactoe.status.nextPlayerAI', { player: currentPlayer })
+        : t('tictactoe.status.nextPlayer', { player: currentPlayer });
 
   const renderWinningLines = () => {
     if (!winInfo) return null;
@@ -173,7 +176,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
         </Box>
       </Box>
       <Button variant="contained" onClick={onReset}>
-        Reset Game
+        {t('tictactoe.resetGame')}
       </Button>
     </Box>
   );

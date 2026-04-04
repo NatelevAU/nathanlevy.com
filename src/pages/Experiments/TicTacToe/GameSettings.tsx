@@ -1,17 +1,19 @@
 import { Box, Button, Grid, Typography } from '@mui/material';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface GameSettingsProps {
   onGameStart: (isSinglePlayer: boolean, playerSymbol: 'X' | 'O') => void;
 }
 
 const GameSettings: React.FC<GameSettingsProps> = ({ onGameStart }) => {
+  const { t } = useTranslation();
   const [selectedSymbol, setSelectedSymbol] = useState<'X' | 'O'>('X');
 
   return (
     <>
       <Typography variant="h4" gutterBottom sx={{ color: 'black' }}>
-        Tic Tac Toe
+        {t('tictactoe.title')}
       </Typography>
       <Grid container spacing={2} sx={{ maxWidth: 600, mt: 0 }}>
         {/* Symbol Selection */}
@@ -83,14 +85,14 @@ const GameSettings: React.FC<GameSettingsProps> = ({ onGameStart }) => {
               onClick={() => onGameStart(true, selectedSymbol)}
               sx={{ width: 200 }}
             >
-              Play against AI
+              {t('tictactoe.playAgainstAI')}
             </Button>
             <Button
               variant="contained"
               onClick={() => onGameStart(false, selectedSymbol)}
               sx={{ width: 200 }}
             >
-              Play with a friend
+              {t('tictactoe.playWithFriend')}
             </Button>
           </Box>
         </Grid>

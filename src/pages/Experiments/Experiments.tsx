@@ -14,6 +14,7 @@ import {
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { animated, useTransition } from '@react-spring/web';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import tictactoeImage from 'src/assets/images/tictactoe.jpg';
@@ -25,7 +26,7 @@ interface Experiment {
   image: string;
 }
 
-const theme = createTheme({
+const experimentsTheme = createTheme({
   palette: {
     mode: 'light',
     background: {
@@ -39,20 +40,21 @@ const theme = createTheme({
 
 const Experiments: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const experiments: Experiment[] = [
     {
-      name: 'Tic Tac Toe',
-      description: 'A classic game of Tic Tac Toe',
+      name: t('experiments.items.tictactoe.name'),
+      description: t('experiments.items.tictactoe.description'),
       route: '/experiments/tictactoe',
       image: tictactoeImage,
     },
     {
-      name: 'Test Tac Toe',
-      description: 'A classic game of Tic Tac Toe',
+      name: t('experiments.items.testTacToe.name'),
+      description: t('experiments.items.testTacToe.description'),
       route: '/experiments/tictactoe',
       image: tictactoeImage,
     },
@@ -87,7 +89,7 @@ const Experiments: React.FC = () => {
     };
   };
 
-  const renderCard = (experiment: Experiment, index: number, isCurrent: boolean) => {
+  const renderCard = (experiment: Experiment, _index: number, isCurrent: boolean) => {
     const dimensions = getCardDimensions(isCurrent);
     return (
       <Card
@@ -154,7 +156,7 @@ const Experiments: React.FC = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={experimentsTheme}>
       <CssBaseline />
       <Box sx={{ px: { xs: 2, sm: 3, md: 4 } }}>
         <Typography
@@ -165,7 +167,7 @@ const Experiments: React.FC = () => {
             px: { xs: 1, sm: 2 },
           }}
         >
-          A collection of small projects and experiments
+          {t('experiments.heading')}
         </Typography>
         <Box
           sx={{

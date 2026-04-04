@@ -1,9 +1,12 @@
 import { Box, Grid, Typography } from '@mui/material';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import headshot from 'src/assets/logos/headshot_short.png';
 
 const About: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <Box
       id="about"
@@ -20,21 +23,18 @@ const About: React.FC = () => {
           style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
         >
           <Typography variant="h2" align="center">
-            About Me
+            {t('about.heading')}
           </Typography>
 
           <Box mt={2}>
             <Typography variant="h5" align="left">
-              I'm Nathan Levy, a Full-Stack Software Engineer with 5+ years of professional
-              experience, based in Melbourne, Australia.
+              {t('about.intro')}
             </Typography>
             <Typography variant="h6" align="left">
-              My coding journey started at 13 with developing a video-game addon. Since then I've
-              evolved into a lead developer working across diverse tech stacks and industries.
+              {t('about.paragraph1')}
             </Typography>
             <Typography variant="h6" align="left">
-              I've built everything from fintech platforms and data pipelines to custom surveying
-              applications, using technologies like React, Node.js, Python, AWS, and PostgreSQL.
+              {t('about.paragraph2')}
             </Typography>
           </Box>
         </Grid>
@@ -51,7 +51,7 @@ const About: React.FC = () => {
               alignSelf: 'flex-end',
               display: 'block',
             }}
-            alt="Nathan Levy"
+            alt={t('about.imageAlt')}
             src={headshot}
           />
         </Grid>
