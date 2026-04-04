@@ -99,35 +99,36 @@ const BaseHeader = React.forwardRef<HTMLDivElement, HeaderProps>(
     const location = useLocation();
 
     // Required to fix a scrollbar bug that shifts side header
-    isSideHeader &&
-      useEffect(() => {
-        const setScrollBar = () => {
-          const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-          const hasScrollbar = scrollbarWidth > 0;
+    useEffect(() => {
+      if (!isSideHeader) return;
 
-          // Hide scrollbar when menu is open
-          if (anchorElNav) {
-            document.body.style.overflow = 'hidden';
-            if (hasScrollbar) {
-              document.body.style.paddingRight = `${scrollbarWidth}px`;
-            }
-          } else {
-            // Restore default styles when menu is closed
-            document.body.style.overflow = '';
-            document.body.style.paddingRight = ''; // Reset to browser default
+      const setScrollBar = () => {
+        const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+        const hasScrollbar = scrollbarWidth > 0;
+
+        // Hide scrollbar when menu is open
+        if (anchorElNav) {
+          document.body.style.overflow = 'hidden';
+          if (hasScrollbar) {
+            document.body.style.paddingRight = `${scrollbarWidth}px`;
           }
+        } else {
+          // Restore default styles when menu is closed
+          document.body.style.overflow = '';
+          document.body.style.paddingRight = ''; // Reset to browser default
+        }
 
-          return () => {
-            // Reset styles when component unmounts
-            document.body.style.overflow = 'hidden';
-            if (hasScrollbar) {
-              document.body.style.paddingRight = `${scrollbarWidth}px`;
-            }
-          };
+        return () => {
+          // Reset styles when component unmounts
+          document.body.style.overflow = 'hidden';
+          if (hasScrollbar) {
+            document.body.style.paddingRight = `${scrollbarWidth}px`;
+          }
         };
+      };
 
-        setScrollBar();
-      }, [anchorElNav]);
+      setScrollBar();
+    }, [isSideHeader, anchorElNav]);
 
     useEffect(() => {
       if (isXsScreen && !isTopHeader) {
@@ -326,7 +327,7 @@ const BaseHeader = React.forwardRef<HTMLDivElement, HeaderProps>(
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={e => {
-                Boolean(anchorElNav) || e.stopPropagation();
+                if (!anchorElNav) e.stopPropagation();
                 handleOpenNavMenu(e);
               }}
               color={backgroundColor !== 'white' ? 'secondary' : 'primary'}
