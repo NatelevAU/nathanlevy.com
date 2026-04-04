@@ -8,7 +8,7 @@ const AppRoutes = () => {
     <BrowserRouter>
       <Routes>
         {pagesConfig.map((route, index) => {
-          let currElement: JSX.Element | null = null;
+          let currElement: React.JSX.Element | null = null;
           // If page is part of a layout
           if (route.layout) {
             currElement = React.createElement(
