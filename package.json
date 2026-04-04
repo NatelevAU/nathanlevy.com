@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "rm -rf build && tsc && vite build",
+    "typecheck": "tsc --noEmit",
     "test": "vitest",
     "dev": "vite",
     "clean": "rm -rf build hint-report *.log *.zip && npm run lint-fix",

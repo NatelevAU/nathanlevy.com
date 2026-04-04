@@ -99,8 +99,27 @@ jobs:
         run: |
           npm audit
 
+  typecheck:
+    needs: install_dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Restore cache
+        uses: actions/cache@v5
+        with:
+          path: |
+            ~/.npm
+            node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+      - name: Check TypeScript types
+        run: |
+          npm run typecheck
+
   build:
-    needs: [lint, test, security_scan]
+    needs: [lint, test, security_scan, typecheck]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
