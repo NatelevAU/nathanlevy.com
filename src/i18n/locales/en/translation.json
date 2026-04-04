@@ -1,0 +1,43 @@
+{
+  "home": {
+    "title": "Nathan Levy",
+    "subtitles": ["Software Engineer", "Web Developer", "Dog Lover"]
+  },
+  "about": {
+    "heading": "About Me",
+    "imageAlt": "Nathan Levy",
+    "intro": "I'm Nathan Levy, a Full-Stack Software Engineer with 5+ years of professional experience, based in Melbourne, Australia.",
+    "paragraph1": "My coding journey started at 13 with developing a video-game addon. Since then I've evolved into a lead developer working across diverse tech stacks and industries.",
+    "paragraph2": "I've built everything from fintech platforms and data pipelines to custom surveying applications, using technologies like React, Node.js, Python, AWS, and PostgreSQL."
+  },
+  "experiments": {
+    "heading": "A collection of small projects and experiments",
+    "items": {
+      "tictactoe": {
+        "name": "Tic Tac Toe",
+        "description": "A classic game of Tic Tac Toe"
+      },
+      "testTacToe": {
+        "name": "Test Tac Toe",
+        "description": "A classic game of Tic Tac Toe"
+      }
+    }
+  },
+  "tictactoe": {
+    "title": "Tic Tac Toe",
+    "playAgainstAI": "Play against AI",
+    "playWithFriend": "Play with a friend",
+    "status": {
+      "winner": "Winner: {{winner}}",
+      "draw": "Game is a draw!",
+      "nextPlayer": "Next player: {{player}}",
+      "nextPlayerAI": "Next player: {{player}} (AI)"
+    },
+    "resetGame": "Reset Game"
+  },
+  "pageNotFound": {
+    "title": "Page Not Found",
+    "imageAlt": "Page Not Found Background",
+    "home": "Home"
+  }
+}
