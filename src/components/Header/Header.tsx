@@ -1,8 +1,24 @@
-import * as React from 'react';
+import MenuIcon from '@mui/icons-material/Menu';
+import {
+  AppBar,
+  Box,
+  Container,
+  createTheme,
+  IconButton,
+  Menu,
+  MenuItem,
+  PopoverOrigin,
+  ThemeProvider,
+  useTheme,
+} from '@mui/material';
+import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { PageConfig } from 'src/config/PagesConfigTypes';
 
-import Header from './BaseHeader';
 import MenuButton from './MenuButton';
+
+const anchorOrigin: PopoverOrigin = { vertical: 'top', horizontal: 'right' };
+const transformOrigin: PopoverOrigin = { vertical: 'top', horizontal: 'right' };
 
 interface TopHeaderProps {
   leftPages?: PageConfig[];
@@ -17,42 +33,165 @@ const TopHeader: React.FC<TopHeaderProps> = ({
   leftPages = [],
   middlePages = [],
   rightPages = [],
-  logo,
+  logo: LogoComponent,
   background,
   transparent,
 }) => {
-  const firstElements = leftPages.map(page => {
-    return function FirstElementComponent(props: any) {
-      return <MenuButton {...props} key={page.name} page={page} />;
-    };
+  const theme = useTheme();
+  const localTheme = createTheme({
+    components: {
+      MuiList: {
+        styleOverrides: {
+          root: { backgroundColor: theme.palette.primary.main },
+        },
+      },
+    },
   });
 
-  const centerElements = middlePages.map(page => {
-    return function CenterElementComponent(props: any) {
-      return <MenuButton {...props} key={page.name} page={page} />;
-    };
-  });
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) =>
+    setAnchorElNav(event.currentTarget);
+  const handleCloseNavMenu = () => setAnchorElNav(null);
 
-  const lastElements = rightPages.map(page => {
-    return function LastElementComponent(props: any) {
-      return <MenuButton {...props} key={page.name} page={page} />;
-    };
-  });
+  // Close mobile menu on route change
+  const location = useLocation();
+  React.useEffect(() => {
+    handleCloseNavMenu();
+  }, [location.pathname]);
+
+  const backgroundColor = transparent || background ? 'transparent' : 'primary.main';
+  const allPages = [...leftPages, ...middlePages, ...rightPages];
+
+  const desktopButtonProps = {
+    backgroundColor,
+    textColor: 'white',
+    highlightBackgroundColor: 'white',
+    highlightTextColor: 'primary.main',
+    shrunk: false,
+    handleClose: handleCloseNavMenu,
+  };
 
   return (
     <div style={{ position: 'relative' }}>
-      <Header
-        logo={logo as any}
-        firstElements={firstElements}
-        middleElements={centerElements}
-        lastElements={lastElements}
-        backgroundColor={transparent || background ? 'transparent' : 'primary.main'}
-        background={transparent ? undefined : background}
-        textColor="white"
-        highlightBackgroundColor="white"
-        highlightTextColor="primary.main"
-        headerType="top"
-      />
+      <AppBar
+        position="sticky"
+        sx={{
+          backgroundImage: `url(${background})`,
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          transition: 'background-color 0s ease, box-shadow 0s ease',
+          ...(transparent ? { boxShadow: 'none' } : {}),
+          backgroundColor,
+        }}
+      >
+        <Container
+          maxWidth="xl"
+          sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
+        >
+          {/* Left elements */}
+          <Box
+            sx={{
+              display: { xs: 'none', md: 'flex' },
+              flexBasis: '33%',
+              justifyContent: 'flex-start',
+            }}
+          >
+            {LogoComponent && <LogoComponent />}
+            {leftPages.map(page => (
+              <MenuButton key={page.name} page={page} {...desktopButtonProps} />
+            ))}
+          </Box>
+
+          {/* Middle elements */}
+          <Box
+            sx={{
+              display: { xs: 'none', md: 'flex' },
+              flexBasis: '33%',
+              justifyContent: 'center',
+            }}
+          >
+            {middlePages.map(page => (
+              <MenuButton key={page.name} page={page} {...desktopButtonProps} />
+            ))}
+          </Box>
+
+          {/* Right elements */}
+          <Box
+            sx={{
+              display: { xs: 'none', md: 'flex' },
+              flexBasis: '33%',
+              justifyContent: 'flex-end',
+            }}
+          >
+            {rightPages.map(page => (
+              <MenuButton key={page.name} page={page} {...desktopButtonProps} />
+            ))}
+          </Box>
+
+          {/* Mobile dropdown */}
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'flex', md: 'none' },
+              justifyContent: 'space-between',
+            }}
+          >
+            <IconButton
+              aria-label="menu"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={e => {
+                if (!anchorElNav) e.stopPropagation();
+                handleOpenNavMenu(e);
+              }}
+              color="secondary"
+            >
+              <MenuIcon />
+            </IconButton>
+
+            {LogoComponent && (
+              <Box
+                sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', marginLeft: '-48px' }}
+              >
+                <LogoComponent />
+              </Box>
+            )}
+
+            <ThemeProvider theme={localTheme}>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={anchorOrigin}
+                keepMounted
+                transformOrigin={transformOrigin}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+              >
+                {allPages.map(page => (
+                  <MenuItem
+                    key={page.name}
+                    onClick={handleCloseNavMenu}
+                    sx={{ mx: 0, my: 0, px: 0, py: 0 }}
+                  >
+                    <MenuButton
+                      page={page}
+                      backgroundColor="primary"
+                      textColor="white"
+                      isDropDown
+                      shrunk={false}
+                      handleClose={handleCloseNavMenu}
+                    />
+                  </MenuItem>
+                ))}
+              </Menu>
+            </ThemeProvider>
+          </Box>
+        </Container>
+      </AppBar>
     </div>
   );
 };
