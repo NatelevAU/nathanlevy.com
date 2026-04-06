@@ -123,6 +123,11 @@ const SettingsPopup: React.FC<SettingsPopupProps> = ({ open, onClose }) => {
                     label={t('settings.language.english')}
                   />
                   <FormControlLabel
+                    value="eo"
+                    control={<Radio size="small" />}
+                    label={t('settings.language.esperanto')}
+                  />
+                  <FormControlLabel
                     value="pig-latin"
                     control={<Radio size="small" />}
                     label={t('settings.language.pigLatin')}

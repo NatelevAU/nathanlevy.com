@@ -1,0 +1,59 @@
+{
+  "home": {
+    "title": "Nathan Levy",
+    "subtitles": ["Programisto", "Retejo-Programisto", "Hundamanto"]
+  },
+  "about": {
+    "heading": "Pri Mi",
+    "imageAlt": "Nathan Levy",
+    "intro": "Mi estas Nathan Levy, Plenstaka Programisto kun 5+ jaroj da profesia sperto, bazita en Melbourne, Aŭstralio.",
+    "paragraph1": "Mia kodada vojaĝo komenciĝis je 13 jaroj kun evoluigo de video-luda aldono. Ekde tiam mi iĝis ĉefprogramisto laborante tra diversaj teknologiaj amasoj kaj industrioj.",
+    "paragraph2": "Mi konstruis ĉion de finteĥaj platformoj kaj datumaj duktoj ĝis propraj enketaj aplikaĵoj, uzante teknologiojn kiel React, Node.js, Python, AWS, kaj PostgreSQL."
+  },
+  "experiments": {
+    "heading": "Kolekto de malgrandaj projektoj kaj eksperimentoj",
+    "items": {
+      "tictactoe": {
+        "name": "Tiktak",
+        "description": "Klasika ludo de Tiktak"
+      },
+      "testTacToe": {
+        "name": "Testa Tiktak",
+        "description": "Klasika ludo de Tiktak"
+      }
+    }
+  },
+  "tictactoe": {
+    "title": "Tiktak",
+    "playAgainstAI": "Ludi kontraŭ KI",
+    "playWithFriend": "Ludi kun amiko",
+    "status": {
+      "winner": "Venkinto: {{winner}}",
+      "draw": "La ludo estas pato!",
+      "nextPlayer": "Sekva ludanto: {{player}}",
+      "nextPlayerAI": "Sekva ludanto: {{player}} (KI)"
+    },
+    "resetGame": "Restarigi Ludon"
+  },
+  "pageNotFound": {
+    "title": "Paĝo Ne Trovita",
+    "imageAlt": "Paĝo Ne Trovita Fono",
+    "home": "Hejmo"
+  },
+  "settings": {
+    "title": "Agordoj",
+    "theme": {
+      "label": "Temo",
+      "light": "Hela Reĝimo",
+      "dark": "Malhela Reĝimo",
+      "auto": "Uzi Retumilan Agordon"
+    },
+    "language": {
+      "label": "Lingvo",
+      "english": "Angla",
+      "esperanto": "Esperanto",
+      "pigLatin": "Piga Latino"
+    },
+    "resetDefaults": "Restarigi Agordojn"
+  }
+}

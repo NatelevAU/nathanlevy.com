@@ -3,7 +3,7 @@ import i18n from 'src/i18n/i18n';
 
 export type ThemePreference = 'light' | 'dark' | 'auto';
 export type ResolvedTheme = 'light' | 'dark';
-export type Language = 'en' | 'pig-latin';
+export type Language = 'en' | 'eo' | 'pig-latin';
 
 interface SettingsContextType {
   themePreference: ThemePreference;

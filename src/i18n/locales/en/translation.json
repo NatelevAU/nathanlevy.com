@@ -51,6 +51,7 @@
     "language": {
       "label": "Language",
       "english": "English",
+      "esperanto": "Esperanto",
       "pigLatin": "Pig Latin"
     },
     "resetDefaults": "Reset Settings"
