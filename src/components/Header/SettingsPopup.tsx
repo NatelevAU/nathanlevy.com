@@ -15,8 +15,6 @@ import {
 import { useTranslation } from 'react-i18next';
 import { ThemePreference, useSettings } from 'src/context/SettingsContext';
 
-const dialogTheme = createTheme();
-
 interface SettingsPopupProps {
   open: boolean;
   onClose: () => void;
@@ -24,7 +22,8 @@ interface SettingsPopupProps {
 
 const SettingsPopup: React.FC<SettingsPopupProps> = ({ open, onClose }) => {
   const { t } = useTranslation();
-  const { themePreference, setThemePreference } = useSettings();
+  const { themePreference, setThemePreference, resolvedTheme } = useSettings();
+  const dialogTheme = createTheme({ palette: { mode: resolvedTheme } });
 
   return (
     <ThemeProvider theme={dialogTheme}>

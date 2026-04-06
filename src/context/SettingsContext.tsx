@@ -1,15 +1,18 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 export type ThemePreference = 'light' | 'dark' | 'auto';
+export type ResolvedTheme = 'light' | 'dark';
 
 interface SettingsContextType {
   themePreference: ThemePreference;
   setThemePreference: (pref: ThemePreference) => void;
+  resolvedTheme: ResolvedTheme;
 }
 
 const SettingsContext = createContext<SettingsContextType>({
   themePreference: 'auto',
   setThemePreference: () => {},
+  resolvedTheme: 'light',
 });
 
 export const useSettings = () => useContext(SettingsContext);
@@ -22,13 +25,27 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return (stored ?? 'auto') as ThemePreference;
   });
 
+  const [systemDark, setSystemDark] = useState<boolean>(
+    () => window.matchMedia('(prefers-color-scheme: dark)').matches,
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    const handler = (e: MediaQueryListEvent) => setSystemDark(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  const resolvedTheme: ResolvedTheme =
+    themePreference === 'auto' ? (systemDark ? 'dark' : 'light') : themePreference;
+
   const setThemePreference = (pref: ThemePreference) => {
     localStorage.setItem(STORAGE_KEY, pref);
     setThemePreferenceState(pref);
   };
 
   return (
-    <SettingsContext.Provider value={{ themePreference, setThemePreference }}>
+    <SettingsContext.Provider value={{ themePreference, setThemePreference, resolvedTheme }}>
       {children}
     </SettingsContext.Provider>
   );

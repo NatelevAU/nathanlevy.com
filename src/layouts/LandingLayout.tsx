@@ -6,6 +6,8 @@ import SourceCodeButton from 'src/components/SourceCodeButton';
 import { repoUrl } from 'src/config/Config';
 import { headerMiddlePages, pagesConfig } from 'src/config/PagesConfig';
 import { PageConfig } from 'src/config/PagesConfigTypes';
+import { useSettings } from 'src/context/SettingsContext';
+import darkTheme from 'src/themes/DarkTheme';
 import GlobalThemeStyles from 'src/themes/GlobalThemeStyles';
 import lightTheme from 'src/themes/LightTheme';
 
@@ -13,9 +15,9 @@ type LayoutProps = {
   children: ReactNode;
 };
 
-const theme = lightTheme;
-
 const LandingLayout = ({ children }: LayoutProps) => {
+  const { resolvedTheme } = useSettings();
+  const theme = resolvedTheme === 'dark' ? darkTheme : lightTheme;
   const location = useLocation();
   const currentPageConfig = pagesConfig.find((page: PageConfig) => page.path === location.pathname);
   const [viewportHeight, setViewportHeight] = useState(window.innerHeight);
@@ -49,7 +51,7 @@ const LandingLayout = ({ children }: LayoutProps) => {
 
     backgroundStyle = {
       backgroundImage: hasBackground ? `url(${currentPageConfig.background})` : undefined,
-      backgroundColor: hasBackground ? undefined : 'white',
+      backgroundColor: hasBackground ? undefined : theme.palette.background.default,
       backgroundPosition: 'center',
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
