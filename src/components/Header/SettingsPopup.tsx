@@ -5,8 +5,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import LanguageIcon from '@mui/icons-material/Language';
 import {
   Box,
+  Button,
   createTheme,
   Dialog,
+  DialogActions,
   DialogContent,
   DialogTitle,
   Divider,
@@ -54,8 +56,14 @@ const SettingSection: React.FC<SettingSectionProps> = ({ icon, label, children }
 
 const SettingsPopup: React.FC<SettingsPopupProps> = ({ open, onClose }) => {
   const { t } = useTranslation();
-  const { themePreference, setThemePreference, resolvedTheme, language, setLanguage } =
-    useSettings();
+  const {
+    themePreference,
+    setThemePreference,
+    resolvedTheme,
+    language,
+    setLanguage,
+    resetSettings,
+  } = useSettings();
   const dialogTheme = createTheme({ palette: { mode: resolvedTheme } });
 
   return (
@@ -124,6 +132,12 @@ const SettingsPopup: React.FC<SettingsPopupProps> = ({ open, onClose }) => {
             </SettingSection>
           </Stack>
         </DialogContent>
+        <Divider />
+        <DialogActions sx={{ px: 3, py: 1.5 }}>
+          <Button size="small" color="error" variant="contained" onClick={resetSettings}>
+            {t('settings.resetDefaults')}
+          </Button>
+        </DialogActions>
       </Dialog>
     </ThemeProvider>
   );

@@ -11,6 +11,7 @@ interface SettingsContextType {
   resolvedTheme: ResolvedTheme;
   language: Language;
   setLanguage: (lang: Language) => void;
+  resetSettings: () => void;
 }
 
 const SettingsContext = createContext<SettingsContextType>({
@@ -19,6 +20,7 @@ const SettingsContext = createContext<SettingsContextType>({
   resolvedTheme: 'light',
   language: 'en',
   setLanguage: () => {},
+  resetSettings: () => {},
 });
 
 export const useSettings = () => useContext(SettingsContext);
@@ -62,9 +64,24 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     void i18n.changeLanguage(lang);
   };
 
+  const resetSettings = () => {
+    localStorage.removeItem(THEME_STORAGE_KEY);
+    localStorage.removeItem(LANGUAGE_STORAGE_KEY);
+    setThemePreferenceState('auto');
+    setLanguageState('en');
+    void i18n.changeLanguage('en');
+  };
+
   return (
     <SettingsContext.Provider
-      value={{ themePreference, setThemePreference, resolvedTheme, language, setLanguage }}
+      value={{
+        themePreference,
+        setThemePreference,
+        resolvedTheme,
+        language,
+        setLanguage,
+        resetSettings,
+      }}
     >
       {children}
     </SettingsContext.Provider>

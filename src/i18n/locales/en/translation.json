@@ -52,6 +52,7 @@
       "label": "Language",
       "english": "English",
       "pigLatin": "Pig Latin"
-    }
+    },
+    "resetDefaults": "Reset Settings"
   }
 }
