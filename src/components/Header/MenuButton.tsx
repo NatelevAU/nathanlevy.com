@@ -1,5 +1,6 @@
 import { Box, Button } from '@mui/material';
 import { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import { PageConfig } from 'src/config/PagesConfigTypes';
 
@@ -25,6 +26,8 @@ const MenuButton: React.FC<MenuButtonProps> = ({
   shrunk: isShrunk,
 }) => {
   const location = useLocation();
+  const { t } = useTranslation();
+  const displayName = page.nameKey ? (t(page.nameKey as never) as string) : page.name;
   const { highlight = 'never' } = page;
   const isHighlight =
     !isDropDown &&
@@ -86,7 +89,7 @@ const MenuButton: React.FC<MenuButtonProps> = ({
             <page.customImage />
           </Box>
         ) : null}
-        {!isShrunk && page.name}
+        {!isShrunk && displayName}
       </Box>
     </Button>
   );

@@ -17,6 +17,7 @@ const homePage: PageConfig = {
   layout: LandingLayout,
   background: '/gradient.svg',
   name: 'Home',
+  nameKey: 'nav.home',
   path: '/',
   redirectPaths: ['/home'],
 };
@@ -26,6 +27,7 @@ const aboutPage: PageConfig = {
   layout: LandingLayout,
   background: '/gradient.svg',
   name: 'About',
+  nameKey: 'nav.about',
   path: '/about',
   longName: 'About Me',
 };

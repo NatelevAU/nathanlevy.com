@@ -1,4 +1,9 @@
 {
+  "nav": {
+    "home": "Home",
+    "about": "About"
+  },
+  "sourceCode": "Source Code",
   "home": {
     "title": "Nathan Levy",
     "subtitles": ["Software Engineer", "Web Developer", "Dog Lover"]

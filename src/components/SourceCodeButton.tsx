@@ -1,11 +1,13 @@
 import Button from '@mui/material/Button';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface SourceCodeButtonProps {
   href: string;
 }
 
 const SourceCodeButton: React.FC<SourceCodeButtonProps> = ({ href }) => {
+  const { t } = useTranslation();
   return (
     <Button
       size="large"
@@ -21,7 +23,7 @@ const SourceCodeButton: React.FC<SourceCodeButtonProps> = ({ href }) => {
         zIndex: 1,
       }}
     >
-      Source Code
+      {t('sourceCode')}
     </Button>
   );
 };

@@ -1,4 +1,9 @@
 {
+  "nav": {
+    "home": "Hejmo",
+    "about": "Pri Mi"
+  },
+  "sourceCode": "Fontkodo",
   "home": {
     "title": "Nathan Levy",
     "subtitles": ["Programisto", "Komencanta Esperantisto", "Hundamanto"]

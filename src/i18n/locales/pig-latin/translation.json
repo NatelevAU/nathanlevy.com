@@ -1,4 +1,9 @@
 {
+  "nav": {
+    "home": "Omehay",
+    "about": "Aboutyay"
+  },
+  "sourceCode": "Ourcesay Odecay",
   "home": {
     "title": "Nathan Levy",
     "subtitles": ["Oftwaresay Engineeryay", "Ebway Eveloperday", "Ogday Overlay"]

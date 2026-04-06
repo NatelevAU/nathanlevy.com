@@ -8,6 +8,7 @@ export type PageConfig = {
   component: React.ComponentType;
   layout?: React.FC<LayoutProps>;
   name: string;
+  nameKey?: string;
   path: string;
   redirectPaths?: string[];
   longName?: string;

@@ -106,7 +106,7 @@ const TopHeader: React.FC<TopHeaderProps> = ({
           >
             {LogoComponent && <LogoComponent />}
             {leftPages.map(page => (
-              <MenuButton key={page.name} page={page} {...desktopButtonProps} />
+              <MenuButton key={page.nameKey} page={page} {...desktopButtonProps} />
             ))}
           </Box>
 
@@ -119,7 +119,7 @@ const TopHeader: React.FC<TopHeaderProps> = ({
             }}
           >
             {middlePages.map(page => (
-              <MenuButton key={page.name} page={page} {...desktopButtonProps} />
+              <MenuButton key={page.nameKey} page={page} {...desktopButtonProps} />
             ))}
           </Box>
 
@@ -133,7 +133,7 @@ const TopHeader: React.FC<TopHeaderProps> = ({
             }}
           >
             {rightPages.map(page => (
-              <MenuButton key={page.name} page={page} {...desktopButtonProps} />
+              <MenuButton key={page.nameKey} page={page} {...desktopButtonProps} />
             ))}
             <IconButton
               color="secondary"
