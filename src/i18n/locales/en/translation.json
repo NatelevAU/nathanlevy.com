@@ -47,6 +47,11 @@
       "light": "Light Mode",
       "dark": "Dark Mode",
       "auto": "Use Browser Setting"
+    },
+    "language": {
+      "label": "Language",
+      "english": "English",
+      "pigLatin": "Pig Latin"
     }
   }
 }

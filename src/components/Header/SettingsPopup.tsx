@@ -13,7 +13,7 @@ import {
   ThemeProvider,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { ThemePreference, useSettings } from 'src/context/SettingsContext';
+import { Language, ThemePreference, useSettings } from 'src/context/SettingsContext';
 
 interface SettingsPopupProps {
   open: boolean;
@@ -22,7 +22,8 @@ interface SettingsPopupProps {
 
 const SettingsPopup: React.FC<SettingsPopupProps> = ({ open, onClose }) => {
   const { t } = useTranslation();
-  const { themePreference, setThemePreference, resolvedTheme } = useSettings();
+  const { themePreference, setThemePreference, resolvedTheme, language, setLanguage } =
+    useSettings();
   const dialogTheme = createTheme({ palette: { mode: resolvedTheme } });
 
   return (
@@ -36,7 +37,7 @@ const SettingsPopup: React.FC<SettingsPopupProps> = ({ open, onClose }) => {
             <CloseIcon />
           </IconButton>
         </DialogTitle>
-        <DialogContent>
+        <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           <FormControl>
             <FormLabel>{t('settings.theme.label')}</FormLabel>
             <RadioGroup
@@ -50,6 +51,21 @@ const SettingsPopup: React.FC<SettingsPopupProps> = ({ open, onClose }) => {
               />
               <FormControlLabel value="dark" control={<Radio />} label={t('settings.theme.dark')} />
               <FormControlLabel value="auto" control={<Radio />} label={t('settings.theme.auto')} />
+            </RadioGroup>
+          </FormControl>
+          <FormControl>
+            <FormLabel>{t('settings.language.label')}</FormLabel>
+            <RadioGroup value={language} onChange={(_, value) => setLanguage(value as Language)}>
+              <FormControlLabel
+                value="en"
+                control={<Radio />}
+                label={t('settings.language.english')}
+              />
+              <FormControlLabel
+                value="pig-latin"
+                control={<Radio />}
+                label={t('settings.language.pigLatin')}
+              />
             </RadioGroup>
           </FormControl>
         </DialogContent>
