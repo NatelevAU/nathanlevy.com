@@ -50,7 +50,11 @@ const LandingLayout = ({ children }: LayoutProps) => {
     hasBackground = currentPageConfig.background !== undefined;
 
     backgroundStyle = {
-      backgroundImage: hasBackground ? `url(${currentPageConfig.background})` : undefined,
+      backgroundImage: hasBackground
+        ? resolvedTheme === 'dark'
+          ? `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${currentPageConfig.background})`
+          : `url(${currentPageConfig.background})`
+        : undefined,
       backgroundColor: hasBackground ? undefined : theme.palette.background.default,
       backgroundPosition: 'center',
       backgroundSize: 'cover',
