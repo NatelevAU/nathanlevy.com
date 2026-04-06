@@ -82,6 +82,7 @@
   "license": "ISC",
   "overrides": {
     "lightningcss": "1.32.0",
+    "lru-cache": "10.4.3",
     "eslint-plugin-yaml": {
       "js-yaml": "4.1.1",
       "jshint": {
