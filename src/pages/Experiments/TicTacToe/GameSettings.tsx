@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography, useTheme } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -8,11 +8,13 @@ interface GameSettingsProps {
 
 const GameSettings: React.FC<GameSettingsProps> = ({ onGameStart }) => {
   const { t } = useTranslation();
+  const theme = useTheme();
+  const textColor = theme.palette.mode === 'dark' ? 'white' : 'black';
   const [selectedSymbol, setSelectedSymbol] = useState<'X' | 'O'>('X');
 
   return (
     <>
-      <Typography variant="h4" gutterBottom sx={{ color: 'black' }}>
+      <Typography variant="h4" gutterBottom sx={{ color: textColor }}>
         {t('tictactoe.title')}
       </Typography>
       <Grid container spacing={2} sx={{ maxWidth: 600, mt: 0 }}>

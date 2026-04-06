@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -24,6 +24,8 @@ const GameBoard: React.FC<GameBoardProps> = ({
   playerSymbol = 'X',
 }) => {
   const { t } = useTranslation();
+  const theme = useTheme();
+  const textColor = theme.palette.mode === 'dark' ? 'white' : 'black';
 
   const handleSquareClick = (i: number) => {
     // In single player mode, only allow clicks on player's turn
@@ -142,7 +144,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
         variant="h6"
         sx={{
           mb: 2,
-          color: 'black',
+          color: textColor,
           fontWeight: winInfo || isDraw ? 'bold' : 'normal',
         }}
       >
