@@ -39,5 +39,14 @@
     "title": "Page Not Found",
     "imageAlt": "Page Not Found Background",
     "home": "Home"
+  },
+  "settings": {
+    "title": "Settings",
+    "theme": {
+      "label": "Theme",
+      "light": "Light Mode",
+      "dark": "Dark Mode",
+      "auto": "Use Browser Setting"
+    }
   }
 }

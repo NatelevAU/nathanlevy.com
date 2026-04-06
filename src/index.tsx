@@ -2,6 +2,7 @@ import './i18n/i18n';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import ReactGA from 'react-ga4';
+import { SettingsProvider } from 'src/context/SettingsContext';
 
 import AppRoutes from './utils/AppRoutes';
 
@@ -14,9 +15,9 @@ const App = ({}) => {
   ReactGA.send({ hitType: 'pageview', page: window.location.pathname });
 
   return (
-    <>
+    <SettingsProvider>
       <AppRoutes />
-    </>
+    </SettingsProvider>
   );
 };
 

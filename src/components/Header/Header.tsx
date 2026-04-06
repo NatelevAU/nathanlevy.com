@@ -1,4 +1,5 @@
 import MenuIcon from '@mui/icons-material/Menu';
+import SettingsIcon from '@mui/icons-material/Settings';
 import {
   AppBar,
   Box,
@@ -16,6 +17,7 @@ import { useLocation } from 'react-router-dom';
 import { PageConfig } from 'src/config/PagesConfigTypes';
 
 import MenuButton from './MenuButton';
+import SettingsPopup from './SettingsPopup';
 
 const anchorOrigin: PopoverOrigin = { vertical: 'top', horizontal: 'right' };
 const transformOrigin: PopoverOrigin = { vertical: 'top', horizontal: 'right' };
@@ -52,6 +54,8 @@ const TopHeader: React.FC<TopHeaderProps> = ({
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) =>
     setAnchorElNav(event.currentTarget);
   const handleCloseNavMenu = () => setAnchorElNav(null);
+
+  const [settingsOpen, setSettingsOpen] = React.useState(false);
 
   // Close mobile menu on route change
   const location = useLocation();
@@ -125,19 +129,28 @@ const TopHeader: React.FC<TopHeaderProps> = ({
               display: { xs: 'none', md: 'flex' },
               flexBasis: '33%',
               justifyContent: 'flex-end',
+              alignItems: 'center',
             }}
           >
             {rightPages.map(page => (
               <MenuButton key={page.name} page={page} {...desktopButtonProps} />
             ))}
+            <IconButton
+              color="secondary"
+              aria-label="settings"
+              onClick={() => setSettingsOpen(true)}
+            >
+              <SettingsIcon />
+            </IconButton>
           </Box>
 
-          {/* Mobile dropdown */}
+          {/* Mobile row */}
           <Box
             sx={{
               flexGrow: 1,
               display: { xs: 'flex', md: 'none' },
               justifyContent: 'space-between',
+              alignItems: 'center',
             }}
           >
             <IconButton
@@ -154,12 +167,18 @@ const TopHeader: React.FC<TopHeaderProps> = ({
             </IconButton>
 
             {LogoComponent && (
-              <Box
-                sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', marginLeft: '-48px' }}
-              >
+              <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
                 <LogoComponent />
               </Box>
             )}
+
+            <IconButton
+              color="secondary"
+              aria-label="settings"
+              onClick={() => setSettingsOpen(true)}
+            >
+              <SettingsIcon />
+            </IconButton>
 
             <ThemeProvider theme={localTheme}>
               <Menu
@@ -192,6 +211,8 @@ const TopHeader: React.FC<TopHeaderProps> = ({
           </Box>
         </Container>
       </AppBar>
+
+      <SettingsPopup open={settingsOpen} onClose={() => setSettingsOpen(false)} />
     </div>
   );
 };
