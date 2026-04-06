@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import i18n from 'src/i18n/i18n';
 
 export type ThemePreference = 'light' | 'dark' | 'auto';
 export type ResolvedTheme = 'light' | 'dark';
@@ -58,6 +59,7 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const setLanguage = (lang: Language) => {
     localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
     setLanguageState(lang);
+    void i18n.changeLanguage(lang);
   };
 
   return (

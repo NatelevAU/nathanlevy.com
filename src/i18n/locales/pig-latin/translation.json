@@ -1,0 +1,57 @@
+{
+  "home": {
+    "title": "Nathan Levy",
+    "subtitles": ["Oftwaresay Engineeryay", "Ebway Eveloperday", "Ogday Overlay"]
+  },
+  "about": {
+    "heading": "Aboutyay Emay",
+    "imageAlt": "Nathan Levy",
+    "intro": "I'myay Nathan Levy, ayay Ullfay-Ackstay Oftwaresay Engineeryay ithway 5+ earsyay ofyay ofessionalpray experienceyay, asedbay inyay Melbourne, Australia.",
+    "paragraph1": "Ymay odingcay ourneyjay artedstay atyay 13 ithway evelopingday ayay ideovay-amegay addonyay. Incesay enthay I'veyay evolvedyay intoyay ayay eadlay eveloperday orkingway acrossyay iverseday echtay acksstay andyay industriesyay.",
+    "paragraph2": "I'veyay uiltblay everythingyay omfray intechfay atformsplay andyay ataday ipelinespay otay ustomcay urveyingsay applicationsyay, usingyay echnologiestay ikelay React, Node.js, Python, AWS, andyay PostgreSQL."
+  },
+  "experiments": {
+    "heading": "Ayay ollectioncay ofyay allsmay ojectspray andyay experimentsyay",
+    "items": {
+      "tictactoe": {
+        "name": "Ictay Actay Oetay",
+        "description": "Ayay assicclay amegay ofyay Ictay Actay Oetay"
+      },
+      "testTacToe": {
+        "name": "Esttay Actay Oetay",
+        "description": "Ayay assicclay amegay ofyay Ictay Actay Oetay"
+      }
+    }
+  },
+  "tictactoe": {
+    "title": "Ictay Actay Oetay",
+    "playAgainstAI": "Ayplay againstyay AI",
+    "playWithFriend": "Ayplay ithway ayay iendfray",
+    "status": {
+      "winner": "Innerwayay: {{winner}}",
+      "draw": "Amegay isyay ayay awdray!",
+      "nextPlayer": "Extnay ayerplay: {{player}}",
+      "nextPlayerAI": "Extnay ayerplay: {{player}} (AI)"
+    },
+    "resetGame": "Esetray Amegay"
+  },
+  "pageNotFound": {
+    "title": "Agepay Otnay Oundfay",
+    "imageAlt": "Agepay Otnay Oundfay Ackgroundbay",
+    "home": "Omehay"
+  },
+  "settings": {
+    "title": "Ettingssay",
+    "theme": {
+      "label": "Emethay",
+      "light": "Ightlay Odemay",
+      "dark": "Arkday Odemay",
+      "auto": "Useyay Owserbray Ettingsay"
+    },
+    "language": {
+      "label": "Anguagelay",
+      "english": "Englishyay",
+      "pigLatin": "Igpay Atinlay"
+    }
+  }
+}
