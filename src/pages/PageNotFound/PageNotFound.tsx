@@ -12,11 +12,7 @@ const PageNotFound: React.FC = () => {
   const HomeLink: React.FC = props => <Link to="/" {...props} />;
 
   return (
-    <div
-      style={{
-        color: 'black',
-      }}
-    >
+    <div>
       <title>Page Not Found</title>
       <meta name="robots" content="noindex" />
       <img src={background} alt={t('pageNotFound.imageAlt')} style={{ height: '40vmin' }} />

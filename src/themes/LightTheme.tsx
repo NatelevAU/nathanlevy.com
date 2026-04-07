@@ -16,7 +16,7 @@ const lightTheme = createTheme({
       default: white,
     },
     text: {
-      primary: white,
+      primary: black,
     },
   },
   components: {

@@ -75,7 +75,7 @@ const LandingLayout = ({ children }: LayoutProps) => {
           display: 'flex',
           flexDirection: 'column',
           fontSize: 'calc(10px + 2vmin)',
-          color: 'white',
+          color: hasBackground ? 'white' : theme.palette.text.primary,
           minHeight: `${viewportHeight}px`,
           ...backgroundStyle,
         }}
