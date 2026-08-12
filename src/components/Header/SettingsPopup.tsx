@@ -39,13 +39,12 @@ interface SettingSectionProps {
 
 const SettingSection: React.FC<SettingSectionProps> = ({ icon, label, children }) => (
   <Box>
-    <Stack direction="row" alignItems="center" spacing={0.75} mb={1.5}>
+    <Stack direction="row" spacing={0.75} sx={{ alignItems: 'center', mb: 1.5 }}>
       <Box sx={{ color: 'text.secondary', display: 'flex' }}>{icon}</Box>
       <Typography
         variant="caption"
         color="text.secondary"
-        fontWeight={700}
-        sx={{ textTransform: 'uppercase', letterSpacing: 0.8 }}
+        sx={{ fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.8 }}
       >
         {label}
       </Typography>
@@ -72,7 +71,7 @@ const SettingsPopup: React.FC<SettingsPopupProps> = ({ open, onClose }) => {
         <DialogTitle
           sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pr: 1 }}
         >
-          <Typography variant="h6" fontWeight={600}>
+          <Typography variant="h6" sx={{ fontWeight: 600 }}>
             {t('settings.title')}
           </Typography>
           <IconButton onClick={onClose} size="small" aria-label="close settings">

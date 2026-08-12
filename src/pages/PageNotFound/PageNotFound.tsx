@@ -17,7 +17,9 @@ const PageNotFound: React.FC = () => {
       <meta name="robots" content="noindex" />
       <img src={background} alt={t('pageNotFound.imageAlt')} style={{ height: '40vmin' }} />
       <h1>{t('pageNotFound.title')}</h1>
-      <Button component={HomeLink}>{t('pageNotFound.home')}</Button>
+      <Button component={HomeLink} nativeButton={false}>
+        {t('pageNotFound.home')}
+      </Button>
     </div>
   );
 };

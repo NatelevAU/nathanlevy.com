@@ -10,10 +10,10 @@ const About: React.FC = () => {
   return (
     <Box
       id="about"
-      flex={1}
       sx={{
         display: 'flex',
         flexDirection: 'column',
+        flex: 1,
         ml: { xs: 'auto', md: '4rem' },
       }}
     >
@@ -26,7 +26,7 @@ const About: React.FC = () => {
             {t('about.heading')}
           </Typography>
 
-          <Box mt={2}>
+          <Box sx={{ mt: 2 }}>
             <Typography variant="h5" align="left">
               {t('about.intro')}
             </Typography>

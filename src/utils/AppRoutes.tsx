@@ -9,7 +9,7 @@ const AppRoutes = () => {
       <Suspense fallback={null}>
         <Routes>
           {pagesConfig.map((route, index) => {
-            let currElement: React.JSX.Element | null = null;
+            let currElement: React.JSX.Element;
             // If page is part of a layout
             if (route.layout) {
               currElement = React.createElement(
