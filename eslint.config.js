@@ -7,7 +7,6 @@ const unusedImportsPlugin = require('eslint-plugin-unused-imports');
 const simpleImportSortPlugin = require('eslint-plugin-simple-import-sort');
 const importPlugin = require('eslint-plugin-import');
 const jsonPlugin = require('eslint-plugin-json');
-const yamlPlugin = require('eslint-plugin-yaml');
 const prettierConfig = require('eslint-config-prettier');
 const globals = require('globals');
 
@@ -47,7 +46,6 @@ module.exports = [
       '.eslintrc.js',
       '**/*.json',
       '**/*.yml',
-      '**/*.yaml',
     ],
   },
 
@@ -145,18 +143,5 @@ module.exports = [
       'json/*': ['error', 'allowComments'],
       'prettier/prettier': ['warn', { parser: 'json' }],
     },
-  },
-
-  // YAML files
-  {
-    files: ['**/*.yaml', '**/*.yml'],
-    plugins: {
-      yaml: yamlPlugin,
-      prettier: prettierPlugin,
-    },
-    rules: {
-      ...yamlPlugin.configs.recommended.rules,
-      'prettier/prettier': ['warn', { parser: 'yaml' }],
-    },
-  },
+  }
 ];
