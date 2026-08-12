@@ -25,6 +25,6 @@ describe('Resume component', () => {
 
     expect(styles.width).toBe('100%');
     expect(styles.height).toBe('100%');
-    expect(styles.border).toBe('');
+    expect(styles.borderStyle).toBe('none');
   });
 });
