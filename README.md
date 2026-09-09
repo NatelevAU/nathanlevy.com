@@ -21,7 +21,7 @@
 ```bash
 sudo apt update
 sudo apt install curl
-sudo curl -fsSL https://deb.nodesource.com/setup_24.x | sudo -E bash -
+sudo curl -fsSL https://deb.nodesource.com/setup_26.x | sudo -E bash -
 sudo apt install nodejs build-essential libssl-dev
 npm install
 ```
