@@ -8,13 +8,5 @@
   "trailingComma": "all",
   "bracketSpacing": true,
   "arrowParens": "avoid",
-  "overrides": [
-    {
-      "files": "*.gql",
-      "options": {
-        "tabWidth": 4
-      }
-    }
-  ],
   "endOfLine": "auto"
 }
